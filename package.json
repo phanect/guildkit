@@ -25,8 +25,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "lint": "eslint ."
+    "lint": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint ."
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
