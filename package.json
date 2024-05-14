@@ -63,5 +63,9 @@
     "@prisma/client": "^4.15.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.x",
+    "npm": ">=10.x"
   }
 }
