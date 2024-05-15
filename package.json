@@ -6,13 +6,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm run prepare && vite dev",
+    "dev": "pnpm run prepare && jiti ./scripts/build-db-seed.ts && vite dev",
     "build": "pnpm run prepare && vite build",
     "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint",
     "fix": "pnpm run prepare && eslint --fix",
-    "clean": "git clean -dX --exclude=\"!.env\" --force",
+    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "prepare": "svelte-kit sync"
+    "prepare": "svelte-kit sync && prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
@@ -30,8 +30,10 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^9.0.2",
     "autoprefixer": "^10.4.14",
+    "dayjs": "^1.11.11",
     "deepmerge": "^4.3.1",
     "eslint": "^9.11.0",
+    "jiti": "^2.4.2",
     "postcss": "^8.4.23",
     "postcss-load-config": "^4.0.1",
     "prisma": "^4.15.0",
