@@ -28,7 +28,7 @@ model User {
   id        String   @id @default(uuid())
   full_name String
   email     String   @unique
-  password  String
+  password  String // TODO Check if hashed!
   role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
