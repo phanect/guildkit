@@ -9,7 +9,7 @@ import type { RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 
 export const load = async (event: RequestEvent) => {
-  const form = superValidate(event, loginSchema);
+  const form = await superValidate(event, loginSchema);
   return { form };
 };
 

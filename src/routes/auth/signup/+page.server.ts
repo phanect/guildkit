@@ -6,7 +6,7 @@ import prisma from "$lib/prisma.ts";
 import { hashPassword } from "$lib/utils/bcrypt.utils.ts";
 
 export const load = async (event: RequestEvent) => {
-  const form = superValidate(event, signupSchema);
+  const form = await superValidate(event, signupSchema);
   return { form };
 };
 
