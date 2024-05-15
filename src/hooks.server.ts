@@ -13,7 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (path?.includes("admin")) {
     try {
       const userData = jwt.verify(token, JWT_SECRET);
-      if (userData && userData.role === "admin") {
+      if (typeof userData !== "string" && userData.role === "admin") {
         return resolve(event);
       } else {
         throw redirect(303, "/auth/login");
