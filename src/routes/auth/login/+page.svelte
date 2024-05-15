@@ -60,7 +60,7 @@
         <input
           class={$errors.email ? "input-error block w-full" : "input"}
           type="email"
-          placeholder="johndoe@email.com"
+          placeholder="johndoe@example.com"
           name="email"
           id="email"
           bind:value={$form.email}
