@@ -25,7 +25,10 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "lint": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint ."
+    "lint": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
+    "postinstall": "npm run postinstall:migrate && npm run postinstall:seed",
+    "postinstall:migrate": "prisma migrate dev",
+    "postinstall:seed": "esno ./scripts/postinstall-seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
@@ -42,8 +45,10 @@
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "autoprefixer": "^10.4.14",
+    "dayjs": "^1.11.11",
     "eslint": "^8.28.0",
     "eslint-plugin-svelte": "^2.26.0",
+    "esno": "^4.7.0",
     "postcss": "^8.4.23",
     "postcss-load-config": "^4.0.1",
     "prisma": "^4.15.0",
