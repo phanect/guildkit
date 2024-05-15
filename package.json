@@ -1,6 +1,8 @@
 {
-  "name": "advisor",
+  "name": "guildkit",
   "version": "0.0.1",
+  "author": "Jumpei Ogawa (https://phanective.org)",
+  "license": "SEE LICENSE IN LICENSE.md",
   "private": true,
   "type": "module",
   "scripts": {
