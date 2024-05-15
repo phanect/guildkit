@@ -1,11 +1,17 @@
-# JOB PORTAL
+# GuildKit
 
-> **Note**
-> 
-> I'm still in the early stages of the project. If you know sveltekit and you're reading this, I'd be happy to get in touch and see how we could work on this project together.
+A CMS for job search services
 
-> **Note**<br>
-> **Contact Info**<br>
-> Email: [irakozeyves9@gmail.com](mailto:irakozeyves9@gmail.com)<br>
-> Twitter: [kiytony](https://twitter.com/kiytony)<br>
-> Linkedin: [Irakoze Yves](linkedin.com/in/irakozeyves)
+## Credit
+
+This project includes source code derived from:
+
+- [JOB PORTAL](https://github.com/irakozetony/jobportal) by [**@irakozetony**](https://github.com/irakozetony)
+  - License: [MIT](https://github.com/irakozetony/jobportal/blob/69f5478cb18c97e5a703dfc2235e2b9c900f40c0/LICENSE)
+  - Hash of the HEAD at the time of fork: [69f5478](https://github.com/irakozetony/jobportal/commit/69f5478cb18c97e5a703dfc2235e2b9c900f40c0)
+
+This project includes thirdparty assets listed in [CREDITS.md](./static/vendor/CREDITS.md)
+
+## License
+
+[A proprietary license](./LICENSE.md), but it allows self host and redistributing under some limitations.
