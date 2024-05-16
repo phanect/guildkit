@@ -1,8 +1,25 @@
 {
   "name": "guildmaster",
   "version": "0.0.1",
+  "description": "A CMS for job search services",
   "author": "Jumpei Ogawa (https://phanective.org)",
   "license": "SEE LICENSE IN LICENSE.md",
+  "homepage": "https://github.com/phanect/guildmaster",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phanect/guildmaster.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phanect/guildmaster/issues"
+  },
+  "keywords": [
+    "jobsearch",
+    "joblist",
+    "jobhunt",
+    "jobs",
+    "careers",
+    "hiring"
+  ],
   "private": true,
   "scripts": {
     "dev": "vite dev",
