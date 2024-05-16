@@ -1,3 +1,9 @@
+# THIS LICENSE TEXT IS DRAFT VERSION
+
+The following license text is draft version and not applied to any product yet.
+
+# License text (Draft)
+
 License text copyright (c) 2020 MariaDB Corporation Ab, All Rights Reserved.
 “Business Source License” is a trademark of MariaDB Corporation Ab.
 
