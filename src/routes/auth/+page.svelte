@@ -1,3 +1,9 @@
+<script lang="ts">
+  import { page } from "$app/state";
+
+  const showSignUpForm: boolean = page.url.searchParams.get("signup") === "true";
+</script>
+
 <svelte:head>
   <title>Login or Sign up</title>
 </svelte:head>
@@ -16,6 +22,10 @@
   h2 {
     font-size: 1.25rem;
     margin-bottom: 0.5em;
+  }
+
+  p, span {
+    font-size: 12px;
   }
 
   body {
@@ -59,21 +69,20 @@
     min-height: 480px;
   }
 
-  .container span {
-    font-size: 12px;
-  }
-
   .forget-password {
     color: #333;
     font-size: 13px;
     text-decoration: underline;
+
+    margin-top: 1.5em;
 
     &:hover {
       color: rgb(40, 93, 252);
     }
   }
 
-  .container button {
+  .button {
+    display: inline;
     color:#fff;
     font-size: 12px;
     padding-top: 10px;
@@ -92,9 +101,16 @@
       padding-left: 45px;
       padding-right: 45px;
     }
+
+    &.switch {
+      background-color:rgb(157, 157, 157);
+
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
   }
 
-  .container button:hover, .icon:hover {
+  .button:hover, .icon:hover {
     background-color: rgb(120, 154, 255);
     transform: scale(1.1);
   }
@@ -158,13 +174,7 @@
   .toggle-container {
     width: 50%;
     height: 100%;
-    transition: all 0.6s ease-in-out;
     border-radius: 150px 0 0 100px;
-  }
-
-  .container.active .toggle-container {
-    transform: translateX(-100%);
-    border-radius: 0 150px 100px 0;
   }
 
   .toggle {
@@ -172,10 +182,6 @@
     width: 200%;
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
-  }
-
-  .container.active .toggle {
-    transform: translateX(50%);
   }
 
   .toggle-panel {
@@ -187,24 +193,7 @@
     flex-direction: column;
     padding: 0 30px;
     text-align: center;
-    transform: translateX(0);
     transition: all 0.6s ease-in-out;
-  }
-
-  .toggle-left {
-    transform: translateX(-200%);
-  }
-
-  .container.active .toggle-left {
-    transform: translateX(0);
-  }
-
-  .toggle-right {
-    transform: translateX(0);
-  }
-
-  .container.active .toggle-right {
-    transform: translateX(200%);
   }
 
   .last-input {
@@ -219,7 +208,7 @@
   }
 </style>
 
-<div class="container" id="container">
+<div class="container">
   <div class="form-container">
     <h1 class="title">Login or Sign up</h1>
     <span>with thirdparty accounts</span>
@@ -259,33 +248,44 @@
 
   <div class="toggle-container">
     <div class="toggle">
-      <div class="toggle-panel toggle-left">
-        <h2>Sign up with password</h2>
+      {#if showSignUpForm}
+        <div class="toggle-panel">
+          <h2>Sign up with password</h2>
 
-        <form>
-          <input type="text" placeholder="Name">
-          <input type="email" placeholder="Email">
-          <input type="password" class="last-input" placeholder="Password">
-          <button class="execute">Sign Up</button>
-        </form>
-      </div>
-      <div class="toggle-panel toggle-right">
-        <h2>Login with password</h2>
+          <form>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <input type="password" class="last-input" placeholder="Password">
+            <button class="button execute">Sign Up</button>
+          </form>
 
-        <form>
-          <input type="email" placeholder="Email">
-          <input type="password" class="last-input" placeholder="Password">
-          <button class="execute">Sign In</button>
-        </form>
+          <hr class="line-horizontal" />
 
-        <hr class="line-horizontal" />
-
-        <div class="email-options">
-          <a href="#" class="forget-password">Forget Your Password?</a>
+          <div class="email-options">
+            <p>Already have an account?</p>
+            <a href="./auth" class="button switch">Sign In</a>
+          </div>
         </div>
-      </div>
+      {:else}
+        <div class="toggle-panel">
+          <h2>Login with password</h2>
+
+          <form>
+            <input type="email" placeholder="Email">
+            <input type="password" class="last-input" placeholder="Password">
+            <button class="button execute">Sign In</button>
+          </form>
+
+          <hr class="line-horizontal" />
+
+          <div class="email-options">
+            <p class="switch-button-annotation">Don't have an account yet?</p>
+            <a href="./auth?signup=true" class="button switch">Sign up</a>
+
+            <a href="#" class="forget-password">Or forget Your Password?</a>
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
 </div>
-
-<script src="script.js"></script>
