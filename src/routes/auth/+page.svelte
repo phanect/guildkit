@@ -1,5 +1,4 @@
 <svelte:head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <title>Modern Login Page | SortedCoding</title>
 </svelte:head>
 
@@ -238,9 +237,33 @@
       <h1>Create Account</h1>
 
       <div class="social-icons">
-        <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/tabler/brand-google.svg"
+            alt="Login with Google"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/tabler/brand-facebook.svg"
+            alt="Login with Facebook"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/octicons/mark-github.svg"
+            alt="Login with Google"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
       </div>
 
       <span>or use your email for registration</span>
@@ -256,9 +279,33 @@
       <h1>Sign In</h1>
 
       <div class="social-icons">
-        <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/tabler/brand-google.svg"
+            alt="Login with Google"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/tabler/brand-facebook.svg"
+            alt="Login with Facebook"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/octicons/mark-github.svg"
+            alt="Login with Google"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
       </div>
 
       <span>or use your email password</span>
