@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Modern Login Page | SortedCoding</title>
+  <title>Login or Sign up</title>
 </svelte:head>
 
 <style lang="scss">
@@ -30,13 +30,6 @@
     min-height: 480px;
   }
 
-  .container p {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.3px;
-    margin: 20px 0;
-  }
-
   .container span {
     font-size: 12px;
   }
@@ -64,17 +57,12 @@
     transition: 0.5s ease;
   }
 
-  .container button.hidden {
-    background-color: orangered;
-    border-color: #fff;
-  }
-
   .container button:hover {
     background-color: orangered;
     transform: scale(1.1);
   }
 
-  .container form {
+  .form-container {
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -96,37 +84,6 @@
     outline: none;
   }
 
-  .form-container {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    transition: all 0.6s ease-in-out;
-  }
-
-  .sign-in {
-    left: 0;
-    width: 50%;
-    z-index: 2;
-  }
-
-  .container.active .sign-in {
-    transform: translateX(100%);
-  }
-
-  .sign-up {
-    left: 0;
-    width: 50%;
-    opacity: 0;
-    z-index: 1;
-  }
-
-  .container.active .sign-up {
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-    animation: move 0.6s;
-  }
-
   @keyframes move {
     0%, 49.99% {
       opacity: 0;
@@ -136,6 +93,10 @@
       opacity: 1;
       z-index: 5;
     }
+  }
+
+  .title {
+    margin-bottom: 0.2em;
   }
 
   .social-icons {
@@ -232,102 +193,62 @@
 </style>
 
 <div class="container" id="container">
-  <div class="form-container sign-up">
-    <form>
-      <h1>Create Account</h1>
+  <div class="form-container">
+    <h1 class="title">Login or Sign up</h1>
+    <span>with thirdparty accounts</span>
 
-      <div class="social-icons">
-        <a href="#" class="icon">
-          <img
-            src="/vendor/tabler/brand-google.svg"
-            alt="Login with Google"
-            width="24"
-            height="24"
-            decoding="async"
-          />
-        </a>
-        <a href="#" class="icon">
-          <img
-            src="/vendor/tabler/brand-facebook.svg"
-            alt="Login with Facebook"
-            width="24"
-            height="24"
-            decoding="async"
-          />
-        </a>
-        <a href="#" class="icon">
-          <img
-            src="/vendor/octicons/mark-github.svg"
-            alt="Login with Google"
-            width="24"
-            height="24"
-            decoding="async"
-          />
-        </a>
-      </div>
-
-      <span>or use your email for registration</span>
-
-      <input type="text" placeholder="Name">
-      <input type="email" placeholder="Email">
-      <input type="password" placeholder="Password">
-      <button>Sign Up</button>
-    </form>
-  </div>
-  <div class="form-container sign-in">
-    <form>
-      <h1>Sign In</h1>
-
-      <div class="social-icons">
-        <a href="#" class="icon">
-          <img
-            src="/vendor/tabler/brand-google.svg"
-            alt="Login with Google"
-            width="24"
-            height="24"
-            decoding="async"
-          />
-        </a>
-        <a href="#" class="icon">
-          <img
-            src="/vendor/tabler/brand-facebook.svg"
-            alt="Login with Facebook"
-            width="24"
-            height="24"
-            decoding="async"
-          />
-        </a>
-        <a href="#" class="icon">
-          <img
-            src="/vendor/octicons/mark-github.svg"
-            alt="Login with Google"
-            width="24"
-            height="24"
-            decoding="async"
-          />
-        </a>
-      </div>
-
-      <span>or use your email password</span>
-
-      <input type="email" placeholder="Email">
-      <input type="password" placeholder="Password">
-      <a href="#">Forget Your Password?</a>
-      <button>Sign In</button>
-    </form>
+    <div class="social-icons">
+      <a href="#" class="icon">
+        <img
+          src="/vendor/tabler/brand-google.svg"
+          alt="Login with Google"
+          width="24"
+          height="24"
+          decoding="async"
+        />
+      </a>
+      <a href="#" class="icon">
+        <img
+          src="/vendor/tabler/brand-facebook.svg"
+          alt="Login with Facebook"
+          width="24"
+          height="24"
+          decoding="async"
+        />
+      </a>
+      <a href="#" class="icon">
+        <img
+          src="/vendor/octicons/mark-github.svg"
+          alt="Login with Google"
+          width="24"
+          height="24"
+          decoding="async"
+        />
+      </a>
+    </div>
   </div>
 
   <div class="toggle-container">
     <div class="toggle">
       <div class="toggle-panel toggle-left">
-        <h1>Welcome Back!</h1>
-        <p>Enter your personal details to use all of site features</p>
-        <button class="hidden" id="login">Sign In</button>
+        <span>or use your email for registration</span>
+
+        <form>
+          <input type="text" placeholder="Name">
+          <input type="email" placeholder="Email">
+          <input type="password" placeholder="Password">
+          <button>Sign Up</button>
+        </form>
       </div>
       <div class="toggle-panel toggle-right">
-        <h1>Hello, Friend!</h1>
-        <p>Register with your personal details to use all of site features</p>
-        <button class="hidden" id="register">Sign Up</button>
+        <span>or use your email password</span>
+
+        <form>
+          <input type="email" placeholder="Email">
+          <input type="password" placeholder="Password">
+          <a href="#">Forget Your Password?</a>
+          <button>Sign In</button>
+        </form>
       </div>
     </div>
   </div>
