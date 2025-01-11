@@ -30,10 +30,12 @@
   }
 
   .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #fff;
     border-radius: 30px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
-    position: relative;
     overflow: hidden;
     width: 768px;
     max-width: 100%;
@@ -136,15 +138,11 @@
   }
 
   .toggle-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
     width: 50%;
     height: 100%;
     overflow: hidden;
     transition: all 0.6s ease-in-out;
     border-radius: 150px 0 0 100px;
-    z-index: 1000;
   }
 
   .container.active .toggle-container {
@@ -155,8 +153,6 @@
   .toggle {
     height: 100%;
     background: orangered;
-    position: relative;
-    left: -100%;
     height: 100%;
     width: 200%;
     transform: translateX(0);
@@ -168,7 +164,6 @@
   }
 
   .toggle-panel {
-    position: absolute;
     color: #fff;
     width: 50%;
     height: 100%;
@@ -178,7 +173,6 @@
     flex-direction: column;
     padding: 0 30px;
     text-align: center;
-    top: 0;
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
   }
@@ -192,7 +186,6 @@
   }
 
   .toggle-right {
-    right: 0;
     transform: translateX(0);
   }
 
