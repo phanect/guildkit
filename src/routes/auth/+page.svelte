@@ -19,6 +19,16 @@
     height: 100vh;
   }
 
+  .line-horizontal {
+    border: none;
+    border-top: 1px solid #aaa;
+
+    width: 95%;
+
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
   .container {
     background-color: #fff;
     border-radius: 30px;
@@ -34,11 +44,15 @@
     font-size: 12px;
   }
 
-  .container a {
+  .forget-password {
     color: #333;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
+
+    &:hover {
+      color: rgb(40, 93, 252);
+    }
   }
 
   .container button {
@@ -190,6 +204,13 @@
   .toggle p {
     color: #fff;
   }
+
+  .email-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    align-items: center;
+  }
 </style>
 
 <div class="container" id="container">
@@ -246,9 +267,14 @@
         <form>
           <input type="email" placeholder="Email">
           <input type="password" placeholder="Password">
-          <a href="#">Forget Your Password?</a>
           <button>Sign In</button>
         </form>
+
+        <hr class="line-horizontal" />
+
+        <div class="email-options">
+          <a href="#" class="forget-password">Forget Your Password?</a>
+        </div>
       </div>
     </div>
   </div>
