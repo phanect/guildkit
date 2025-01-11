@@ -29,6 +29,14 @@
     margin-bottom: 2rem;
   }
 
+  .line-vertical {
+    border: none;
+    border-left: 1px solid #aaa;
+
+    width: 1px;
+    height: 80%;
+  }
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -140,7 +148,6 @@
   .toggle-container {
     width: 50%;
     height: 100%;
-    overflow: hidden;
     transition: all 0.6s ease-in-out;
     border-radius: 150px 0 0 100px;
   }
@@ -152,7 +159,6 @@
 
   .toggle {
     height: 100%;
-    background: orangered;
     height: 100%;
     width: 200%;
     transform: translateX(0);
@@ -240,6 +246,8 @@
       </a>
     </div>
   </div>
+
+  <hr class="line-vertical" />
 
   <div class="toggle-container">
     <div class="toggle">
