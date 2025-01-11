@@ -47,8 +47,7 @@
   .forget-password {
     color: #333;
     font-size: 13px;
-    text-decoration: none;
-    margin: 15px 0 10px;
+    text-decoration: underline;
 
     &:hover {
       color: rgb(40, 93, 252);
