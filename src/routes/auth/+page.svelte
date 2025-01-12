@@ -99,7 +99,8 @@
     background-color: #eee;
     border: none;
     display: flex;
-    margin: 8px 0;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
     padding: 10px 15px;
     font-size: 13px;
     border-radius: 8px;
@@ -197,6 +198,10 @@
     color: #fff;
   }
 
+  .last-input {
+    margin-bottom: 1.5em;
+  }
+
   .email-options {
     display: flex;
     flex-direction: column;
@@ -251,7 +256,7 @@
         <form>
           <input type="text" placeholder="Name">
           <input type="email" placeholder="Email">
-          <input type="password" placeholder="Password">
+          <input type="password" class="last-input" placeholder="Password">
           <button>Sign Up</button>
         </form>
       </div>
@@ -260,7 +265,7 @@
 
         <form>
           <input type="email" placeholder="Email">
-          <input type="password" placeholder="Password">
+          <input type="password" class="last-input" placeholder="Password">
           <button>Sign In</button>
         </form>
 
