@@ -74,23 +74,28 @@
   }
 
   .container button {
-    background-color: orangered;
     color:#fff;
     font-size: 12px;
-    padding: 10px 45px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border: 1px solid transparent ;
     border-radius: 8px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-top: 10px;
     cursor: pointer ;
     box-shadow: 0 0 10px rgba(34,31,31,0.3);
     transition: 0.5s ease;
+
+    &.execute {
+      background-color: rgb(155, 179, 253);
+      padding-left: 45px;
+      padding-right: 45px;
+    }
   }
 
   .container button:hover, .icon:hover {
-    background-color: orangered;
+    background-color: rgb(120, 154, 255);
     transform: scale(1.1);
   }
 
@@ -174,7 +179,6 @@
   }
 
   .toggle-panel {
-    color: #fff;
     width: 50%;
     height: 100%;
     display: flex;
@@ -201,10 +205,6 @@
 
   .container.active .toggle-right {
     transform: translateX(200%);
-  }
-
-  .toggle p {
-    color: #fff;
   }
 
   .last-input {
@@ -266,7 +266,7 @@
           <input type="text" placeholder="Name">
           <input type="email" placeholder="Email">
           <input type="password" class="last-input" placeholder="Password">
-          <button>Sign Up</button>
+          <button class="execute">Sign Up</button>
         </form>
       </div>
       <div class="toggle-panel toggle-right">
@@ -275,7 +275,7 @@
         <form>
           <input type="email" placeholder="Email">
           <input type="password" class="last-input" placeholder="Password">
-          <button>Sign In</button>
+          <button class="execute">Sign In</button>
         </form>
 
         <hr class="line-horizontal" />
