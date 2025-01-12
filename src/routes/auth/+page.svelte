@@ -13,6 +13,11 @@
     font-size: 1.75rem;
   }
 
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5em;
+  }
+
   body {
     background-color: #c9d6ff;
     background: linear-gradient(to-right, #e2e2e2, #c9d6ff);
@@ -255,7 +260,7 @@
   <div class="toggle-container">
     <div class="toggle">
       <div class="toggle-panel toggle-left">
-        <span>or use your email for registration</span>
+        <h2>Sign up with password</h2>
 
         <form>
           <input type="text" placeholder="Name">
@@ -265,7 +270,7 @@
         </form>
       </div>
       <div class="toggle-panel toggle-right">
-        <span>or use your email password</span>
+        <h2>Login with password</h2>
 
         <form>
           <input type="email" placeholder="Email">
