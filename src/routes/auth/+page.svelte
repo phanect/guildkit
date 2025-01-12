@@ -9,6 +9,10 @@
     font-family: "Montserrat", sans-serif;
   }
 
+  h1 {
+    font-size: 1.75rem;
+  }
+
   body {
     background-color: #c9d6ff;
     background: linear-gradient(to-right, #e2e2e2, #c9d6ff);
