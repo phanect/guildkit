@@ -1,4 +1,6 @@
+import deepmerge from "deepmerge";
 import preprocess from "svelte-preprocess";
+import tsconfigPhanective from "@phanect/configs/ts/importable";
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/kit/vite";
 
@@ -18,6 +20,33 @@ const config = {
     // If your environment is not supported or you settled on a specific environment, switch out the adapter.
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.
     adapter: adapter(),
+
+    typescript: {
+      config: (tsconfigSvelte) => deepmerge.all([
+        tsconfigPhanective,
+        tsconfigSvelte,
+        {
+          include: [
+            "../*.ts",
+            "../*.js",
+            "../**/*.ts",
+            "../**/*.js",
+          ],
+        },
+      ], {
+        arrayMerge: (arr1, arr2) => {
+          const arr = [ ...arr1 ];
+
+          for (const el of arr2) {
+            if (!arr.includes(el)) {
+              arr.push(el);
+            }
+          }
+
+          return arr;
+        },
+      }),
+    },
   },
 };
 
