@@ -1,6 +1,6 @@
 <script lang="ts">
   import JobCard from "$lib/components/JobCard.svelte";
-  import type { PageData } from "./$types";
+  import type { PageProps } from "./$types";
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import type { DrawerSettings } from "@skeletonlabs/skeleton";
 
@@ -12,7 +12,7 @@
     drawerStore.open(drawerSettings);
   };
 
-  export let data: PageData;
+  const { data }: PageProps = $props();
   const { role } = data;
 </script>
 

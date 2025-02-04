@@ -3,12 +3,12 @@
   import "@skeletonlabs/skeleton/themes/theme-gold-nouveau.css";
   import "@skeletonlabs/skeleton/styles/skeleton.css";
   import "../app.postcss";
-  import type { LayoutData } from "./$types";
+  import type { LayoutProps } from "./$types";
 
-  export let data: LayoutData;
+  const { data, children }: LayoutProps = $props();
 </script>
 
-<Nav {data} />
+<Nav isLoggedIn={data.isLoggedIn} />
 <main class="max-h-fit">
-  <slot />
+  {@render children()}
 </main>

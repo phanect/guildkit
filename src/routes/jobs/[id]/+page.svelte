@@ -1,9 +1,9 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import { parseString } from "$lib/helpers/parseString.ts";
-  import type { PageData } from "./$types";
+  import type { PageProps } from "./$types";
 
-  export let data: PageData;
+  const { data }: PageProps = $props();
   $: ({ job } = data);
 </script>
 

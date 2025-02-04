@@ -1,11 +1,11 @@
 <script lang="ts">
   import { superForm } from "sveltekit-superforms/client";
   import { loginSchema } from "$lib/validation/user.validation.ts";
-  import type { PageData } from "./$types";
+  import type { PageProps } from "./$types";
   import type { ToastSettings } from "@skeletonlabs/skeleton";
   import { Toast, toastStore } from "@skeletonlabs/skeleton";
 
-  export let data: PageData;
+  const { data }: PageProps = $props();
 
   const { form, errors, enhance } = superForm(data.form, {
     validators: loginSchema,

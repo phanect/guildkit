@@ -1,9 +1,8 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import type { LayoutProps } from "../../routes/$types";
 
-  export let data: {
-    isLoggedIn: boolean;
-  };
+  const { isLoggedIn }: LayoutProps["data"] = $props();
 </script>
 
 <nav class="flex items-center justify-between flex-wrap py-6 px-20">
@@ -12,7 +11,7 @@
     <a href="/" class="font-semibold text-xl tracking-tight">GuildKit</a>
   </div>
   <div class="flex items-center">
-    {#if !data.isLoggedIn}
+    {#if !isLoggedIn}
       <a
         href="/auth/signup"
         class="btn btn-xl border border-black w-fit rounded-full hover:bg-black hover:text-white"
