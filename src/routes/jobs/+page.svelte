@@ -1,8 +1,8 @@
 <script lang="ts">
   import JobCard from "$lib/components/JobCard.svelte";
-  import type { PageData } from "./$types";
+  import type { PageProps } from "./$types";
 
-  export let data: PageData;
+  const { data }: PageProps = $props();
 </script>
 
 <section class="p-24 flex flex-col">

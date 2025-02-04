@@ -1,16 +1,20 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
 
-  export let job: {
-    id: string;
-    description: string;
-    title: string;
-    requirements: string;
-    salary: string;
-    deadline: Date;
-    createdAt: Date;
+  type Props = {
+    job: {
+      id: string;
+      description: string;
+      title: string;
+      requirements: string;
+      salary: string;
+      deadline: Date;
+      createdAt: Date;
+    };
+    role?: string;
   };
-  export let role: string;
+
+  const { job, role }: Props = $props();
 </script>
 
 <div class="overflow-hidden group relative rounded-lg p-[1px] flex justify-center items-center">

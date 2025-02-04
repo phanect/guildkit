@@ -2,9 +2,9 @@
   import Sidebar from "$lib/components/Sidebar.svelte";
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import JobForm from "$lib/components/JobForm.svelte";
-  import type { LayoutData } from "./$types";
+  import type { LayoutProps } from "./$types";
 
-  export let data: LayoutData;
+  const { data, children }: LayoutProps = $props();
 </script>
 
 <Drawer>
@@ -13,4 +13,5 @@
   {/if}
 </Drawer>
 <Sidebar />
-<slot />
+
+{@render children()}

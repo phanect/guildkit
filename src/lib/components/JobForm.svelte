@@ -2,9 +2,14 @@
   import { superForm } from "sveltekit-superforms/client";
   import { jobSchema } from "$lib/validation/job.validation.ts";
   import { Toast, toastStore, type ToastSettings } from "@skeletonlabs/skeleton";
-  import type { PageData } from "./$types";
+  import type { LayoutData } from "../../routes/(protected)/$types";
 
-  export let data: PageData;
+  type Props = {
+    data: LayoutData;
+  };
+
+  let { data }: Props = $props();
+
   const { form, errors, enhance } = superForm(data.form, {
     validators: jobSchema,
     onError: (error) => {

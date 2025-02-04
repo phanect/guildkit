@@ -1,14 +1,14 @@
 import deepmerge from "deepmerge";
-import preprocess from "svelte-preprocess";
+import { sveltePreprocess } from "svelte-preprocess";
 import tsconfigPhanective from "@phanect/configs/ts/importable";
 import adapter from "@sveltejs/adapter-auto";
-import { vitePreprocess } from "@sveltejs/kit/vite";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 /** @type { import("@sveltejs/kit").Config } */
 const config = {
   preprocess: [
     vitePreprocess(),
-    preprocess({
+    sveltePreprocess({
       postcss: true,
     }),
   ],
