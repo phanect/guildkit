@@ -18,22 +18,12 @@
   });
 </script>
 
-<!--<SuperDebug data={$form} />-->
 <Toast position="br" />
 
 <section
   class="border border-gray-300 w-fit shadow-md mx-auto align-middle p-5 rounded font-roboto h-fit my-auto mt-8"
 >
   <h3 class="font-medium mb-7 text-xl">Sign up</h3>
-
-  <!-- <button class="bg-white hover:bg-gray-50  font-bold py-2 rounded flex items-center justify-center gap-2 border border-gray-200">
-    <img src="/vendor/logos/google.svg" alt="" />
-        <span class="font-medium">
-                Login with google
-            </span>
-    </button>
-
-    <hr class="h-px my-8 bg-gray-200 border-0"> -->
 
   <form method="post" use:enhance>
     <div>
