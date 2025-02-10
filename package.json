@@ -20,10 +20,11 @@
     "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
+    "@melt-ui/pp": "^0.3.2",
+    "@melt-ui/svelte": "^0.86.2",
     "@phanect/configs": "latest",
     "@phanect/lint": "latest",
     "@phanect/lint-svelte": "latest",
-    "@skeletonlabs/skeleton": "^1.7.1",
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/kit": "^2.17.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",

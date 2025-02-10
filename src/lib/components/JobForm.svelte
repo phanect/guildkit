@@ -1,7 +1,7 @@
 <script lang="ts">
   import { superForm } from "sveltekit-superforms/client";
   import { jobSchema } from "$lib/validation/job.validation.ts";
-  import { Toast, toastStore, type ToastSettings } from "@skeletonlabs/skeleton";
+  import Toast, { addToast } from "$lib/components/generic/Toast.svelte";
   import type { LayoutData } from "../../routes/(protected)/$types";
 
   type Props = {
@@ -13,16 +13,18 @@
   const { form, errors, enhance } = superForm(data.form, {
     validators: jobSchema,
     onError: (error) => {
-      const t: ToastSettings = {
-        message: error.result.error.message,
-        background: "variant-filled-error",
-      };
-      toastStore.trigger(t);
+      addToast({
+        data: {
+          title: "Error",
+          description: error.result.error.message,
+          color: "variant-filled-error",
+        },
+      });
     },
   });
 </script>
 
-<Toast position="br" />
+<Toast />
 <section class="px-24 py-16">
   <h1 class="text-2xl font-bold flex justify-center mb-5">Create a new job</h1>
   <div class="border border-gray-200 rounded-lg p-12">

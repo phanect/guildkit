@@ -1,17 +1,19 @@
 import deepmerge from "deepmerge";
 import { sveltePreprocess } from "svelte-preprocess";
+import { preprocessMeltUI, sequence } from "@melt-ui/pp";
 import tsconfigPhanective from "@phanect/configs/ts/importable";
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 /** @type { import("@sveltejs/kit").Config } */
 const config = {
-  preprocess: [
+  preprocess: sequence([
     vitePreprocess(),
     sveltePreprocess({
       postcss: true,
     }),
-  ],
+    preprocessMeltUI(),
+  ]),
 
   kit: {
     adapter: adapter(),

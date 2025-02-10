@@ -4,7 +4,6 @@
 const config = {
   content: [
     "./src/**/*.{html,js,svelte,ts}",
-    require("path").join(require.resolve("@skeletonlabs/skeleton"), "../**/*.{html,js,svelte,ts}"),
   ],
 
   theme: {
@@ -41,7 +40,6 @@ const config = {
   },
 
   plugins: [
-    ...require("@skeletonlabs/skeleton/tailwind/skeleton.cjs")(),
     require("@tailwindcss/forms"),
   ],
 };

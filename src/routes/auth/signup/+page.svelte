@@ -1,24 +1,25 @@
 <script lang="ts">
   import { superForm } from "sveltekit-superforms/client";
+  import Toast, { addToast } from "$lib/components/generic/Toast.svelte";
   import { signupSchema } from "$lib/validation/user.validation.ts";
   import type { PageProps } from "./$types";
-  import { Toast, toastStore } from "@skeletonlabs/skeleton";
-  import type { ToastSettings } from "@skeletonlabs/skeleton";
 
   const { data }: PageProps = $props();
   const { form, errors, enhance } = superForm(data.form, {
     validators: signupSchema,
     onError: (error) => {
-      const t: ToastSettings = {
-        message: error.result.error.message,
-        background: "variant-filled-error",
-      };
-      toastStore.trigger(t);
+      addToast({
+        data: {
+          title: "Error",
+          description: error.result.error.message,
+          color: "variant-filled-error",
+        },
+      });
     },
   });
 </script>
 
-<Toast position="br" />
+<Toast />
 
 <section
   class="border border-gray-300 w-fit shadow-md mx-auto align-middle p-5 rounded font-roboto h-fit my-auto mt-8"
