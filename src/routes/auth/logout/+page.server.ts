@@ -1,5 +1,4 @@
-import type { Actions } from "@sveltejs/kit";
-import { redirect } from "@sveltejs/kit";
+import { redirect, type Actions } from "@sveltejs/kit";
 
 export const actions = {
   default: async ({ cookies }) => {

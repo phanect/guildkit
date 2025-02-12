@@ -1,10 +1,9 @@
-import { signupSchema } from "$lib/validation/user.validation";
 import { superValidate } from "sveltekit-superforms/server";
-import type { Actions, RequestEvent } from "@sveltejs/kit";
-import { error, fail, redirect } from "@sveltejs/kit";
-import { isRegistered } from "$lib/utils/user.utils";
-import prisma from "$lib/prisma";
-import { hashPassword } from "$lib/utils/bcrypt.utils";
+import { error, fail, redirect, type Actions, type RequestEvent } from "@sveltejs/kit";
+import { signupSchema } from "$lib/validation/user.validation.ts";
+import { isRegistered } from "$lib/utils/user.utils.ts";
+import prisma from "$lib/prisma.ts";
+import { hashPassword } from "$lib/utils/bcrypt.utils.ts";
 
 export const load = async (event: RequestEvent) => {
   const form = superValidate(event, signupSchema);

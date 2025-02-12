@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
   import { superForm } from "sveltekit-superforms/client";
-  import { jobSchema } from "$lib/validation/job.validation";
-  import type { ToastSettings } from "@skeletonlabs/skeleton";
-  import { Toast, toastStore } from "@skeletonlabs/skeleton";
+  import { jobSchema } from "$lib/validation/job.validation.ts";
+  import { Toast, toastStore, type ToastSettings } from "@skeletonlabs/skeleton";
+  import type { PageData } from "./$types";
 
   export let data: PageData;
   const { form, errors, enhance } = superForm(data.form, {

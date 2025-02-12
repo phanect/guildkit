@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Sidebar from "../../lib/components/Sidebar.svelte";
+  import Sidebar from "$lib/components/Sidebar.svelte";
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import JobForm from "$lib/components/JobForm.svelte";
   import type { LayoutData } from "./$types";

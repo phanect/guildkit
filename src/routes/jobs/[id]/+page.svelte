@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
+  import { parseString } from "$lib/helpers/parseString.ts";
   import type { PageData } from "./$types";
-  import { getRemainingTime } from "$lib/helpers/getRemainingTime";
-  import { parseString } from "$lib/helpers/parseString";
+
   export let data: PageData;
   // $: ({job, requirements} = data);
   $: ({ job } = data);

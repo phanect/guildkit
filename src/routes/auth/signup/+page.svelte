@@ -1,6 +1,6 @@
 <script lang="ts">
   import { superForm } from "sveltekit-superforms/client";
-  import { signupSchema } from "$lib/validation/user.validation";
+  import { signupSchema } from "$lib/validation/user.validation.ts";
   import type { PageData } from "../../../../.svelte-kit/types/src/routes";
   import { Toast, toastStore } from "@skeletonlabs/skeleton";
   import type { ToastSettings } from "@skeletonlabs/skeleton";

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
   import { superForm } from "sveltekit-superforms/client";
-  import { loginSchema } from "$lib/validation/user.validation";
+  import { loginSchema } from "$lib/validation/user.validation.ts";
+  import type { PageData } from "./$types";
   import type { ToastSettings } from "@skeletonlabs/skeleton";
   import { Toast, toastStore } from "@skeletonlabs/skeleton";
 

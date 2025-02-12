@@ -1,11 +1,11 @@
-import type { RequestEvent } from "./$types";
-import { superValidate } from "sveltekit-superforms/server";
-import { loginSchema } from "$lib/validation/user.validation";
 import { error, fail, redirect } from "@sveltejs/kit";
-import { isRegistered } from "$lib/utils/user.utils";
-import { isValidPassword } from "$lib/utils/bcrypt.utils";
-import prisma from "$lib/prisma";
+import { superValidate } from "sveltekit-superforms/server";
 import jwt from "jsonwebtoken";
+import { loginSchema } from "$lib/validation/user.validation.ts";
+import { isRegistered } from "$lib/utils/user.utils.ts";
+import { isValidPassword } from "$lib/utils/bcrypt.utils.ts";
+import prisma from "$lib/prisma.ts";
+import type { RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 
 export const load = async (event: RequestEvent) => {
