@@ -80,6 +80,10 @@ worker-configuration.d.ts
 .vercel/
 .netlify/
 
+# Prisma
+/prisma/*.db
+/prisma/*.db-journal
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
