@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getRemainingTime } from "$lib/helpers/getRemainingTime";
+  import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
 
   export let job: {
     id: string;
