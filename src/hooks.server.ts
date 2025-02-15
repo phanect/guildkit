@@ -7,7 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   const path = event.route.id;
 
   if (path?.includes("protected") && !token) {
-    throw redirect(303, "/auth/login");
+    return redirect(303, "/auth/login");
   }
   if (path?.includes("admin")) {
     try {
@@ -15,11 +15,11 @@ export const handle: Handle = async ({ event, resolve }) => {
       if (typeof userData !== "string" && userData.role === "admin") {
         return resolve(event);
       } else {
-        throw redirect(303, "/auth/login");
+        return redirect(303, "/auth/login");
       }
     } catch (error) {
       console.log(error);
-      throw redirect(303, "/auth/login");
+      return redirect(303, "/auth/login");
     }
   }
 

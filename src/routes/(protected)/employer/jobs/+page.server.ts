@@ -42,7 +42,7 @@ export const actions = {
     await prisma.job.create({
       data: { ...form.data, employerId: id },
     });
-    throw redirect(303, "/employer/jobs");
+    redirect(303, "/employer/jobs");
   },
   delete: async (event: RequestEvent) => {
     const data = await event.request.formData();
