@@ -22,7 +22,7 @@ export const actions = {
     }
 
     if (!(await isRegistered(form.data.email))) {
-      throw error(400, "User not found");
+      return error(400, "User not found");
     }
 
     const user = await prisma.user.findUnique({
@@ -32,7 +32,7 @@ export const actions = {
     });
 
     if (user && !(await isValidPassword(form.data.password, user.password))) {
-      throw error(400, "Invalid credentials");
+      return error(400, "Invalid credentials");
     }
 
     const userData = {
@@ -51,10 +51,10 @@ export const actions = {
     });
 
     if (user?.role === "admin") {
-      throw redirect(303, "/users");
+      return redirect(303, "/users");
     }
     if (user?.role === "employer") {
-      throw redirect(303, "/employer/jobs");
+      return redirect(303, "/employer/jobs");
     }
   },
 };

@@ -17,12 +17,12 @@ export const actions: Actions = {
       return fail(400, { form });
     }
     if (await isRegistered(form.data.email)) {
-      throw error(409, "User is already registered");
+      return error(409, "User is already registered");
     }
     const password = await hashPassword(form.data.password);
     await prisma.user.create({
       data: { ...form.data, role: "employer", password },
     });
-    throw redirect(303, "/auth/login");
+    return redirect(303, "/auth/login");
   },
 };
