@@ -1,7 +1,3 @@
-<script lang="ts">
-  import HeroImage from "./HeroImage.svelte";
-</script>
-
 <div class="flex">
   <section class="flex flex-col justify-center w-1/2 pl-28">
     <h1 class="text-6xl font-black mb-8 w-4/12">Find your dream job here.</h1>
@@ -27,7 +23,11 @@
       ></div>
     </div>
     <div class="z-10 relative">
-      <svelte:component this={HeroImage} />
+      <img
+        src="https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849822_960_720.jpg"
+        alt=""
+        decoding="async"
+      />
     </div>
   </section>
 </div>
