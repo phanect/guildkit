@@ -6,7 +6,7 @@
 </script>
 
 <nav class="flex items-center justify-between flex-wrap py-6 px-20">
-  <div class="flex items-center flex-shrink-0 mr-6">
+  <div class="flex items-center shrink-0 mr-6">
     <img src="/images/to-be-added.svg" alt="GuildKit" decoding="async" />
     <a href="/" class="font-semibold text-xl tracking-tight">GuildKit</a>
   </div>

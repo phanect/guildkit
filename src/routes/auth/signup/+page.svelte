@@ -22,7 +22,7 @@
 <Toast />
 
 <section
-  class="border border-gray-300 w-fit shadow-md mx-auto align-middle p-5 rounded font-roboto h-fit my-auto mt-8"
+  class="border border-gray-300 w-fit shadow-md mx-auto align-middle p-5 rounded-sm font-roboto h-fit my-auto mt-8"
 >
   <h3 class="font-medium mb-7 text-xl">Sign up</h3>
 

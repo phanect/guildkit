@@ -3,7 +3,7 @@
 </script>
 
 <div class="absolute top-[50%] translate-y-[-50%]">
-  <aside class="flex flex-col items-center bg-white text-gray-700 shadow h-full my-auto w-fit">
+  <aside class="flex flex-col items-center bg-white text-gray-700 shadow-sm h-full my-auto w-fit">
     <!-- Side Nav Bar-->
 
     <div class="h-16 flex items-center w-full">
@@ -82,7 +82,7 @@
         action="/auth/logout?"
         method="post"
         use:enhance
-        class="focus:text-orange-500 hover:bg-red-200 focus:outline-none w-full"
+        class="focus:text-orange-500 hover:bg-red-200 focus:outline-hidden w-full"
       >
         <button class="h-16 flex justify-center items-center mx-auto" type="submit">
           <img src="/vendor/tabler/logout-2.svg" alt="Logout" decoding="async" />
