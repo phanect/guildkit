@@ -45,7 +45,7 @@
               <input type="hidden" name="id" value={job.id} />
               <button
                 type="submit"
-                class="btn btn-sm border border-orange-500 text-orange-500 focus:text-orange-500 hover:bg-red-500 hover:text-white focus:outline-none rounded-full"
+                class="btn btn-sm border border-orange-500 text-orange-500 focus:text-orange-500 hover:bg-red-500 hover:text-white focus:outline-hidden rounded-full"
                 data-sveltekit-preload-data="hover"
               >
                 Delete

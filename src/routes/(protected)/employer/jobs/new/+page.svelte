@@ -29,7 +29,7 @@
         <label class="label" for="title">
           <span class="font-bold">Title <span class="text-red-400">*</span></span>
           <input
-            class={$errors.title ? "input-error block w-full rounded" : "input"}
+            class={$errors.title ? "input-error block w-full rounded-sm" : "input"}
             type="text"
             placeholder="Job Title"
             name="title"
@@ -45,7 +45,7 @@
         <label class="label" for="description">
           <span class="font-bold">Description <span class="text-red-400">*</span></span>
           <textarea
-            class={$errors.description ? "input-error block w-full rounded" : "input"}
+            class={$errors.description ? "input-error block w-full rounded-sm" : "input"}
             placeholder="Job Description"
             name="description"
             id="description"
@@ -61,7 +61,7 @@
           <span class="font-bold">Requirements <span class="text-red-400">*</span></span>
           <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
           <textarea
-            class={$errors.requirements ? "input-error block w-full rounded" : "input"}
+            class={$errors.requirements ? "input-error block w-full rounded-sm" : "input"}
             placeholder="Requirement 1; Requirement 2; Requirement 3; etc"
             name="requirements"
             id="requirements"
@@ -77,7 +77,7 @@
           <span class="font-bold">Responsibilities <span class="text-red-400">*</span></span>
           <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
           <textarea
-            class={$errors.responsibilities ? "input-error block w-full rounded" : "input"}
+            class={$errors.responsibilities ? "input-error block w-full rounded-sm" : "input"}
             placeholder="Responsibility 1; Responsibility 2; Responsibility 3; etc"
             name="responsibilities"
             id="responsibilities"
@@ -93,7 +93,7 @@
           <span class="font-bold">Application URL <span class="text-red-400">*</span></span>
           <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
           <input
-            class={$errors.applicationUrl ? "input-error block w-full rounded" : "input"}
+            class={$errors.applicationUrl ? "input-error block w-full rounded-sm" : "input"}
             type="url"
             placeholder="https://yourcompany.com/careers/1"
             name="applicationUrl"
@@ -110,7 +110,7 @@
           <label class="label" for="location">
             <span class="font-bold">Location <span class="text-red-400">*</span></span>
             <input
-              class={$errors.location ? "input-error block w-full rounded" : "input"}
+              class={$errors.location ? "input-error block w-full rounded-sm" : "input"}
               type="text"
               placeholder="Remote"
               name="location"
@@ -126,7 +126,7 @@
           <label class="label" for="applicationUrl">
             <span class="font-bold">Salary <span class="text-red-400">*</span></span>
             <input
-              class={$errors.salary ? "input-error block w-full rounded" : "input"}
+              class={$errors.salary ? "input-error block w-full rounded-sm" : "input"}
               type="text"
               placeholder="800000"
               name="salary"
@@ -144,7 +144,7 @@
           <label class="label" for="location">
             <span class="font-bold">Company name <span class="text-red-400">*</span></span>
             <input
-              class={$errors.company ? "input-error block w-full rounded" : "input"}
+              class={$errors.company ? "input-error block w-full rounded-sm" : "input"}
               type="text"
               placeholder="Company Ltd"
               name="company"
@@ -160,7 +160,7 @@
           <label class="label" for="applicationUrl">
             <span class="font-bold">Deadline <span class="text-red-400">*</span></span>
             <input
-              class={$errors.deadline ? "input-error block w-full rounded" : "input"}
+              class={$errors.deadline ? "input-error block w-full rounded-sm" : "input"}
               type="date"
               name="deadline"
               id="deadline"
