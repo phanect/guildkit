@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { page } from "$app/stores";
   import { enhance } from "$app/forms";
 
-  $: path = $page.route.id;
   export let data: {
     isLoggedIn: boolean;
   };
