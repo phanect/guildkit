@@ -1,12 +1,13 @@
 import { z } from "zod";
+import { zod as adaptSuperForms } from "sveltekit-superforms/adapters";
 
-export const signupSchema = z.object({
+export const signupSchema = adaptSuperForms(z.object({
   full_name: z.string().min(4),
   email: z.string().email(),
   password: z.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
-});
+}));
 
-export const loginSchema = z.object({
+export const loginSchema = adaptSuperForms(z.object({
   email: z.string().email(),
   password: z.string(),
-});
+}));
