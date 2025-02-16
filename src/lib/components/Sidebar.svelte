@@ -9,7 +9,7 @@
     <div class="h-16 flex items-center w-full">
       <!-- Logo Section -->
       <a class="h-6 w-6 mx-auto" href="/">
-        <img class="h-6 w-6 mx-auto" src="/assets/icons/dashboard.svg" alt="svelte logo" />
+        <img class="h-6 w-6 mx-auto" src="/images/to-be-added.svg" alt="GuildKit" />
       </a>
     </div>
 
