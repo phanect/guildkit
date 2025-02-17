@@ -4,7 +4,7 @@
   import type { PageProps } from "./$types";
 
   const { data }: PageProps = $props();
-  $: ({ job } = data);
+  const { job } = data;
 </script>
 
 <section class="p-24">
