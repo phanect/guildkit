@@ -1,3 +1,4 @@
+import { error } from "@sveltejs/kit";
 import prisma from "$lib/prisma.ts";
 import type { PageServerLoad } from "./$types";
 
@@ -7,5 +8,10 @@ export const load = (async ({ params: { id }}) => {
       id,
     },
   });
+
+  if (!job) {
+    return error(404);
+  }
+
   return { job };
 }) satisfies PageServerLoad;
