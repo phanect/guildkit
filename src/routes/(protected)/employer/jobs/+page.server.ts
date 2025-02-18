@@ -16,8 +16,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
   let response;
   if (role === "admin") {
     response = await prisma.job.findMany({});
-  }
-  if (role === "employer") {
+  } else if (role === "employer") {
     response = await prisma.job.findMany({
       where: {
         employerId: id,
