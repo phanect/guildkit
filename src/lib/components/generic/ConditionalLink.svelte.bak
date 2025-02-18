@@ -1,0 +1,24 @@
+<script lang="ts">
+  import type { Snippet } from "svelte";
+  import type { HTMLAnchorAttributes, HTMLAttributes } from "svelte/elements";
+
+  type Props = HTMLAnchorAttributes & {
+    linkIf: true;
+    children: Snippet;
+  } | HTMLAttributes<HTMLDivElement> & {
+    linkIf: false;
+    children: Snippet;
+  };
+
+  const { linkIf, children, ...attributes }: Props = $props();
+</script>
+
+{#if linkIf}
+  <a {...attributes}>
+    {@render children()}
+  </a>
+{:else}
+  <div {...attributes}>
+    {@render children()}
+  </div>
+{/if}
