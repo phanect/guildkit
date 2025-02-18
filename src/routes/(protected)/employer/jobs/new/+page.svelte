@@ -2,13 +2,9 @@
   import { superForm } from "sveltekit-superforms/client";
   import { jobSchema } from "$lib/validation/job.validation.ts";
   import Toast, { addToast } from "$lib/components/generic/Toast.svelte";
-  import type { LayoutData } from "../../routes/(protected)/$types";
+  import type { PageProps } from "./$types";
 
-  type Props = {
-    data: LayoutData;
-  };
-
-  let { data }: Props = $props();
+  const { data }: PageProps = $props();
 
   const { form, errors, enhance } = superForm(data.form, {
     validators: jobSchema,

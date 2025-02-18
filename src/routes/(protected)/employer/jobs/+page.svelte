@@ -1,27 +1,17 @@
 <script lang="ts">
   import JobCard from "$lib/components/JobCard.svelte";
   import type { PageProps } from "./$types";
-  import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
-  import type { DrawerSettings } from "@skeletonlabs/skeleton";
-
-  const drawerSettings: DrawerSettings = {
-    id: "add-job",
-    position: "right",
-  };
-  export const handleOpenDrawer = () => {
-    drawerStore.open(drawerSettings);
-  };
 
   const { data }: PageProps = $props();
   const { role } = data;
 </script>
 
 <section class="p-24 flex flex-col">
-  <button
-    on:click={handleOpenDrawer}
+  <a
+    href="/employer/jobs/new"
     class="btn btn-sm bg-black w-fit rounded-full text-white mb-6"
     data-sveltekit-preload-data="hover"
-  >Add</button>
+  >Add</a>
   <div class="grid grid-cols-3 justify-between gap-6">
     {#each data?.jobs as job (job.id)}
       <JobCard {job} {role} />
