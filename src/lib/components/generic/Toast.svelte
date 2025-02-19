@@ -51,7 +51,7 @@
           class="absolute right-4 top-4 grid size-6 place-items-center rounded-full text-magnum-500
           hover:bg-magnum-900/50"
         >
-          <img src="/vendor/octicons/x.svg" class="size-4" decoding="async" />
+          <img src="/vendor/octicons/x.svg" alt="Close" class="size-4" decoding="async" />
         </button>
       </div>
     </div>
