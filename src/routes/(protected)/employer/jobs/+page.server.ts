@@ -46,7 +46,18 @@ export const actions = {
   },
   delete: async (event: RequestEvent) => {
     const data = await event.request.formData();
-    const id = data.get("id")?.toString();
+    const id = data.get("id");
+
+    if (!id) {
+      fail(400, { error: "`id` of the job to delete was not given." });
+      return;
+    }
+
+    if (id instanceof File) {
+      fail(400, { error: "`id` must not be a File." });
+      return;
+    }
+
     await prisma.job.delete({
       where: { id },
     });
