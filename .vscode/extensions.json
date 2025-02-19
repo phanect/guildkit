@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+
+    "svelte.svelte-vscode",
+    "Prisma.prisma",
+    "csstools.postcss",
+    "bradlc.vscode-tailwindcss",
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml",
+  ]
+}
