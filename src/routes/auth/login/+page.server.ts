@@ -50,6 +50,9 @@ export const actions = {
       maxAge: 60 * 60 * 24,
     });
 
+    if (user.role === "CANDIDATE") {
+      return redirect(303, "/");
+    }
     if (user.role === "ADMIN") {
       return redirect(303, "/users");
     }
