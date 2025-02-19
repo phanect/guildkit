@@ -52,12 +52,10 @@ export const actions = {
 
     if (user.role === "CANDIDATE") {
       return redirect(303, "/");
-    }
-    if (user.role === "ADMIN") {
-      return redirect(303, "/users");
-    }
-    if (user.role === "EMPLOYER") {
+    } else if (user.role === "EMPLOYER") {
       return redirect(303, "/employer/jobs");
+    } else if (user.role === "ADMIN") {
+      return redirect(303, "/users");
     }
   },
 };
