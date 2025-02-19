@@ -31,15 +31,15 @@ export const actions = {
       },
     });
 
-    if (user && !(await isValidPassword(form.data.password, user.password))) {
-      return error(400, "Invalid credentials");
+    if (!user || !(await isValidPassword(form.data.password, user.password))) {
+      return error(400, "Invalid email or password");
     }
 
     const userData = {
-      id: user?.id,
-      role: user?.role,
-      email: user?.email,
-      full_name: user?.full_name,
+      id: user.id,
+      role: user.role,
+      email: user.email,
+      full_name: user.full_name,
     };
 
     const token = jwt.sign(userData, JWT_SECRET, { expiresIn: "1d" });
@@ -50,10 +50,10 @@ export const actions = {
       maxAge: 60 * 60 * 24,
     });
 
-    if (user?.role === "admin") {
+    if (user.role === "admin") {
       return redirect(303, "/users");
     }
-    if (user?.role === "employer") {
+    if (user.role === "employer") {
       return redirect(303, "/employer/jobs");
     }
   },
