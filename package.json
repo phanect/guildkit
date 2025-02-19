@@ -6,11 +6,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "lint": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
+    "dev": "pnpm run prepare && vite dev",
+    "build": "pnpm run prepare && vite build",
+    "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint .",
     "clean": "git clean -dX --exclude=\"!.env\" --force",
-    "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install"
+    "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
+    "prepare": "svelte-kit sync"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
