@@ -50,10 +50,10 @@ export const actions = {
       maxAge: 60 * 60 * 24,
     });
 
-    if (user.role === "admin") {
+    if (user.role === "ADMIN") {
       return redirect(303, "/users");
     }
-    if (user.role === "employer") {
+    if (user.role === "EMPLOYER") {
       return redirect(303, "/employer/jobs");
     }
   },

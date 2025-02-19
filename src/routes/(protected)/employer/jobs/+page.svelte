@@ -14,7 +14,7 @@
   >Add</a>
   <div class="grid grid-cols-3 justify-between gap-6">
     {#each jobs as job (job.id)}
-      <JobCard {job} {role} />
+      <JobCard {job} role={role ?? null} />
     {/each}
   </div>
 </section>
