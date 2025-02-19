@@ -27,12 +27,18 @@ model Job {
   updatedAt        DateTime @updatedAt
 }
 
+enum UserRole {
+  ADMIN
+  EMPLOYER
+  CANDIDATE
+}
+
 model User {
   id        String   @id @default(uuid())
   full_name String
   email     String   @unique
   password  String
-  role      String
+  role      UserRole
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Job       Job[]

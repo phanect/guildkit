@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { superValidate } from "sveltekit-superforms/server";
 import prisma from "$lib/prisma.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
+import type { UserRole } from "@prisma/client";
 import type { PageServerLoad, RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 
@@ -11,12 +12,12 @@ export const load: PageServerLoad = async ({ cookies }) => {
   if (typeof token !== "string") {
     return fail(400, { error: "Invalid token" });
   }
-  const decodedToken = jwt.verify(token, JWT_SECRET) as { role: string; id: string; };
+  const decodedToken = jwt.verify(token, JWT_SECRET) as { role: UserRole; id: string; };
   const { id, role } = decodedToken;
   let response;
-  if (role === "admin") {
+  if (role === "ADMIN") {
     response = await prisma.job.findMany({});
-  } else if (role === "employer") {
+  } else if (role === "EMPLOYER") {
     response = await prisma.job.findMany({
       where: {
         employerId: id,

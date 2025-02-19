@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
+  import type { UserRole } from "@prisma/client";
 
   type Props = {
     job: {
@@ -11,7 +12,7 @@
       deadline: Date;
       createdAt: Date;
     };
-    role?: string;
+    role: UserRole | null;
   };
 
   const { job, role }: Props = $props();

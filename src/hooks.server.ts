@@ -16,7 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       }
 
       const userData = jwt.verify(token, JWT_SECRET);
-      if (typeof userData !== "string" && userData.role === "admin") {
+      if (typeof userData !== "string" && userData.role === "ADMIN") {
         return resolve(event);
       } else {
         return redirect(303, "/auth/login");
