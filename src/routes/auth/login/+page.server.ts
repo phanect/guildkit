@@ -56,6 +56,8 @@ export const actions = {
       return redirect(303, "/employer/jobs");
     } else if (user.role === "ADMIN") {
       return redirect(303, "/users");
+    } else {
+      throw new Error("Unexpected user role");
     }
   },
 };
