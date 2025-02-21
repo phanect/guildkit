@@ -6,7 +6,7 @@ import { jobSchema } from "$lib/validation/job.validation.ts";
 import type { PageServerLoad, RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 
-export const load = (async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
   const token = cookies.get("token");
   if (typeof token !== "string") {
     return fail(400, { error: "Invalid token" });
@@ -25,7 +25,7 @@ export const load = (async ({ cookies }) => {
     });
   }
   return { jobs: response, role };
-}) satisfies PageServerLoad;
+};
 
 export const actions = {
   create: async (event: RequestEvent) => {

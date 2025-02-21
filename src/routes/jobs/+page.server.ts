@@ -1,7 +1,7 @@
 import prisma from "$lib/prisma.ts";
 import type { PageServerLoad } from "./$types";
 
-export const load = (async () => {
+export const load: PageServerLoad = async () => {
   const today = new Date();
   const response = await prisma.job.findMany({
     where: {
@@ -11,4 +11,4 @@ export const load = (async () => {
     },
   });
   return { jobs: response };
-}) satisfies PageServerLoad;
+};

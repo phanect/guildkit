@@ -1,6 +1,6 @@
 import { redirect, type Actions } from "@sveltejs/kit";
 
-export const actions = {
+export const actions: Actions = {
   default: async ({ cookies }) => {
     cookies.set("token", "", {
       httpOnly: true,
@@ -9,4 +9,4 @@ export const actions = {
     });
     throw redirect(303, "/auth/login");
   },
-} satisfies Actions;
+};

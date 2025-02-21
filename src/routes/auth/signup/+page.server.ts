@@ -10,7 +10,7 @@ export const load = async (event: RequestEvent) => {
   return { form };
 };
 
-export const actions = {
+export const actions: Actions = {
   default: async (event: RequestEvent) => {
     const form = await superValidate(event, signupSchema);
     if (!form.valid) {
@@ -25,4 +25,4 @@ export const actions = {
     });
     throw redirect(303, "/auth/login");
   },
-} satisfies Actions;
+};
