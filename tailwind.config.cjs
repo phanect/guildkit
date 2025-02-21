@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */ // FIXME cjs is not parsed properly by @phanect/lint currently
+
 /** @type { import("tailwindcss").Config } */
 const config = {
   content: [
