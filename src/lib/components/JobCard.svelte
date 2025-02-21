@@ -33,7 +33,6 @@
         </p>
         <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
         <div class="text-sm flex justify-between">
-          <p class="text-gray-700">Actions</p>
           <div class="flex items-end gap-2">
             <button
               type="submit"
