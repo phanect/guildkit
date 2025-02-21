@@ -1,5 +1,6 @@
 <script lang="ts">
   import Sidebar from "$lib/components/Sidebar.svelte";
+  import "../../app.postcss";
   import type { LayoutProps } from "./$types";
 
   const { children }: LayoutProps = $props();
