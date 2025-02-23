@@ -14,17 +14,26 @@ export const load: PageServerLoad = async ({ cookies }) => {
   }
   const decodedToken = jwt.verify(token, JWT_SECRET) as { role: UserRole; id: string; };
   const { id, role } = decodedToken;
-  let response;
+
   if (role === "ADMIN") {
-    response = await prisma.job.findMany({});
+    return {
+      jobs: await prisma.job.findMany({}),
+      role,
+    };
   } else if (role === "EMPLOYER") {
-    response = await prisma.job.findMany({
-      where: {
-        employerId: id,
-      },
-    });
+    return {
+      jobs: await prisma.job.findMany({
+        where: {
+          employerId: id,
+        },
+      }),
+      role,
+    };
+  } else if (role === "CANDIDATE") {
+    return { role };
+  } else {
+    throw new Error(`Unexpected \`role\` value: "${ role as string }"`);
   }
-  return { jobs: response, role };
 };
 
 export const actions = {
