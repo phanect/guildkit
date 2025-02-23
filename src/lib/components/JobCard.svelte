@@ -23,7 +23,7 @@
     class="rounded-lg hidden group-hover:block animate-rotate-color w-[250%] h-[500%] absolute -top-[60%] -left-[50%] bg-gradient-to-r from-zinc-900 via-gray-200/40 to-zinc-700 shadow-xl"
   ></div>
   {#if role}
-    <div class="block w-full relative z-10 rounded-lg bg-white p-6 sm:p-8">
+    <a class="block w-full relative z-10 rounded-lg bg-white p-6 sm:p-8" href="jobs/{job.id}">
       <div class="mt-12 sm:pr-8">
         <h3 class="text-xl font-bold text-gray-900">
           {job.title}
@@ -33,6 +33,12 @@
         </p>
         <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
         <div class="text-sm flex justify-between">
+          <p class="text-gray-700">Deadline</p>
+          <div class="flex flex-col items-end">
+            <p class="text-gray-400">{job.deadline.toLocaleDateString()}</p>
+            <p class="text-red-300">({getRemainingTime(job.deadline)})</p>
+          </div>
+
           <div class="flex items-end gap-2">
             <button
               type="submit"
@@ -54,7 +60,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </a>
   {:else}
     <a class="block w-full relative z-10 rounded-lg bg-white p-6 sm:p-8" href="jobs/{job.id}">
       <div class="mt-12 sm:pr-8">
