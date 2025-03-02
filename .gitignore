@@ -81,8 +81,8 @@ worker-configuration.d.ts
 .netlify/
 
 # Prisma
-/prisma/*.db
-/prisma/*.db-journal
+/**/prisma/*.db
+/**/prisma/*.db-journal
 
 # Vite
 vite.config.js.timestamp-*

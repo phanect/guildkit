@@ -1,3 +1,13 @@
 {
-  "extends": "./.svelte-kit/tsconfig.json"
+  "extends": "@phanect/configs/ts/nodejs",
+  "include": [
+    "**/*.ts",
+    "**/*.js",
+    "**/*.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    // Use its own tsconfig.json
+    "./workspaces/users/**"
+  ]
 }

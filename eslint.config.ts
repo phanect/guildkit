@@ -1,6 +1,6 @@
 import { core } from "@phanect/lint";
 import { svelte } from "@phanect/lint-svelte";
-import svelteConfig from "./svelte.config.js";
+import svelteConfigUser from "./workspaces/users/svelte.config.js";
 import type { Linter } from "eslint";
 
 const configs: Linter.Config[] = [
@@ -13,8 +13,14 @@ const configs: Linter.Config[] = [
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-        svelteConfig,
+      },
+    },
+  },
+  {
+    files: [ "./workspaces/users/**" ],
+    languageOptions: {
+      parserOptions: {
+        svelteConfig: svelteConfigUser,
       },
     },
   },
