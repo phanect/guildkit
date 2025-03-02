@@ -1,0 +1,22 @@
+{
+  "name": "@guildkit/backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm run prepare && jiti ./scripts/build-db-seed.ts",
+    "build": "pnpm run prepare && vite build",
+    "lint": "pnpm run prepare && tsc --noEmit",
+    "prepare": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0"
+  },
+  "devDependencies": {
+    "@phanect/configs": "latest",
+    "@types/bcryptjs": "^2.4.2",
+    "dayjs": "^1.11.11",
+    "jiti": "^2.4.2",
+    "prisma": "^6.3.0",
+    "typescript": "^5.0.0"
+  }
+}
