@@ -17,6 +17,8 @@
   "dependencies": {
     "@prisma/client": "^6.3.0",
     "bcryptjs": "^2.4.3",
+    "hono": "^4.7.2",
+    "icewall": "file:../icewall/workspaces/icewall/icewall-0.0.1.tgz",
     "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
