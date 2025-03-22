@@ -30,7 +30,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
       role,
     };
   } else if (role === "CANDIDATE") {
-    return { role };
+    return fail(400, { reason: "Unauthorized" });
   } else {
     throw new Error(`Unexpected \`role\` value: "${ role as string }"`);
   }
