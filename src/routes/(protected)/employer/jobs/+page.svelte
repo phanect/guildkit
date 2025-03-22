@@ -1,5 +1,5 @@
 <script lang="ts">
-  import JobCard from "$lib/components/JobCard.svelte";
+  import JobList from "$lib/components/JobList.svelte";
   import type { PageProps } from "./$types";
 
   const { data }: PageProps = $props();
@@ -13,9 +13,6 @@
     class="btn btn-sm bg-black w-fit rounded-full text-white mb-6"
     data-sveltekit-preload-data="hover"
   >Add</a>
-  <div class="grid grid-cols-3 justify-between gap-6">
-    {#each jobs as job (job.id)}
-      <JobCard {job} {editable} />
-    {/each}
-  </div>
+
+  <JobList {jobs} {editable} />
 </section>
