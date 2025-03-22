@@ -1,5 +1,5 @@
 <script lang="ts">
-  import JobCard from "$lib/components/JobCard.svelte";
+  import JobList from "$lib/components/JobList.svelte";
   import type { PageProps } from "./$types";
 
   const { data }: PageProps = $props();
@@ -17,10 +17,5 @@
 </style>
 
 <h1 class="h1">求人検索</h1>
-<section class="p-24 flex flex-col">
-  <div class="grid grid-cols-3 justify-between gap-6">
-    {#each data?.jobs as job (job.id)}
-      <JobCard {job} />
-    {/each}
-  </div>
-</section>
+
+<JobList jobs={ data.jobs } />
