@@ -49,6 +49,15 @@
     "vite": "^6.0.11",
     "zod": "^3.21.4"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma",
+      "svelte-preprocess"
+    ]
+  },
   "engines": {
     "node": "22.x",
     "pnpm": ">=10.x"
