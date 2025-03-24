@@ -1,6 +1,5 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
-  import type { UserRole } from "@prisma/client";
 
   type Props = {
     job: {
@@ -12,11 +11,10 @@
       deadline: Date;
       createdAt: Date;
     };
-    role: UserRole | null;
+    editable?: boolean;
   };
 
-  const { job, role }: Props = $props();
-  const editable = (role && (role == "EMPLOYER" || role === "ADMIN"));
+  const { job, editable = false }: Props = $props();
 </script>
 
 <div class="overflow-hidden group relative rounded-lg p-[1px] flex justify-center items-center">
