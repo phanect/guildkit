@@ -18,9 +18,6 @@
 </script>
 
 <div class="overflow-hidden group relative rounded-lg p-[1px] flex justify-center items-center">
-  <div
-    class="rounded-lg hidden group-hover:block animate-rotate-color w-[250%] h-[500%] absolute -top-[60%] -left-[50%] bg-gradient-to-r from-zinc-900 via-gray-200/40 to-zinc-700 shadow-xl"
-  ></div>
   <a class="block w-full relative z-10 rounded-lg bg-white p-6 sm:p-8" href="jobs/{job.id}">
     <div class="mt-12 sm:pr-8">
       <h3 class="text-xl font-bold text-gray-900">
