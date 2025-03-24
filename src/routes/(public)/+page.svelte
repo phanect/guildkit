@@ -8,7 +8,7 @@
 <section class="p-24 flex flex-col">
   <div class="grid grid-cols-3 justify-between gap-6">
     {#each data?.jobs as job (job.id)}
-      <JobCard {job} role={null} />
+      <JobCard {job} />
     {/each}
   </div>
 </section>
