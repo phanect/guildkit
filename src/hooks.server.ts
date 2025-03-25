@@ -6,9 +6,6 @@ export const handle: Handle = async ({ event, resolve }) => {
   const token = event.cookies.get("token");
   const path = event.route.id;
 
-  if (path?.includes("protected") && !token) {
-    return redirect(303, "/auth/login");
-  }
   if (path?.includes("admin")) {
     try {
       if (!token) {
