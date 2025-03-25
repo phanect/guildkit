@@ -90,7 +90,7 @@
 
   <div class="actions">
     <div class="expire-text">
-      Deadline: {job.deadline.toLocaleDateString()} <span class="text-red-300">({getRemainingTime(job.deadline)})</span>
+      Expires at {job.deadline.toLocaleDateString()} ({getRemainingTime(job.deadline)})
     </div>
 
     {#if editable}
