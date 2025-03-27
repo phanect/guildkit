@@ -5,7 +5,13 @@
   const { isLoggedIn }: LayoutProps["data"] = $props();
 </script>
 
-<nav class="flex items-center justify-between flex-wrap py-6 px-20">
+<style>
+  .nav {
+    padding: 2rem;
+  }
+</style>
+
+<nav class="nav flex items-center justify-between flex-wrap py-6 px-20">
   <div class="flex items-center shrink-0 mr-6">
     <img src="/images/to-be-added.svg" alt="GuildKit" decoding="async" />
     <a href="/" class="font-semibold text-xl tracking-tight">GuildKit</a>
