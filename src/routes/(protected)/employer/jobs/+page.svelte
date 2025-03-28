@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from "$lib/components/generic/Button.svelte";
   import JobList from "$lib/components/JobList.svelte";
   import type { PageProps } from "./$types";
 
@@ -8,11 +9,9 @@
 </script>
 
 <section class="p-24 flex flex-col">
-  <a
-    href="/employer/jobs/new"
-    class="btn btn-sm bg-black w-fit rounded-full text-white mb-6"
-    data-sveltekit-preload-data="hover"
-  >Add</a>
+  <Button href="/employer/jobs/new" preload={true}>
+    Add job
+  </Button>
 
   <JobList {jobs} {editable} />
 </section>

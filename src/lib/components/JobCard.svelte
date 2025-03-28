@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
+  import Button from "./generic/Button.svelte";
 
   type Props = {
     job: {
@@ -36,23 +37,12 @@
 
         {#if editable}
           <div class="flex items-end gap-2">
-            <button
-              type="submit"
-              class="btn btn-sm border border-black w-fit rounded-full hover:bg-black hover:text-white"
-              data-sveltekit-preload-data="hover"
-            >
+            <Button href={`/employer/jobs/edit/${ job.id }`} preload={true}>
               Edit
-            </button>
-            <form method="post" action="/employer/jobs?/delete">
-              <input type="hidden" name="id" value={job.id} />
-              <button
-                type="submit"
-                class="btn btn-sm border border-orange-500 text-orange-500 focus:text-orange-500 hover:bg-red-500 hover:text-white focus:outline-hidden rounded-full"
-                data-sveltekit-preload-data="hover"
-              >
-                Delete
-              </button>
-            </form>
+            </Button>
+            <Button action="/employer/jobs?/delete" params={{ id: job.id }}>
+              Delete
+            </Button>
           </div>
         {/if}
       </div>
