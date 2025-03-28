@@ -2,83 +2,99 @@
   import { enhance } from "$app/forms";
 </script>
 
-<div class="absolute top-[50%] translate-y-[-50%]">
-  <aside class="flex flex-col items-center bg-white text-gray-700 shadow-sm h-full my-auto w-fit">
-    <ul>
-      <!-- Items Section -->
-      <li class="hover:bg-gray-100">
-        <a
-          href="."
-          class="h-16 px-6 flex justify-center items-center w-full
-          focus:text-orange-500"
-        >
-          <img src="/vendor/tabler/inbox.svg" alt="Inbox" decoding="async" />
-        </a>
-      </li>
+<style>
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-      <li class="hover:bg-gray-100">
-        <a
-          href="."
-          class="h-16 px-6 flex justify-center items-center w-full
-          focus:text-orange-500"
-        >
-          <img src="/vendor/tabler/bookmark.svg" alt="Bookmarks" decoding="async" />
-        </a>
-      </li>
+    width: fit-content;
+    height: 100%;
 
-      <li class="hover:bg-gray-100">
-        <a
-          href="."
-          class="h-16 px-6 flex justify-center items-center w-full
-          focus:text-orange-500"
-        >
-          <img src="/vendor/tabler/trash.svg" alt="Trash" decoding="async" />
-        </a>
-      </li>
+    background-color: #ffffff;
+    color: #414141;
+    box-shadow: #e0e0e0 1.25rem 0 1rem -1rem;
+  }
 
-      <li class="hover:bg-gray-100">
-        <a
-          href="."
-          class="h-16 px-6 flex justify-center items-center w-full
-          focus:text-orange-500"
-        >
-          <img src="/vendor/tabler/shopping-cart.svg" alt="Cart" decoding="async" />
-        </a>
-      </li>
+  .fit {
+    width: fit-content;
+    height: fit-content;
 
-      <li class="hover:bg-gray-100">
-        <a
-          href="."
-          class="h-16 px-6 flex justify-center items-center w-full
-          focus:text-orange-500"
-        >
-          <img src="/vendor/tabler/settings.svg" alt="Settings" decoding="async" />
-        </a>
-      </li>
+    /* For `<button>` */
+    cursor: pointer;
+  }
 
-      <li class="hover:bg-gray-100">
-        <a
-          href="."
-          class="h-16 px-6 flex justify-center items-center w-full
-          focus:text-orange-500"
-        >
-          <img src="/vendor/tabler/bell.svg" alt="Notifications" decoding="async" />
-        </a>
-      </li>
-    </ul>
+  .list {
+    width: 100%;
+  }
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    <div class="mt-auto h-16 flex items-center w-full">
-      <!-- Action Section -->
+    width: 100%;
+    height: 4rem;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .item:hover {
+    background-color: #f6f3f4;
+    width: 100%;
+  }
+</style>
+
+<aside class="sidebar">
+  <ul class="list">
+    <li class="item">
+      <a href="." class="fit">
+        <img src="/vendor/tabler/inbox.svg" alt="Inbox" decoding="async" />
+      </a>
+    </li>
+
+    <li class="item">
+      <a href="." class="fit">
+        <img src="/vendor/tabler/bookmark.svg" alt="Bookmarks" decoding="async" />
+      </a>
+    </li>
+
+    <li class="item">
+      <a href="." class="fit">
+        <img src="/vendor/tabler/trash.svg" alt="Trash" decoding="async" />
+      </a>
+    </li>
+
+    <li class="item">
+      <a href="." class="fit">
+        <img src="/vendor/tabler/shopping-cart.svg" alt="Cart" decoding="async" />
+      </a>
+    </li>
+
+    <li class="item">
+      <a href="." class="fit">
+        <img src="/vendor/tabler/settings.svg" alt="Settings" decoding="async" />
+      </a>
+    </li>
+
+    <li class="item">
+      <a href="." class="fit">
+        <img src="/vendor/tabler/bell.svg" alt="Notifications" decoding="async" />
+      </a>
+    </li>
+
+    <li class="item">
       <form
         action="/auth/logout?"
         method="post"
         use:enhance
-        class="focus:text-orange-500 hover:bg-red-200 focus:outline-hidden w-full"
+        class="fit"
       >
-        <button class="h-16 flex justify-center items-center mx-auto" type="submit">
+        <button class="fit" type="submit">
           <img src="/vendor/tabler/logout-2.svg" alt="Logout" decoding="async" />
         </button>
       </form>
-    </div>
-  </aside>
-</div>
+    </li>
+  </ul>
+</aside>
