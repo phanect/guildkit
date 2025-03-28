@@ -28,6 +28,11 @@
     align-items: center;
     column-gap: 1rem;
   }
+
+  .text-separator::after {
+    content: "|";
+    color: #606060;
+  }
 </style>
 
 <nav class="nav flex items-center justify-between flex-wrap py-6 px-20">
@@ -43,7 +48,7 @@
   </a>
   <div class="right-section">
     {#if !isLoggedIn}
-      <Button href="/auth/signup">Sign up</Button>
+      <Button href="/auth/signup">Log in <span class="text-separator"></span> Sign up</Button>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
       <Button action="/auth/logout?">Log out</Button>
