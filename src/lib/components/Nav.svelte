@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
+  import Button from "./generic/Button.svelte";
 
   type Props = {
     isLoggedIn: boolean;
@@ -15,21 +15,10 @@
   </div>
   <div class="flex items-center">
     {#if !isLoggedIn}
-      <a
-        href="/auth/signup"
-        class="btn btn-xl border border-black w-fit rounded-full hover:bg-black hover:text-white"
-        >Sign up</a
-      >
+      <Button href="/auth/signup">Sign up</Button>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
-      <form action="/auth/logout?" method="post" use:enhance>
-        <button
-          type="submit"
-          class="btn btn-xl border border-black font-bold w-fit rounded-full hover:bg-black hover:text-white"
-        >
-          Log out
-        </button>
-      </form>
+      <Button action="/auth/logout?">Log out</Button>
     {/if}
   </div>
 </nav>
