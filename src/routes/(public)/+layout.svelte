@@ -7,6 +7,6 @@
 </script>
 
 <Nav isLoggedIn={data.isLoggedIn} />
-<main class="max-h-fit">
+<main>
   {@render children()}
 </main>
