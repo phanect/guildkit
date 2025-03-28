@@ -4,15 +4,6 @@
 
 <div class="absolute top-[50%] translate-y-[-50%]">
   <aside class="flex flex-col items-center bg-white text-gray-700 shadow-sm h-full my-auto w-fit">
-    <!-- Side Nav Bar-->
-
-    <div class="h-16 flex items-center w-full">
-      <!-- Logo Section -->
-      <a class="h-6 w-6 mx-auto" href="/">
-        <img class="h-6 w-6 mx-auto" src="/images/to-be-added.svg" alt="GuildKit" />
-      </a>
-    </div>
-
     <ul>
       <!-- Items Section -->
       <li class="hover:bg-gray-100">
