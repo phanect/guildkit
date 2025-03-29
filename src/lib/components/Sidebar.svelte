@@ -50,37 +50,37 @@
   <ul class="list">
     <li class="item">
       <a href="." class="fit">
-        <img src="/vendor/tabler/inbox.svg" alt="Inbox" decoding="async" />
+        <img src="/vendor/tabler/inbox.svg" alt="Inbox" width="32" height="32" decoding="async" />
       </a>
     </li>
 
     <li class="item">
       <a href="." class="fit">
-        <img src="/vendor/tabler/bookmark.svg" alt="Bookmarks" decoding="async" />
+        <img src="/vendor/tabler/bookmark.svg" alt="Bookmarks" width="32" height="32" decoding="async" />
       </a>
     </li>
 
     <li class="item">
       <a href="." class="fit">
-        <img src="/vendor/tabler/trash.svg" alt="Trash" decoding="async" />
+        <img src="/vendor/tabler/trash.svg" alt="Trash" width="32" height="32" decoding="async" />
       </a>
     </li>
 
     <li class="item">
       <a href="." class="fit">
-        <img src="/vendor/tabler/shopping-cart.svg" alt="Cart" decoding="async" />
+        <img src="/vendor/tabler/shopping-cart.svg" alt="Cart" width="32" height="32" decoding="async" />
       </a>
     </li>
 
     <li class="item">
       <a href="." class="fit">
-        <img src="/vendor/tabler/settings.svg" alt="Settings" decoding="async" />
+        <img src="/vendor/tabler/settings.svg" alt="Settings" width="32" height="32" decoding="async" />
       </a>
     </li>
 
     <li class="item">
       <a href="." class="fit">
-        <img src="/vendor/tabler/bell.svg" alt="Notifications" decoding="async" />
+        <img src="/vendor/tabler/bell.svg" alt="Notifications" width="32" height="32" decoding="async" />
       </a>
     </li>
 
@@ -92,7 +92,7 @@
         class="fit"
       >
         <button class="fit" type="submit">
-          <img src="/vendor/tabler/logout-2.svg" alt="Logout" decoding="async" />
+          <img src="/vendor/tabler/logout-2.svg" alt="Logout" width="32" height="32" decoding="async" />
         </button>
       </form>
     </li>
