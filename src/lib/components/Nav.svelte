@@ -1,8 +1,11 @@
 <script lang="ts">
-  import type { LayoutProps } from "../../routes/$types";
   import Button from "./generic/Button.svelte";
 
-  const { isLoggedIn }: LayoutProps["data"] = $props();
+  type Props = {
+    isLoggedIn: boolean;
+  };
+
+  const { isLoggedIn }: Props = $props();
 </script>
 
 <style>
