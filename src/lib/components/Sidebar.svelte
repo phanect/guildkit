@@ -9,7 +9,7 @@
     <div class="h-16 flex items-center w-full">
       <!-- Logo Section -->
       <a class="h-6 w-6 mx-auto" href="/">
-        <img class="h-6 w-6 mx-auto" src="/images/to-be-added.svg" alt="GuildKit" />
+        <img class="h-6 w-6 mx-auto" src="/images/to-be-added.svg" alt="GuildKit" width="32" height="32" decoding="async" />
       </a>
     </div>
 
@@ -21,7 +21,7 @@
           class="h-16 px-6 flex justify-center items-center w-full
           focus:text-orange-500"
         >
-          <img src="/vendor/tabler/inbox.svg" alt="Inbox" decoding="async" />
+          <img src="/vendor/tabler/inbox.svg" alt="Inbox" width="32" height="32" decoding="async" />
         </a>
       </li>
 
@@ -31,7 +31,7 @@
           class="h-16 px-6 flex justify-center items-center w-full
           focus:text-orange-500"
         >
-          <img src="/vendor/tabler/bookmark.svg" alt="Bookmarks" decoding="async" />
+          <img src="/vendor/tabler/bookmark.svg" alt="Bookmarks" width="32" height="32" decoding="async" />
         </a>
       </li>
 
@@ -41,7 +41,7 @@
           class="h-16 px-6 flex justify-center items-center w-full
           focus:text-orange-500"
         >
-          <img src="/vendor/tabler/trash.svg" alt="Trash" decoding="async" />
+          <img src="/vendor/tabler/trash.svg" alt="Trash" width="32" height="32" decoding="async" />
         </a>
       </li>
 
@@ -51,7 +51,7 @@
           class="h-16 px-6 flex justify-center items-center w-full
           focus:text-orange-500"
         >
-          <img src="/vendor/tabler/shopping-cart.svg" alt="Cart" decoding="async" />
+          <img src="/vendor/tabler/shopping-cart.svg" alt="Cart" width="32" height="32" decoding="async" />
         </a>
       </li>
 
@@ -61,7 +61,7 @@
           class="h-16 px-6 flex justify-center items-center w-full
           focus:text-orange-500"
         >
-          <img src="/vendor/tabler/settings.svg" alt="Settings" decoding="async" />
+          <img src="/vendor/tabler/settings.svg" alt="Settings" width="32" height="32" decoding="async" />
         </a>
       </li>
 
@@ -71,7 +71,7 @@
           class="h-16 px-6 flex justify-center items-center w-full
           focus:text-orange-500"
         >
-          <img src="/vendor/tabler/bell.svg" alt="Notifications" decoding="async" />
+          <img src="/vendor/tabler/bell.svg" alt="Notifications" width="32" height="32" decoding="async" />
         </a>
       </li>
     </ul>
@@ -85,7 +85,7 @@
         class="focus:text-orange-500 hover:bg-red-200 focus:outline-hidden w-full"
       >
         <button class="h-16 flex justify-center items-center mx-auto" type="submit">
-          <img src="/vendor/tabler/logout-2.svg" alt="Logout" decoding="async" />
+          <img src="/vendor/tabler/logout-2.svg" alt="Logout" width="32" height="32" decoding="async" />
         </button>
       </form>
     </div>
