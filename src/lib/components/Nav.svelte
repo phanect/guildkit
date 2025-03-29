@@ -1,8 +1,11 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import type { LayoutProps } from "../../routes/$types";
 
-  const { isLoggedIn }: LayoutProps["data"] = $props();
+  type Props = {
+    isLoggedIn: boolean;
+  };
+
+  const { isLoggedIn }: Props = $props();
 </script>
 
 <nav class="flex items-center justify-between flex-wrap py-6 px-20">
