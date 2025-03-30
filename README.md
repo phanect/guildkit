@@ -7,6 +7,8 @@ A CMS for job search services
 
 ## Credit
 
+Copyright (c) 2025-present Jumpei Ogawa and the contributors
+
 This project includes source code derived from:
 
 - [JOB PORTAL](https://github.com/irakozetony/jobportal) by [**@irakozetony**](https://github.com/irakozetony)
