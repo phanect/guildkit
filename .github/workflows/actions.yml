@@ -11,6 +11,8 @@ on:
     types:
       - published
 
+permissions: {}
+
 jobs:
   lint:
     runs-on: ubuntu-latest
