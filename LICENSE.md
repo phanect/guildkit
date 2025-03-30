@@ -1,8 +1,8 @@
 Currently, GuildKit is not licensed under legally-strict license.  
 I reserve the right to cancel licensing anytime.
 
-Unfortunately, GuildKit is **not** licensed under open source license.  
-I plan to migrate to Business Source License in the future, but not guaranteed.
+Unfortunately, GuildKit is **not** licensed under open source license as of now.  
+I plan to migrate to GPL, AGPL, or Business Source License in the future, but not guaranteed.
 
 # License
 
