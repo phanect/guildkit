@@ -29,3 +29,25 @@ jobs:
       - run: cp ./.env.example ./.env
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
+
+  publish:
+    needs:
+      # - test
+      - lint
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+        with:
+          node-version: 22
+          check-latest: true
+
+      - run: corepack enable pnpm
+      - run: pnpm install
+      - run: pnpm run build
+
+      - name: Set npm auth token
+        run: echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" > ~/.npmrc
+      - run: pnpm run release
