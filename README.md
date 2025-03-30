@@ -2,6 +2,9 @@
 
 A CMS for job search services
 
+> [!CAUTION]
+> Currently WIP. Do not use in production.
+
 ## Credit
 
 This project includes source code derived from:
