@@ -8,10 +8,19 @@
   const editable = (role === "EMPLOYER" || role === "ADMIN");
 </script>
 
-<section class="p-24 flex flex-col">
+<style>
+  .button-section {
+    display: flex;
+    justify-content: end;
+
+    width: 100%;
+  }
+</style>
+
+<section class="button-section">
   <Button href="/employer/jobs/new" preload={true}>
     Add job
   </Button>
-
-  <JobList {jobs} {editable} />
 </section>
+
+<JobList {jobs} {editable} />
