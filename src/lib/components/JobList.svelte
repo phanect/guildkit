@@ -11,7 +11,7 @@
   const { jobs, editable = false }: Props = $props();
 </script>
 
-<style>
+<style lang="scss">
   .joblist {
     display: flex;
     justify-content: center;

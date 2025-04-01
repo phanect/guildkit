@@ -26,7 +26,7 @@
   const { href, preload = false, action, method = "post", params = {}, children }: Props = $props();
 </script>
 
-<style>
+<style lang="scss">
   .button {
     background-color: #e0e0e0;
     color: #000000;
@@ -41,10 +41,11 @@
     padding-right: 0.75em;
 
     cursor: pointer;
-  }
-  .button:hover {
-    background-color: #c0c0c0;
-    color: #111111;
+
+    &:hover {
+      background-color: #c0c0c0;
+      color: #111111;
+    }
   }
 </style>
 

@@ -2,7 +2,7 @@
   import { enhance } from "$app/forms";
 </script>
 
-<style>
+<style lang="scss">
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
     width: fit-content;
     height: fit-content;
 
-    /* For `<button>` */
+    // For `<button>`
     cursor: pointer;
   }
 
@@ -39,10 +39,11 @@
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-  }
-  .item:hover {
-    background-color: #f6f3f4;
-    width: 100%;
+
+    &:hover {
+      background-color: #f6f3f4;
+      width: 100%;
+    }
   }
 </style>
 

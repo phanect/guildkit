@@ -8,7 +8,7 @@
   const { isLoggedIn }: Props = $props();
 </script>
 
-<style>
+<style lang="scss">
   .nav {
     padding: 2rem;
   }

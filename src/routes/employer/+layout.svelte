@@ -7,7 +7,7 @@
   const { children }: LayoutProps = $props();
 </script>
 
-<style>
+<style lang="scss">
   .wrapper {
     display: flex;
     justify-content: center;
