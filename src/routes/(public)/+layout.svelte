@@ -6,7 +6,7 @@
   const { data, children }: LayoutProps = $props();
 </script>
 
-<style>
+<style lang="scss">
   .main {
     width: 100%;
     padding-left: 2.5em;

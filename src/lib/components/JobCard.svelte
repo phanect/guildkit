@@ -18,7 +18,7 @@
   const { job, editable = false }: Props = $props();
 </script>
 
-<style>
+<style lang="scss">
   .card {
     display: flex;
     flex-direction: column;

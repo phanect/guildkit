@@ -26,7 +26,7 @@
   const { href, preload = false, action, method = "post", params = {}, children }: Props = $props();
 </script>
 
-<style>
+<style lang="scss">
   .button {
     background-color: #e0e0e0;
     color: #000000;

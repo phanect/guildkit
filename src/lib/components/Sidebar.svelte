@@ -2,7 +2,7 @@
   import { enhance } from "$app/forms";
 </script>
 
-<style>
+<style lang="scss">
   .sidebar {
     display: flex;
     flex-direction: column;
