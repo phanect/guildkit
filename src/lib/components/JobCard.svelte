@@ -18,7 +18,7 @@
   const { job, editable = false }: Props = $props();
 </script>
 
-<style>
+<style lang="scss">
   .card {
     display: flex;
     flex-direction: column;
@@ -32,10 +32,10 @@
     width: 100%;
     max-width: 32.5rem;
     padding: 1rem;
-  }
 
-  .card:has(.card-link:hover) {
-    box-shadow: 4px 4px 10px 7px #d0d0d0;
+    &:has(.card-link:hover) {
+      box-shadow: 4px 4px 10px 7px #d0d0d0;
+    }
   }
 
   .card-link {

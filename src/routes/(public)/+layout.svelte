@@ -6,7 +6,7 @@
   const { data, children }: LayoutProps = $props();
 </script>
 
-<style>
+<style lang="scss">
   .main {
     display: flex;
     flex-direction: column;
