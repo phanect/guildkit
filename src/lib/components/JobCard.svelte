@@ -1,17 +1,10 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
+  import type { Job } from "@prisma/client";
 
   type Props = {
-    job: {
-      id: string;
-      description: string;
-      title: string;
-      requirements: string;
-      salary: string;
-      deadline: Date;
-      createdAt: Date;
-    };
+    job: Job;
     editable?: boolean;
   };
 
@@ -64,11 +57,21 @@
 
   .actions {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 0.875rem;
+  }
+
+  .company {
+    font-weight: 700;
+  }
+
+  .actions-right {
+    display: flex;
     justify-content: end;
     align-items: center;
     column-gap: 0.5rem;
-
-    font-size: 0.875rem;
   }
 
   .expire-text {
@@ -89,19 +92,25 @@
   <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
   <div class="actions">
-    <div class="expire-text">
-      Deadline: {job.deadline.toLocaleDateString()} <span class="text-red-300">({getRemainingTime(job.deadline)})</span>
+    <div class="company">
+      {job.company}
     </div>
 
-    {#if editable}
-      <div class="flex items-end gap-2">
-        <Button href={`/employer/jobs/edit/${ job.id }`} preload={true}>
-          Edit
-        </Button>
-        <Button action="/employer/jobs?/delete" params={{ id: job.id }}>
-          Delete
-        </Button>
+    <div class="actions-right">
+      <div class="expire-text">
+        Deadline: {job.deadline.toLocaleDateString()} <span class="text-red-300">({getRemainingTime(job.deadline)})</span>
       </div>
-    {/if}
+
+      {#if editable}
+        <div class="flex items-end gap-2">
+          <Button href={`/employer/jobs/edit/${ job.id }`} preload={true}>
+            Edit
+          </Button>
+          <Button action="/employer/jobs?/delete" params={{ id: job.id }}>
+            Delete
+          </Button>
+        </div>
+      {/if}
+    </div>
   </div>
 </div>
