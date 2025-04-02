@@ -10,15 +10,20 @@
 <style>
   .wrapper {
     display: flex;
-    justify-content: flex-start;
-    column-gap: 2.5rem;
+    justify-content: center;
+    width: 100%;
+  }
+  .main {
+    width: 100%;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
   }
 </style>
 
 <Nav isLoggedIn />
 <div class="wrapper">
   <Sidebar />
-  <main>
+  <main class="main">
     {@render children()}
   </main>
 </div>
