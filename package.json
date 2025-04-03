@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "pnpm run prepare && jiti ./scripts/build-db-seed.ts && vite dev",
     "build": "pnpm run prepare && vite build",
-    "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint",
+    "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm run prepare && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
+    "@markuplint/ml-config": "^4.8.10",
     "@melt-ui/pp": "^0.3.2",
     "@melt-ui/svelte": "^0.86.2",
     "@phanect/configs": "latest",
@@ -36,6 +37,7 @@
     "deepmerge": "^4.3.1",
     "eslint": "^9.11.0",
     "jiti": "^2.4.2",
+    "markuplint": "^4.11.8",
     "postcss": "^8.4.23",
     "postcss-load-config": "^6.0.1",
     "prisma": "^6.3.0",
