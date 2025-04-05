@@ -14,18 +14,15 @@ type LoadReturn = {
 
 export const load: PageServerLoad<LoadReturn> = async ({ cookies }) => {
   const token = cookies.get("token");
+
   if (typeof token !== "string") {
     return fail(400, { reason: "Invalid token" });
   }
+
   const decodedToken = jwt.verify(token, JWT_SECRET) as { role: UserRole; id: string; };
   const { id, role } = decodedToken;
 
-  if (role === "ADMIN") {
-    return {
-      jobs: await prisma.job.findMany({}),
-      role,
-    };
-  } else if (role === "EMPLOYER") {
+  if (role === "EMPLOYER") {
     return {
       jobs: await prisma.job.findMany({
         where: {
@@ -34,10 +31,11 @@ export const load: PageServerLoad<LoadReturn> = async ({ cookies }) => {
       }),
       role,
     };
-  } else if (role === "CANDIDATE") {
-    return fail(400, { reason: "Unauthorized" });
   } else {
-    console.error(`Unexpected \`role\` value: "${ role as string }"`);
+    if (role !== "ADMIN" && role !== "CANDIDATE") {
+      console.error(`Unexpected \`role\` value: "${ role as string }"`);
+    }
+
     return fail(400, { reason: "Unauthorized" });
   }
 };
