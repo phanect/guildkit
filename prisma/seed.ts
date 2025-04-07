@@ -46,6 +46,14 @@ const jobs: Prisma.JobCreateInput[] = [
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
       We are hiring a software developer for our ebook store. Your will be responsibile for one or some of the frontend, backend, and mobile app development.
+
+      # Responsibilities
+
+      You will be responsible for the one or more of the followings:
+
+      - Web frontend development for our ebook store (Svelte)
+      - Backend development for our ebook store (Hono + Cloudflare Workers)
+      - Mobile app development for our ebook store (React Native)
       ...
     `.trim(),
     requirements: `
@@ -57,13 +65,6 @@ const jobs: Prisma.JobCreateInput[] = [
         - Svelte, React, Vue.js, Angular, or any other component-oriented frontend framework(s)
         - Node.js, Cloudflare Workers, or any other backend JavaScript/TypeScript framework(s)/platform(s)
         - React Native or any other mobile JavaScript/TypeScript framework(s)
-    `.trim(),
-    responsibilities: `
-      You will be responsible for the one or more of the followings:
-
-      - Web frontend development for our ebook store (Svelte)
-      - Backend development for our ebook store (Hono + Cloudflare Workers)
-      - Mobile app development for our ebook store (React Native)
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-1",
     location: "Remote (any location in Inazuma)",
@@ -77,6 +78,10 @@ const jobs: Prisma.JobCreateInput[] = [
     title: "[WFH] SRE for our ebook store",
     description: `
       We are hiring an SRE for our ebook store.
+
+      # Responsibilities
+
+      You will be responsible for the infrastructure administration and the site reliability engineering for our online ebook store.
       ...
     `.trim(),
     requirements: `
@@ -90,9 +95,6 @@ const jobs: Prisma.JobCreateInput[] = [
 
       - Experience in Node.js server administration
     `.trim(),
-    responsibilities: `
-      You will be responsible for the infrastructure administration and the site reliability engineering for our online ebook store.
-    `.trim(),
     applicationUrl: "https://phanective.org/job-example-2",
     location: "Remote (any location in Inazuma)",
     salary: "8,000,000 Mora/year",
@@ -105,6 +107,11 @@ const jobs: Prisma.JobCreateInput[] = [
     title: "[WFH] Marketing lead",
     description: `
       We are hiring a marketing lead for our ebook store.
+
+      # Responsibilities
+
+      - Marketing for our ebook store
+      - Marketers management
       ...
     `.trim(),
     requirements: `
@@ -115,10 +122,6 @@ const jobs: Prisma.JobCreateInput[] = [
       # Nice to have
 
       - Basic understandings for HTML
-    `.trim(),
-    responsibilities: `
-      - Marketing for our ebook store
-      - Marketers management
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-3",
     location: "Remote (any location in Inazuma)",
@@ -132,6 +135,11 @@ const jobs: Prisma.JobCreateInput[] = [
     title: "Corporate Engineer",
     description: `
       We are hiring a software engineer for the Shogunate's internal systems.
+
+      # Responsibilities
+
+      - Development for the Shogunate's internal accounting systems (The Kanjou-kei)
+      - Vendor management for the Shogunate's internal accounting systems (The Kanjou-kei)
       ...
     `.trim(),
     requirements: `
@@ -142,10 +150,6 @@ const jobs: Prisma.JobCreateInput[] = [
       # Nice to have
 
       - Experience as a corporate IT admin
-    `.trim(),
-    responsibilities: `
-      - Development for the Shogunate's internal systems
-      - Vendor management for the Shogunate's internal systems
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-4",
     location: "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
