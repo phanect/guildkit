@@ -5,19 +5,25 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "type": "module",
   "scripts": {
-    "dev": "pnpm sync && jiti ./scripts/build-db-seed.ts && vite dev",
+    "dev": "nu ./scripts/scripts.nu dev; pnpm db:stop",
+    "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit; pnpm db:stop",
+    "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres; pnpm db:stop",
+    "db:restart": "nu ./scripts/scripts.nu restartdb",
+    "db:stop": "nu ./scripts/scripts.nu stopdb",
     "build": "pnpm sync && vite build",
     "lint": "pnpm sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm sync && eslint --fix",
-    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
+    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
+    "refreshall": "(pnpm db:restart && prisma migrate reset || :) && cp ./.env.example ./.env && pnpm run refresh",
     "sync": "nu ./scripts/scripts.nu sync",
     "prepare": "nu ./scripts/scripts.nu prepare"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.14.1"
   },
   "devDependencies": {
     "@markuplint/ml-config": "^4.8.10",
