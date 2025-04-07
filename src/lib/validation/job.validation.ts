@@ -5,7 +5,6 @@ export const jobSchema = adaptSuperForms(z.object({
   title: z.string().min(4),
   description: z.string().min(4),
   requirements: z.string().min(4),
-  responsibilities: z.string().min(4),
   applicationUrl: z.string().url(),
   location: z.string().min(2),
   salary: z.string().min(2),

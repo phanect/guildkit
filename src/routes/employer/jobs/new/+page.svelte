@@ -72,22 +72,7 @@
           <small class="text-red-600">{$errors.requirements}</small>
         {/if}
       </div>
-      <div class="mb-6">
-        <label class="label" for="responsibilities">
-          <span class="font-bold">Responsibilities <span class="text-red-400">*</span></span>
-          <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
-          <textarea
-            class={$errors.responsibilities ? "input-error block w-full rounded-sm" : "input"}
-            placeholder="Responsibility 1; Responsibility 2; Responsibility 3; etc"
-            name="responsibilities"
-            id="responsibilities"
-            bind:value={$form.responsibilities}
-          ></textarea>
-        </label>
-        {#if $errors.responsibilities}
-          <small class="text-red-600">{$errors.responsibilities}</small>
-        {/if}
-      </div>
+
       <div class="mb-6">
         <label class="label" for="applicationUrl">
           <span class="font-bold">Application URL <span class="text-red-400">*</span></span>
