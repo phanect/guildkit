@@ -5,18 +5,25 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run prepare && jiti ./scripts/build-db-seed.ts && vite dev",
-    "build": "pnpm run prepare && vite build",
-    "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
-    "fix": "pnpm run prepare && eslint --fix",
-    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
+    "dev": "pnpm run sync && pnpm db:restart && jiti ./scripts/build-db-seed.ts && vite dev && pnpm db:stop",
+    "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit && pnpm db:stop",
+    "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres && pnpm db:stop",
+    "dbrefresh": "pnpm db:stop && rm -rf ./tmp/pgdata && pnpm run refresh",
+    "db:restart": "pg_ctl --pgdata=./tmp/pgdata restart || pg_ctl --pgdata=./tmp/pgdata start",
+    "db:stop": "pg_ctl --pgdata=./tmp/pgdata stop || :",
+    "build": "pnpm run sync && vite build",
+    "lint": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
+    "fix": "pnpm run sync && eslint --fix",
+    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!tmp/pgdata\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "prepare": "svelte-kit sync && prisma migrate dev"
+    "sync": "pnpm db:restart && svelte-kit sync && prisma migrate dev && pnpm db:stop",
+    "prepare": "bash ./scripts/prepare-pg-deps.sh && bash ./scripts/prepare-pg-install.sh && pnpm run sync"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.14.1"
   },
   "devDependencies": {
     "@markuplint/ml-config": "^4.8.10",
