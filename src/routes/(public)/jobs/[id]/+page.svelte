@@ -47,14 +47,7 @@
         {/if}
       {/each}
     </ul>
-    <h3 class="text-2xl font-bold text-gray-800 my-4">Responsibilities</h3>
-    <ul class="list-disc ml-8">
-      {#each parseString(job.responsibilities) as responsibility}
-        {#if responsibility}
-          <li>{responsibility}</li>
-        {/if}
-      {/each}
-    </ul>
+
     <div class="mt-6">
       <a href={job.applicationUrl} class="btn btn-xl bg-black text-white w-fit rounded-full">Apply</a>
     </div>
