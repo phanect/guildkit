@@ -5,18 +5,20 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run prepare && jiti ./scripts/build-db-seed.ts && vite dev",
-    "build": "pnpm run prepare && vite build",
-    "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
-    "fix": "pnpm run prepare && eslint --fix",
+    "dev": "pnpm run sync && pg_ctl restart && jiti ./scripts/build-db-seed.ts && vite dev; pg_ctl stop",
+    "build": "pnpm run sync && vite build",
+    "lint": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
+    "fix": "pnpm run sync && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "prepare": "svelte-kit sync && prisma migrate dev"
+    "sync": "pg_ctl restart && svelte-kit sync && prisma migrate dev; pg_ctl stop",
+    "prepare": "bash ./scripts/setup-pg.sh && pnpm run sync"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.14.1"
   },
   "devDependencies": {
     "@markuplint/ml-config": "^4.8.10",
