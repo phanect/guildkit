@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm run sync && pg_ctl restart && jiti ./scripts/build-db-seed.ts && vite dev; pg_ctl stop",
+    "db": "psql --username=guildkit",
     "build": "pnpm run sync && vite build",
     "lint": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm run sync && eslint --fix",
