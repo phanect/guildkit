@@ -16,8 +16,12 @@ if ! dpkg -l "linux-headers-$(uname -r)" build-essential libssl-dev libreadline-
 fi
 
 mise up
+mise activate bash
 
 pg_ctl restart
-psql --username=postgres --command="CREATE USER guildkit;" || :
+psql --username=postgres --command="CREATE USER guildkit;" # || :
 psql --username=postgres --command="ALTER USER guildkit WITH PASSWORD 'guildkit';"
-createdb guildkit --username=postgres --owner=guildkit || :
+psql --username=postgres --command="ALTER USER guildkit CREATEDB;" # Required only on local machine
+psql --username=guildkit --command="CREATE DATABASE guildkit;"
+# createdb guildkit --username=guildkit --owner=guildkit # || :
+psql --username=postgres --command="GRANT ALL PRIVILEGES ON DATABASE guildkit TO guildkit;"

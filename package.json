@@ -6,14 +6,15 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm run sync && pg_ctl restart && jiti ./scripts/build-db-seed.ts && vite dev; pg_ctl stop",
-    "db": "psql --username=guildkit",
+    "db": "pg_ctl restart && psql --username=guildkit --dbname=guildkit; pg_ctl stop",
+    "dbsu": "pg_ctl restart && psql --username=postgres --dbname=postgres; pg_ctl stop",
     "build": "pnpm run sync && vite build",
     "lint": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm run sync && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
     "sync": "pg_ctl restart && svelte-kit sync && prisma migrate dev; pg_ctl stop",
-    "prepare": "bash ./scripts/setup-pg.sh && pnpm run sync"
+    "prepare": "bash ./scripts/prepare-pg.sh && pnpm run sync"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
