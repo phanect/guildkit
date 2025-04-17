@@ -5,18 +5,25 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run prepare && jiti ./scripts/build-db-seed.ts && vite dev",
-    "build": "pnpm run prepare && vite build",
-    "lint": "pnpm run prepare && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
-    "fix": "pnpm run prepare && eslint --fix",
-    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
+    "dev": "pnpm run sync && pnpm db:restart && jiti ./scripts/build-db-seed.ts && vite dev && pnpm db:stop",
+    "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit && pnpm db:stop",
+    "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres && pnpm db:stop",
+    "dbrefresh": "pnpm db:stop && rm -rf ./tmp/pgdata && pnpm run refresh",
+    "db:restart": "pg_ctl --pgdata=./tmp/pgdata restart || pg_ctl --pgdata=./tmp/pgdata start",
+    "db:stop": "pg_ctl --pgdata=./tmp/pgdata stop || :",
+    "build": "pnpm run sync && vite build",
+    "lint": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
+    "fix": "pnpm run sync && eslint --fix",
+    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!tmp/pgdata\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "prepare": "svelte-kit sync && prisma migrate dev"
+    "sync": "pnpm db:restart && svelte-kit sync && prisma migrate dev && pnpm db:stop",
+    "prepare": "bash ./scripts/prepare-pg-deps.sh && bash ./scripts/prepare-pg-install.sh && pnpm run sync"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.14.1"
   },
   "devDependencies": {
     "@markuplint/ml-config": "^4.8.10",
@@ -25,7 +32,7 @@
     "@phanect/configs": "latest",
     "@phanect/lint": "latest",
     "@phanect/lint-svelte": "latest",
-    "@sveltejs/adapter-auto": "^4.0.0",
+    "@sveltejs/adapter-node": "^5.2.12",
     "@sveltejs/kit": "^2.17.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tailwindcss/forms": "^0.5.3",
@@ -67,5 +74,5 @@
     "node": "22.x",
     "pnpm": ">=10.x"
   },
-  "packageManager": "pnpm@10.7.1+sha512.2d92c86b7928dc8284f53494fb4201f983da65f0fb4f0d40baafa5cf628fa31dae3e5968f12466f17df7e97310e30f343a648baea1b9b350685dafafffdf5808"
+  "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677"
 }
