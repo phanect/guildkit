@@ -29,6 +29,9 @@ const config = {
             "../**/*.ts",
             "../**/*.js",
           ],
+          exclude: [
+            "../build/**",
+          ],
         },
       ], {
         arrayMerge: (arr1, arr2) => {
