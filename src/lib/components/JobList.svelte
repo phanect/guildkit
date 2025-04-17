@@ -1,6 +1,6 @@
 <script lang="ts">
   import JobCard from "$lib/components/JobCard.svelte";
-  import type { Job } from "@prisma/client";
+  import type { Job } from "$lib/prisma/index.d.ts";
   import JobCardEmpty from "./JobCardEmpty.svelte";
 
   type Props = {

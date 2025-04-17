@@ -31,6 +31,7 @@ const config = {
           ],
           exclude: [
             "../build/**",
+            "../src/lib/prisma/**",
           ],
         },
       ], {

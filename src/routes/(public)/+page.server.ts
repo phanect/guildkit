@@ -1,5 +1,5 @@
 import prisma from "$lib/prisma.ts";
-import type { Job } from "@prisma/client";
+import type { Job } from "$lib/prisma/index.d.ts";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad<{ jobs: Job[]; }> = async () => {

@@ -1,4 +1,11 @@
 #
+# Project-specific
+#
+
+# Prisma client
+/src/lib/prisma/
+
+#
 # System
 #
 

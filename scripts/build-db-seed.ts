@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../src/lib/prisma/index.js";
 import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 
 const candidates: Parameters<typeof prisma.user.upsert>[0]["create"][] = [

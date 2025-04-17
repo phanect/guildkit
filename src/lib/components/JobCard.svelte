@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
-  import type { Job } from "@prisma/client";
+  import type { Job } from "$lib/prisma/index.d.ts";
 
   type Props = {
     job: Job;

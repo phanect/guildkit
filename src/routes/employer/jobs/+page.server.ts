@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { superValidate } from "sveltekit-superforms/server";
 import prisma from "$lib/prisma.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
-import type { Job, UserRole } from "@prisma/client";
+import type { Job, UserRole } from "$lib/prisma/index.d.ts";
 import type { PageServerLoad, RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 

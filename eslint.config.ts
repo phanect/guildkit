@@ -7,6 +7,7 @@ const configs: Linter.Config[] = [
   {
     ignores: [
       "./build/**",
+      "./src/lib/prisma/**",
     ],
   },
   ...core,
