@@ -4,6 +4,11 @@ import svelteConfig from "./svelte.config.js";
 import type { Linter } from "eslint";
 
 const configs: Linter.Config[] = [
+  {
+    ignores: [
+      "./build/**",
+    ],
+  },
   ...core,
   ...svelte,
 
