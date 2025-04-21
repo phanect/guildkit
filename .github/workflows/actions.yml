@@ -14,6 +14,47 @@ on:
 permissions: {}
 
 jobs:
+  test:
+    name: test on Node.js v${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 20
+          - 22
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - name: Use Node.js v${{ matrix.node-version }}
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          check-latest: true
+          cache: pnpm
+
+      - name: cache software installed by mise
+        id: cache-mise
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/mise
+          key: ${{ runner.os }}-postgresql
+
+      - name: set up mise
+        run: |
+          wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
+          echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+          echo -e "\neval \"\$(mise activate bash)\"\n" | tee --append ~/.bashrc
+
+      - name: install system dependencies
+        run: |
+          sudo apt update -y -qq
+          sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev libbison-dev flex mise
+
+      - run: cp ./.env.example ./.env
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      # TODO - run: pnpm test
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +91,7 @@ jobs:
 
   publish:
     needs:
-      # - test
+      - test
       - lint
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
