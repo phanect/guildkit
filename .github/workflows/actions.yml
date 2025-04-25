@@ -26,6 +26,24 @@ jobs:
           check-latest: true
           cache: pnpm
 
+      - name: cache software installed by mise
+        id: cache-mise
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/mise
+          key: ${{ runner.os }}-postgresql
+
+      - name: set up mise
+        run: |
+          wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
+          echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+          echo -e "\neval \"\$(mise activate bash)\"\n" | tee --append ~/.bashrc
+
+      - name: install system dependencies
+        run: |
+          sudo apt update -y -qq
+          sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev libbison-dev flex mise
+
       - run: cp ./.env.example ./.env
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
