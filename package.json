@@ -11,7 +11,7 @@
     "fix": "pnpm run prepare && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!*.db\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "prepare": "svelte-kit sync && prisma migrate dev"
+    "prepare": "nu ./scripts/scripts.nu prepare"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
@@ -38,6 +38,7 @@
     "eslint": "^9.11.0",
     "jiti": "^2.4.2",
     "markuplint": "^4.11.8",
+    "nushell": "^0.103.0",
     "postcss": "^8.4.23",
     "postcss-load-config": "^6.0.1",
     "prisma": "^6.3.0",
@@ -60,7 +61,8 @@
       "es5-ext",
       "esbuild",
       "prisma",
-      "svelte-preprocess"
+      "svelte-preprocess",
+      "unrs-resolver"
     ]
   },
   "engines": {
