@@ -11,12 +11,16 @@ if not ("NODE_ENV" in $env) {
 
 let isLocal = ($env.NODE_ENV == "development")
 
-def "main prepare" [] {
+def "main sync" [] {
   pnpm svelte-kit sync
 
   if ($isLocal) {
     pnpm prisma migrate dev
   }
+}
+
+def "main prepare" [] {
+  main sync
 }
 
 # Required to run subcommands
