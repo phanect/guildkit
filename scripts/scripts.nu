@@ -49,6 +49,8 @@ def "main sync" [--startdb] {
     if not $startdb {
       main stopdb
     }
+  } else {
+    pnpm prisma generate
   }
 }
 
