@@ -5,6 +5,16 @@ A CMS for job search services
 > [!CAUTION]
 > Currently WIP. Do not use in production.
 
+## Development
+
+```sh
+cd /path/to/guildkit
+cp ./.env.example ./.env
+pnpm install
+```
+
+Then run `pnpm dev` to run GuildKit on your local machine.
+
 ## Credit
 
 Copyright (c) 2025-present Jumpei Ogawa and the contributors
