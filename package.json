@@ -18,6 +18,7 @@
     "fix": "pnpm sync && eslint --fix",
     "clean": "pnpm db:stop; git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
+    "periodic": "nu ./scripts/scripts.nu periodic",
     "sync": "nu ./scripts/scripts.nu sync",
     "prepare": "nu ./scripts/scripts.nu prepare"
   },
@@ -34,6 +35,7 @@
     "@phanect/configs": "latest",
     "@phanect/lint": "latest",
     "@phanect/lint-svelte": "latest",
+    "@phanect/utils": "^1.5.0",
     "@sveltejs/adapter-auto": "^6.0.0",
     "@sveltejs/kit": "^2.17.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
@@ -45,6 +47,7 @@
     "dayjs": "^1.11.11",
     "deepmerge": "^4.3.1",
     "eslint": "^9.11.0",
+    "fast-xml-parser": "^5.2.1",
     "jiti": "^2.4.2",
     "markuplint": "^4.11.8",
     "nushell": "^0.104.0",
