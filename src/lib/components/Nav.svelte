@@ -35,6 +35,12 @@
   }
 </style>
 
+<!-- TODO Pre-alpha caution: Delete on the official release -->
+<div style="display: flex; justify-content: center; align-items: center; width=100%; height: 2.5rem; background-color: red; color: white;">
+  Caution: GuildKit is still pre-alpha state and there are probably a lot of bugs. Do not enter any private information for your security.
+</div>
+<!-- /Pre-alpha caution -->
+
 <nav class="nav flex items-center justify-between flex-wrap py-6 px-20">
   <a href="/" class="title">
     <img
