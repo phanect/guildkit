@@ -37,6 +37,21 @@ def "main stopdb" [] {
   }
 }
 
+def "main periodic" [--startdb] {
+  jiti ./scripts/periodic-generate.ts
+
+  const newBranch = "bot-rebuild-enum-$(date --iso-8601)"
+
+  git fetch origin
+  git switch --create $newBranch
+  git add --all
+
+  if (git diff --cached | is-not-empty) {
+    git commit --message="feat: rebuild Prisma enum of currency codes"
+    gh pr create --base=main
+  }
+}
+
 def "main sync" [--startdb] {
   pnpm svelte-kit sync
 
