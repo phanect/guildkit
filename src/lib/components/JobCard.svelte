@@ -80,7 +80,7 @@
 </style>
 
 <div class="card">
-  <a class="card-link" href="jobs/{job.id}">
+  <a class="card-link" href="/jobs/{job.id}">
     <h3 class="card-title">
       {job.title}
     </h3>
