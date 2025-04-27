@@ -56,9 +56,7 @@
       {/each}
     </ul>
     <div class="mt-6">
-      <a href={job.applicationUrl} class="btn btn-xl bg-black text-white w-fit rounded-full"
-        >Apply</a
-      >
+      <a href={job.applicationUrl} class="btn btn-xl bg-black text-white w-fit rounded-full">Apply</a>
     </div>
   </div>
 </section>
