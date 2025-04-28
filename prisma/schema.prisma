@@ -27,7 +27,7 @@ model Job {
 
 enum UserRole {
   ADMIN
-  EMPLOYER
+  RECRUITER
   CANDIDATE
 }
 

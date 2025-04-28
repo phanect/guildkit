@@ -21,7 +21,7 @@ export const actions: Actions = {
     }
     const password = await hashPassword(form.data.password);
     await prisma.user.create({
-      data: { ...form.data, role: "EMPLOYER", password },
+      data: { ...form.data, role: "RECRUITER", password },
     });
     return redirect(303, "/auth/login");
   },

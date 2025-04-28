@@ -25,7 +25,7 @@ export const load: PageServerLoad<LoadReturn> = async ({ cookies }) => {
       jobs: await prisma.job.findMany({}),
       role,
     };
-  } else if (role === "EMPLOYER") {
+  } else if (role === "RECRUITER") {
     return {
       jobs: await prisma.job.findMany({
         where: {
