@@ -24,7 +24,7 @@
       <span
         class="bg-green-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full inline-flex gap-2"
       >
-        <img src="/vendor/zondicons/currency-dollar.svg" alt="Money Icon" width="16" />
+        <img src="/vendor/tabler/coins.svg" alt="Salary" width="16" />
         {job.salary}
       </span>
       <span
