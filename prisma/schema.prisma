@@ -33,7 +33,7 @@ enum UserRole {
 
 model User {
   id        String   @id @default(uuid())
-  full_name String
+  fullname  String
   email     String   @unique
   password  String
   role      UserRole

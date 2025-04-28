@@ -39,7 +39,7 @@ export const actions = {
       id: user.id,
       role: user.role,
       email: user.email,
-      full_name: user.full_name,
+      fullname: user.fullname,
     };
 
     const token = jwt.sign(userData, JWT_SECRET, { expiresIn: "1d" });
