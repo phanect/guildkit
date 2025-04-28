@@ -67,7 +67,9 @@ const jobs: Prisma.JobCreateInput[] = [
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-1",
     location: "Remote (any location in Inazuma)",
-    salary: "8,000,000 Mora/year",
+    salary: 8000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
@@ -97,7 +99,9 @@ const jobs: Prisma.JobCreateInput[] = [
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-2",
     location: "Remote (any location in Inazuma)",
-    salary: "8,000,000 Mora/year",
+    salary: 8000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
@@ -126,7 +130,9 @@ const jobs: Prisma.JobCreateInput[] = [
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-3",
     location: "Remote (any location in Inazuma)",
-    salary: "8,000,000 Mora/year",
+    salary: 8000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
@@ -155,7 +161,9 @@ const jobs: Prisma.JobCreateInput[] = [
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-4",
     location: "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
-    salary: "9,000,000 Mora/year",
+    salary: 9000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Tenryou Commission, The Shogunate of Inazuma",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
