@@ -23,20 +23,20 @@ const candidates: Prisma.UserCreateInput[] = [
   },
 ];
 
-const employers = [
+const recruiters = [
   {
     id: "yaemiko",
     fullname: "Miko Yae",
     email: "miko.yae@yaedo.example.com",
     password: await hashPassword("Pa$$w0rd!"),
-    role: "EMPLOYER",
+    role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
   {
     id: "raidenei",
-    full_name: "Ei Raiden",
+    fullname: "Ei Raiden",
     email: "ei.raiden@inazuma.gov",
     password: await hashPassword("Pa$$w0rd!"),
-    role: "EMPLOYER",
+    role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
 ];
 
@@ -73,7 +73,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[0].id },
+      connect: { id: recruiters[0].id },
     },
   },
   {
@@ -105,7 +105,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[0].id },
+      connect: { id: recruiters[0].id },
     },
   },
   {
@@ -136,7 +136,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[0].id },
+      connect: { id: recruiters[0].id },
     },
   },
   {
@@ -167,7 +167,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Tenryou Commission, The Shogunate of Inazuma",
     deadline: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[1].id },
+      connect: { id: recruiters[1].id },
     },
   },
 ];
@@ -175,7 +175,7 @@ const jobs: Prisma.JobCreateInput[] = [
 const prisma = new PrismaClient();
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
-for (const user of [ ...candidates, ...employers ]) {
+for (const user of [ ...candidates, ...recruiters ]) {
   await prisma.user.create({
     data: user,
   });
