@@ -28,19 +28,19 @@
 
   <form method="post" use:enhance>
     <div>
-      <label class="label" for="full_name">
+      <label class="label" for="fullname">
         <span>Full name</span>
         <input
-          class={$errors.full_name ? "input-error block w-full" : "input"}
+          class={$errors.fullname ? "input-error block w-full" : "input"}
           type="text"
           placeholder="John Doe"
-          name="full_name"
-          id="full_name"
-          bind:value={$form.full_name}
+          name="fullname"
+          id="fullname"
+          bind:value={$form.fullname}
         />
       </label>
-      {#if $errors.full_name}
-        <small class="text-red-600">{$errors.full_name}</small>
+      {#if $errors.fullname}
+        <small class="text-red-600">{$errors.fullname}</small>
       {/if}
     </div>
     <div>

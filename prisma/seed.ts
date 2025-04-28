@@ -4,19 +4,19 @@ import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 
 const candidates: Prisma.UserCreateInput[] = [
   {
-    full_name: "Ayaka Kamisato",
+    fullname: "Ayaka Kamisato",
     email: "ayaka.kamisato@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
   {
-    full_name: "Shinobu Kuki",
+    fullname: "Shinobu Kuki",
     email: "kuki@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
   {
-    full_name: "Thoma",
+    fullname: "Thoma",
     email: "thoma@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
@@ -26,7 +26,7 @@ const candidates: Prisma.UserCreateInput[] = [
 const employers = [
   {
     id: "yaemiko",
-    full_name: "Miko Yae",
+    fullname: "Miko Yae",
     email: "miko.yae@yaedo.example.com",
     password: await hashPassword("Pa$$w0rd!"),
     role: "EMPLOYER",
