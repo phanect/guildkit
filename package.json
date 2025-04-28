@@ -8,6 +8,8 @@
     "dev": "nu ./scripts/scripts.nu dev; pnpm db:stop",
     "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit; pnpm db:stop",
     "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres; pnpm db:stop",
+    "resetdb": "pnpm db:restart && prisma migrate reset",
+    "resetdb:demo": "prisma migrate reset --force",
     "db:restart": "nu ./scripts/scripts.nu restartdb",
     "db:stop": "nu ./scripts/scripts.nu stopdb",
     "build": "pnpm sync && vite build",
@@ -16,7 +18,6 @@
     "fix": "pnpm sync && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "refreshall": "(pnpm db:restart && prisma migrate reset || :) && cp ./.env.example ./.env && pnpm run refresh",
     "sync": "nu ./scripts/scripts.nu sync",
     "prepare": "nu ./scripts/scripts.nu prepare"
   },
