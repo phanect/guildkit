@@ -25,7 +25,8 @@
         class="bg-green-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full inline-flex gap-2"
       >
         <img src="/vendor/tabler/coins.svg" alt="Salary" width="16" />
-        {job.salary}
+        <!-- TODO Use user's locale in `toLocaleString()` -->
+        {job.salary.toLocaleString("en-US")} {job.currency}/{job.salaryPer}
       </span>
       <span
         class="bg-red-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full inline-flex gap-2"

@@ -14,7 +14,9 @@ model Job {
   requirements     String
   applicationUrl   String
   location         String
-  salary           String
+  salary           Int
+  currency         Currency
+  salaryPer        SalaryPer
   company          String
   employer         User     @relation(fields: [employerId], references: [id])
   employerId       String
@@ -38,6 +40,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Job       Job[]
+}
+
+enum SalaryPer {
+  YEAR
+  MONTH
+  DAY
+  HOUR
 }
 
 // ↓ AUTO_GENERATED_DO_NOT_EDIT ↓
