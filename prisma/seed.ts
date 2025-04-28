@@ -23,20 +23,20 @@ const candidates: Prisma.UserCreateInput[] = [
   },
 ];
 
-const employers = [
+const recruiters = [
   {
     id: "yaemiko",
     fullname: "Miko Yae",
     email: "miko.yae@yaedo.example.com",
     password: await hashPassword("Pa$$w0rd!"),
-    role: "EMPLOYER",
+    role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
   {
     id: "raidenei",
-    full_name: "Ei Raiden",
+    fullname: "Ei Raiden",
     email: "ei.raiden@inazuma.gov",
     password: await hashPassword("Pa$$w0rd!"),
-    role: "EMPLOYER",
+    role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
 ];
 
@@ -73,7 +73,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: employers[0].id,
+    employerId: recruiters[0].id,
   },
   {
     id: "dummy-job-2",
@@ -104,7 +104,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: employers[0].id,
+    employerId: recruiters[0].id,
   },
   {
     id: "dummy-job-3",
@@ -134,7 +134,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: employers[0].id,
+    employerId: recruiters[0].id,
   },
   {
     id: "dummy-job-4",
@@ -164,14 +164,14 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Tenryou Commission, The Shogunate of Inazuma",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: employers[1].id,
+    employerId: recruiters[1].id,
   },
 ];
 
 const prisma = new PrismaClient();
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
-for (const user of [ ...candidates, ...employers ]) {
+for (const user of [ ...candidates, ...recruiters ]) {
   await prisma.user.upsert({
     where: {
       email: user.email,
