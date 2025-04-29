@@ -19,6 +19,7 @@ model Job {
   salaryPer        SalaryPer
   employer         Organization @relation(fields: [ employerId ], references: [ id ])
   employerId       String
+  candidates       User[]       @relation
   expiresAt        DateTime
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -45,7 +46,7 @@ model User {
   banExpires DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Job       Job[]
+  appliedJobs   Job[] @relation
   sessions  Session[]
   accounts  Account[]
   members   Member[]
