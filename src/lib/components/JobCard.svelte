@@ -1,10 +1,10 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
-  import type { Job } from "@prisma/client";
+  import type { NestedJob } from "$lib/prisma.ts";
 
   type Props = {
-    job: Job;
+    job: NestedJob;
     editable?: boolean;
   };
 
@@ -93,7 +93,7 @@
 
   <div class="actions">
     <div class="company">
-      {job.company}
+      {job.organization.name}
     </div>
 
     <div class="actions-right">

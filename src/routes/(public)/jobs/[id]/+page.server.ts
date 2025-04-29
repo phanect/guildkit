@@ -7,6 +7,13 @@ export const load: PageServerLoad = async ({ params: { id }}) => {
     where: {
       id,
     },
+    include: {
+      organization: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 
   if (!job) {

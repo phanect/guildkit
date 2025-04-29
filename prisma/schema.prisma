@@ -17,9 +17,8 @@ model Job {
   salary           Int
   currency         Currency
   salaryPer        SalaryPer
-  company          String
-  employer         User     @relation(fields: [employerId], references: [id])
-  employerId       String
+  organization     Organization @relation(fields: [ organizationId ], references: [ id ])
+  organizationId   Int
   deadline         DateTime
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -37,9 +36,22 @@ model User {
   email     String   @unique
   password  String
   role      UserRole
+  organizations Organization[] @relation
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Job       Job[]
+}
+
+model Organization {
+  id         Int   @id @default(autoincrement())
+  name       String
+  emails     String[]
+  addresses  String[]
+  currencies Currency[]
+  recruiters User[]   @relation
+  jobs       Job[]    @relation
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 enum SalaryPer {
