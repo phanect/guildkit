@@ -19,6 +19,7 @@ model Job {
   salaryPer        SalaryPer
   organization     Organization @relation(fields: [ organizationId ], references: [ id ])
   organizationId   Int
+  candidates       User[]       @relation
   deadline         DateTime
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -37,9 +38,9 @@ model User {
   password  String
   role      UserRole
   organizations Organization[] @relation
+  appliedJobs   Job[] @relation
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Job       Job[]
 }
 
 model Organization {
