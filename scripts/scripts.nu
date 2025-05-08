@@ -16,8 +16,6 @@ let isLocal = ($env.NODE_ENV == "development")
 
 def "main dev" [] {
   main sync --startdb
-
-  pnpm jiti ./scripts/build-db-seed.ts
   pnpm vite dev
 }
 

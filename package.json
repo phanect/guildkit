@@ -74,6 +74,9 @@
       "unrs-resolver"
     ]
   },
+  "prisma": {
+    "seed": "jiti ./prisma/seed.ts"
+  },
   "engines": {
     "node": "20.x || 22.x",
     "pnpm": ">=10.x"
