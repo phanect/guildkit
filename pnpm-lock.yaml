@@ -79,8 +79,8 @@ importers:
         specifier: ^4.11.8
         version: 4.12.0(typescript@5.8.3)
       nushell:
-        specifier: ^0.103.0
-        version: 0.103.0
+        specifier: ^0.104.0
+        version: 0.104.0
       postcss:
         specifier: ^8.4.23
         version: 8.5.3
@@ -492,43 +492,43 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nushell/darwin-arm64@0.103.0':
-    resolution: {integrity: sha512-JfxxVHwHndyN7gEhmyuqiZfB/n3Knzww+qGBp3+2kyQq8OJli3hbO86ElGVIiehmZohDewqYHBeJPuSDh7LFbw==}
+  '@nushell/darwin-arm64@0.104.0':
+    resolution: {integrity: sha512-WUq0S/BeAKTlBxc3BwQliPlIgkLixr7kXNPW5uE6puIAqeu4qjXbQvtfgYrNhCXAHKDdewL21KTMSFM5jJoB/w==}
     cpu: [arm64]
     os: [darwin]
 
-  '@nushell/darwin-x64@0.103.0':
-    resolution: {integrity: sha512-JWyN3EpRs9XUvAnIyBnhM2vt8FPIsJlZFX0Nkfm7cmavi9jhsihwQ5UAwQH0+fS35BuLU3ym87yv05LUCR+q+A==}
+  '@nushell/darwin-x64@0.104.0':
+    resolution: {integrity: sha512-4ae4SidnP7ujZ6ZcZREqOWS0Ug/GVAj4RV+o4YWqTQMWAH84Y6BnYal7rEKDy9bywNNC4ssw8NEPCzCUOejS6g==}
     cpu: [x64]
     os: [darwin]
 
-  '@nushell/linux-arm64@0.103.0':
-    resolution: {integrity: sha512-GAHSFU+Dr4lRpWFPFMUKCdrVLbAoPvsp+t42pU1oyR+MZJqnJ4ix4zjwRsHsNan8ptfyYZdikjSDewZ8UMaSFg==}
+  '@nushell/linux-arm64@0.104.0':
+    resolution: {integrity: sha512-S2izlAbXqZ6ZXcIqgKnD2ex+ws92kEYxdKnFXvwyEuqnxi7nmhkftCuRnJnHHPENtbgw/G6tCkGFqAqb+A7jGQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@nushell/linux-arm@0.103.0':
-    resolution: {integrity: sha512-7wJQwY/FjCRONJt7qpFmRX9uZwBUOYc4ljDou6BcNkCLe2fBccYcaqRH8ONdpKldAY8rzfHbV35zQXCCM4CZhA==}
+  '@nushell/linux-arm@0.104.0':
+    resolution: {integrity: sha512-LTVPL7UTyqI2Ez2AWVF3zCso7in1y2U3Fx9YOZ83hGqwYLJfrPA5OwfQueDOIc3AEkSvwyFT1HsOIOmA8U4UtQ==}
     cpu: [arm]
     os: [linux]
 
-  '@nushell/linux-riscv64@0.103.0':
-    resolution: {integrity: sha512-WHsJxk3AXkL+oGOUegZMtsb0Z2zoHmx9Ykb13i4fZvfW4pukbQ9tUvTD/xcatgO/rAlDto8HNT3Ees+Rh4RWGg==}
+  '@nushell/linux-riscv64@0.104.0':
+    resolution: {integrity: sha512-NAjiNhaUaX8kiq95oC9kMmCb7/mEUqTnX6iGIPODjqf4aegU4oo8FFJwvjRSz6n8sVM7GWTGS3S0CQb2dZMNBw==}
     cpu: [riscv64]
     os: [linux]
 
-  '@nushell/linux-x64@0.103.0':
-    resolution: {integrity: sha512-7mhi6zLNv5I926vRTI4KAdNT0Drdg5+4le3q7Pg/oPEY9nM9drwnznCvCvuOQY+a5oNKKoC4Iw2wTDJGMUZyHw==}
+  '@nushell/linux-x64@0.104.0':
+    resolution: {integrity: sha512-NlMVBkKBWgArf8BlhZ6sPQDRwx/hmxKIv59IjWNZs9uOeNWHowryRClhggM86FD/Nr0hHbgzl653tVCpBoMkAQ==}
     cpu: [x64]
     os: [linux]
 
-  '@nushell/windows-arm64@0.103.0':
-    resolution: {integrity: sha512-KBQyjRY5lJTgUdpy31EagHoq9VjUqJngx96qSFgUf3WHjsyvLLhVpeyiedy8kW4m5EJCtAWt60NveXmTRKNZBQ==}
+  '@nushell/windows-arm64@0.104.0':
+    resolution: {integrity: sha512-iFjFCA1QwUvGuZGH+zuagJGze3lauZFEfxUHfxGUzWuSwL+9Hsm9ax2GSR3Y35n4kqw+tttaYvGwelOSGcpQfA==}
     cpu: [arm64]
     os: [win32]
 
-  '@nushell/windows-x64@0.103.0':
-    resolution: {integrity: sha512-n88Qnh7zfRb/SCeMcllW/o3bHrMMc0nTiqnU0HJs2gz9qYMon7c7ZsEWT9tLA4KXld0GIOiTWwDVk+rgMRItkA==}
+  '@nushell/windows-x64@0.104.0':
+    resolution: {integrity: sha512-mE+6IpIxKMQDhJLQe2ye13zJoMn3a/HXAx5GUGU2bVYs2LLNdpTm+x7+/Azvi9gS0PtYz51ivWdWT13T8WJz7A==}
     cpu: [x64]
     os: [win32]
 
@@ -2489,8 +2489,8 @@ packages:
     resolution: {integrity: sha512-IO9QvjUMWxPQQhs60oOu10CRkWCiZzSUkzbXGGV9pviYl1fXYcvkzQ5jV9z8Y6un8ARoVRl4EtC6v6jNqbaJ/w==}
     engines: {node: '>=14.16'}
 
-  nushell@0.103.0:
-    resolution: {integrity: sha512-MCiqLagKDB7QUzIsa0GCKqCOhEp7qYy7se1quzT8jTfbHsl5YXUANGVN1CaIaPd+7wt+mgSNqPrYuDRyVewMJQ==}
+  nushell@0.104.0:
+    resolution: {integrity: sha512-H+ARw+iIVXSAWHd/InlSD9jwgcC5J3FhVTkK1tgX+MKATZMijKrCpeqq8h/BDF8ORJrM11r7v+R3kGvikA45TA==}
     engines: {node: '>=20.0.0', pnpm: '>=9'}
     hasBin: true
 
@@ -3777,28 +3777,28 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@nushell/darwin-arm64@0.103.0':
+  '@nushell/darwin-arm64@0.104.0':
     optional: true
 
-  '@nushell/darwin-x64@0.103.0':
+  '@nushell/darwin-x64@0.104.0':
     optional: true
 
-  '@nushell/linux-arm64@0.103.0':
+  '@nushell/linux-arm64@0.104.0':
     optional: true
 
-  '@nushell/linux-arm@0.103.0':
+  '@nushell/linux-arm@0.104.0':
     optional: true
 
-  '@nushell/linux-riscv64@0.103.0':
+  '@nushell/linux-riscv64@0.104.0':
     optional: true
 
-  '@nushell/linux-x64@0.103.0':
+  '@nushell/linux-x64@0.104.0':
     optional: true
 
-  '@nushell/windows-arm64@0.103.0':
+  '@nushell/windows-arm64@0.104.0':
     optional: true
 
-  '@nushell/windows-x64@0.103.0':
+  '@nushell/windows-x64@0.104.0':
     optional: true
 
   '@parcel/watcher-android-arm64@2.5.1':
@@ -5855,16 +5855,16 @@ snapshots:
   normalize-url@8.0.1:
     optional: true
 
-  nushell@0.103.0:
+  nushell@0.104.0:
     optionalDependencies:
-      '@nushell/darwin-arm64': 0.103.0
-      '@nushell/darwin-x64': 0.103.0
-      '@nushell/linux-arm': 0.103.0
-      '@nushell/linux-arm64': 0.103.0
-      '@nushell/linux-riscv64': 0.103.0
-      '@nushell/linux-x64': 0.103.0
-      '@nushell/windows-arm64': 0.103.0
-      '@nushell/windows-x64': 0.103.0
+      '@nushell/darwin-arm64': 0.104.0
+      '@nushell/darwin-x64': 0.104.0
+      '@nushell/linux-arm': 0.104.0
+      '@nushell/linux-arm64': 0.104.0
+      '@nushell/linux-riscv64': 0.104.0
+      '@nushell/linux-x64': 0.104.0
+      '@nushell/windows-arm64': 0.104.0
+      '@nushell/windows-x64': 0.104.0
 
   object-assign@4.1.1: {}
 
