@@ -34,7 +34,7 @@
     "@phanect/configs": "latest",
     "@phanect/lint": "latest",
     "@phanect/lint-svelte": "latest",
-    "@sveltejs/adapter-auto": "^4.0.0",
+    "@sveltejs/adapter-auto": "^6.0.0",
     "@sveltejs/kit": "^2.17.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tailwindcss/forms": "^0.5.3",
