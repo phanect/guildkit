@@ -5,19 +5,19 @@ import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 const candidates: Parameters<typeof prisma.user.upsert>[0]["create"][] = [
   {
     full_name: "Ayaka Kamisato",
-    email: "ayaka.kamisato@phanective.org",
+    email: "ayaka.kamisato@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
   {
     full_name: "Shinobu Kuki",
-    email: "kuki@phanective.org",
+    email: "kuki@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
   {
     full_name: "Thoma",
-    email: "thoma@phanective.org",
+    email: "thoma@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
@@ -27,7 +27,7 @@ const employers = [
   {
     id: "yaemiko",
     full_name: "Miko Yae",
-    email: "miko.yae@phanective.org",
+    email: "miko.yae@yaedo.example.com",
     password: await hashPassword("Pa$$w0rd!"),
     role: "EMPLOYER",
   } as const satisfies Parameters<typeof prisma.user.upsert>[0]["create"],
