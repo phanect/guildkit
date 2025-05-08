@@ -18,5 +18,3 @@ dpkg -l "linux-headers-$(uname -r)" build-essential libssl-dev libreadline-dev z
 echo "Installing build dependencies for PostgreSQL from apt repository. Enter your sudo password to install."
 
 sudo apt-get install linux-headers-$(uname -r) build-essential flex icu-devtools llibbison-dev ibicu-dev libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev pkg-config uuid-dev
-
-echo "Installing PostgreSQL..."
