@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, type Prisma } from "@prisma/client";
 import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 
-const candidates: Parameters<typeof prisma.user.upsert>[0]["create"][] = [
+const candidates: Prisma.UserCreateInput[] = [
   {
     full_name: "Ayaka Kamisato",
     email: "ayaka.kamisato@yaemail.example.net",
@@ -30,17 +30,17 @@ const employers = [
     email: "miko.yae@yaedo.example.com",
     password: await hashPassword("Pa$$w0rd!"),
     role: "EMPLOYER",
-  } as const satisfies Parameters<typeof prisma.user.upsert>[0]["create"],
+  } as const satisfies Prisma.UserCreateInput,
   {
     id: "raidenei",
     full_name: "Ei Raiden",
     email: "ei.raiden@inazuma.gov",
     password: await hashPassword("Pa$$w0rd!"),
     role: "EMPLOYER",
-  } as const satisfies Parameters<typeof prisma.user.upsert>[0]["create"],
+  } as const satisfies Prisma.UserCreateInput,
 ];
 
-const jobs: Parameters<typeof prisma.job.create>[0]["data"][] = [
+const jobs: Prisma.JobCreateInput[] = [
   {
     id: "dummy-job-1",
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
