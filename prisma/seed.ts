@@ -23,22 +23,21 @@ const candidates: Prisma.UserCreateInput[] = [
   },
 ];
 
-const recruiters = [
-  {
-    id: "yaemiko",
-    fullname: "Miko Yae",
-    email: "miko.yae@yaedo.example.com",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "RECRUITER",
-  } as const satisfies Prisma.UserCreateInput,
-  {
-    id: "raidenei",
-    fullname: "Ei Raiden",
-    email: "ei.raiden@inazuma.gov",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "RECRUITER",
-  } as const satisfies Prisma.UserCreateInput,
-];
+const recruiterYae: Prisma.UserCreateInput = {
+  id: "yaemiko",
+  fullname: "Miko Yae",
+  email: "miko.yae@yaedo.example.com",
+  password: await hashPassword("Pa$$w0rd!"),
+  role: "RECRUITER",
+} as const;
+const recruiterRaiden: Prisma.UserCreateInput = {
+  id: "raidenei",
+  fullname: "Ei Raiden",
+  email: "ei.raiden@inazuma.gov",
+  password: await hashPassword("Pa$$w0rd!"),
+  role: "RECRUITER",
+} as const;
+const recruiters = [ recruiterYae, recruiterRaiden ];
 
 const jobs: Prisma.JobCreateInput[] = [
   {
@@ -73,7 +72,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: recruiters[0].id,
+    employerId: recruiterYae.id,
   },
   {
     id: "dummy-job-2",
@@ -104,7 +103,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: recruiters[0].id,
+    employerId: recruiterYae.id,
   },
   {
     id: "dummy-job-3",
@@ -134,7 +133,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: recruiters[0].id,
+    employerId: recruiterYae.id,
   },
   {
     id: "dummy-job-4",
@@ -164,7 +163,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Tenryou Commission, The Shogunate of Inazuma",
     deadline: dayjs().add(1, "month").toDate(),
-    employerId: recruiters[1].id,
+    employerId: recruiterRaiden.id,
   },
 ];
 
