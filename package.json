@@ -16,7 +16,7 @@
     "release": "pnpm sync && prisma migrate deploy",
     "lint": "pnpm sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm sync && eslint --fix",
-    "clean": "git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
+    "clean": "pnpm db:stop; git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
     "sync": "nu ./scripts/scripts.nu sync",
     "prepare": "nu ./scripts/scripts.nu prepare"
