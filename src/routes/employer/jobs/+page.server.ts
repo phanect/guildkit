@@ -1,6 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms/server";
-import prisma from "$lib/prisma.ts";
+import { prisma } from "$lib/prisma.ts";
 import { requireAuthAs } from "$lib/auth.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
 import type { PageServerLoad, RequestEvent } from "./$types";
