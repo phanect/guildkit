@@ -71,7 +71,7 @@ const jobs: Prisma.JobCreateInput[] = [
     currency: "JPY",
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
       connect: { id: recruiters[0].id },
     },
@@ -103,7 +103,7 @@ const jobs: Prisma.JobCreateInput[] = [
     currency: "JPY",
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
       connect: { id: recruiters[0].id },
     },
@@ -134,7 +134,7 @@ const jobs: Prisma.JobCreateInput[] = [
     currency: "JPY",
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
       connect: { id: recruiters[0].id },
     },
@@ -165,7 +165,7 @@ const jobs: Prisma.JobCreateInput[] = [
     currency: "JPY",
     salaryPer: "YEAR",
     company: "Tenryou Commission, The Shogunate of Inazuma",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
       connect: { id: recruiters[1].id },
     },
