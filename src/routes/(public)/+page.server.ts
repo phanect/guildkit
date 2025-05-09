@@ -6,7 +6,7 @@ export const load: PageServerLoad<{ jobs: Job[]; }> = async () => {
   const today = new Date();
   const response = await prisma.job.findMany({
     where: {
-      deadline: {
+      expiresAt: {
         gte: today,
       },
     },
