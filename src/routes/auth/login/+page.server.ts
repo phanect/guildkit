@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { loginSchema } from "$lib/validation/user.validation.ts";
 import { isRegistered } from "$lib/utils/user.utils.ts";
 import { isValidPassword } from "$lib/utils/bcrypt.utils.ts";
-import prisma from "$lib/prisma.ts";
+import { prisma } from "$lib/prisma.ts";
 import type { RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 

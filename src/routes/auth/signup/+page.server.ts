@@ -2,7 +2,7 @@ import { superValidate } from "sveltekit-superforms/server";
 import { error, fail, redirect, type Actions, type RequestEvent } from "@sveltejs/kit";
 import { signupSchema } from "$lib/validation/user.validation.ts";
 import { isRegistered } from "$lib/utils/user.utils.ts";
-import prisma from "$lib/prisma.ts";
+import { prisma } from "$lib/prisma.ts";
 import { hashPassword } from "$lib/utils/bcrypt.utils.ts";
 
 export const load = async (event: RequestEvent) => {
