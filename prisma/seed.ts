@@ -168,22 +168,14 @@ const prisma = new PrismaClient();
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
 for (const user of [ ...candidates, ...employers ]) {
-  await prisma.user.upsert({
-    where: {
-      email: user.email,
-    },
-    update: user,
-    create: user,
+  await prisma.user.create({
+    data: user,
   });
 }
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
 for (const job of jobs) {
-  await prisma.job.upsert({
-    where: {
-      id: job.id,
-    },
-    update: job,
-    create: job,
+  await prisma.job.create({
+    data: job,
   });
 }
