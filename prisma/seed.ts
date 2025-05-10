@@ -42,7 +42,6 @@ const employers = [
 
 const jobs: Prisma.JobCreateInput[] = [
   {
-    id: "dummy-job-1",
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
       We are hiring a software developer for our ebook store. Your will be responsibile for one or some of the frontend, backend, and mobile app development.
@@ -75,7 +74,6 @@ const jobs: Prisma.JobCreateInput[] = [
     },
   },
   {
-    id: "dummy-job-2",
     title: "[WFH] SRE for our ebook store",
     description: `
       We are hiring an SRE for our ebook store.
@@ -105,7 +103,6 @@ const jobs: Prisma.JobCreateInput[] = [
     },
   },
   {
-    id: "dummy-job-3",
     title: "[WFH] Marketing lead",
     description: `
       We are hiring a marketing lead for our ebook store.
@@ -134,7 +131,6 @@ const jobs: Prisma.JobCreateInput[] = [
     },
   },
   {
-    id: "dummy-job-4",
     title: "Corporate Engineer",
     description: `
       We are hiring a software engineer for the Shogunate's internal systems.
