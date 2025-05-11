@@ -4,8 +4,8 @@ import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 
 const candidates: Prisma.UserCreateInput[] = [
   {
-    fullname: "Ayaka Kamisato",
-    email: "ayaka.kamisato@yaemail.example.net",
+    fullname: "Heizou Shikanoin",
+    email: "heizou9876@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
@@ -16,8 +16,8 @@ const candidates: Prisma.UserCreateInput[] = [
     role: "CANDIDATE",
   },
   {
-    fullname: "Thoma",
-    email: "thoma@yaemail.example.net",
+    fullname: "Kazuha Kaedehara",
+    email: "kazuha.kaedehara@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
@@ -34,7 +34,7 @@ const recruiters = [
   {
     id: "raidenei",
     fullname: "Ei Raiden",
-    email: "ei.raiden@inazuma.gov",
+    email: "ei.raiden@shogunate.example.go.jp",
     password: await hashPassword("Pa$$w0rd!"),
     role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
@@ -157,14 +157,14 @@ const jobs: Prisma.JobCreateInput[] = [
 
       # Nice to have
 
-      - Experience as a corporate IT admin
+      - Experience in vendor management
     `.trim(),
     applicationUrl: "https://phanective.org/job-example-4",
-    location: "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
+    location: "The Hiiragi Estate, 4-1-1, Rito, Narukami Island, Inazuma",
     salary: 9000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Tenryou Commission, The Shogunate of Inazuma",
+    company: "Kanjou Commission, The Shogunate of Inazuma",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
       connect: { id: recruiters[1].id },
