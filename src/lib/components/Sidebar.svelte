@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
+  import { signOut } from "$lib/auth/client.ts";
 </script>
 
 <style lang="scss">
@@ -86,16 +86,9 @@
     </li>
 
     <li class="item">
-      <form
-        action="/auth/logout?"
-        method="post"
-        use:enhance
-        class="fit"
-      >
-        <button class="fit" type="submit">
-          <img src="/vendor/tabler/logout-2.svg" alt="Logout" width="32" height="32" decoding="async" />
-        </button>
-      </form>
+      <button class="fit" onclick={ () => signOut() }>
+        <img src="/vendor/tabler/logout-2.svg" alt="Logout" width="32" height="32" decoding="async" />
+      </button>
     </li>
   </ul>
 </aside>

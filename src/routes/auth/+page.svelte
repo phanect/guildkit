@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import { signInWith } from "$lib/auth/client.ts";
 
   const showSignUpForm: boolean = page.url.searchParams.get("signup") === "true";
 </script>
@@ -209,7 +210,7 @@
       <span>with thirdparty accounts</span>
 
       <div class="social-icons">
-        <button class="icon">
+        <button class="icon" onclick={() => signInWith("google")}>
           <img
             src="/vendor/tabler/brand-google.svg"
             alt="Login with Google"
@@ -218,7 +219,7 @@
             decoding="async"
           />
         </button>
-        <button class="icon">
+        <button class="icon" onclick={() => signInWith("facebook")}>
           <img
             src="/vendor/tabler/brand-facebook.svg"
             alt="Login with Facebook"
@@ -227,10 +228,10 @@
             decoding="async"
           />
         </button>
-        <button class="icon">
+        <button class="icon" onclick={() => signInWith("github")}>
           <img
             src="/vendor/octicons/mark-github.svg"
-            alt="Login with Google"
+            alt="Login with GitHub"
             width="24"
             height="24"
             decoding="async"
