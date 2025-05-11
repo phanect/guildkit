@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
+  import { signOut } from "$lib/auth/client";
   import Button from "./generic/Button.svelte";
   import Link from "./generic/Link.svelte";
 
@@ -59,10 +59,7 @@
       <Link href="/auth" theme="button">Log in <span class="text-separator"></span> Sign up</Link>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
-
-      <form action="/auth/logout?" use:enhance>
-        <Button>Log out</Button>
-      </form>
+      <Button onclick={ async () => signOut() }>Log out</Button>
     {/if}
   </div>
 </nav>
