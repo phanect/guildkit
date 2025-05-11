@@ -1,6 +1,6 @@
-export const getRemainingTime = (deadline: Date) => {
+export const getRemainingTime = (expiresAt: Date) => {
   const currentDate = new Date();
-  const remainingTime = deadline.getTime() - currentDate.getTime();
+  const remainingTime = expiresAt.getTime() - currentDate.getTime();
 
   const days = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
   if (days <= 7) {

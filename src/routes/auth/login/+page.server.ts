@@ -39,7 +39,7 @@ export const actions = {
       id: user.id,
       role: user.role,
       email: user.email,
-      full_name: user.full_name,
+      fullname: user.fullname,
     };
 
     const token = jwt.sign(userData, JWT_SECRET, { expiresIn: "1d" });
@@ -52,7 +52,7 @@ export const actions = {
 
     if (user.role === "CANDIDATE") {
       return redirect(303, "/");
-    } else if (user.role === "EMPLOYER") {
+    } else if (user.role === "RECRUITER") {
       return redirect(303, "/employer/jobs");
     } else if (user.role === "ADMIN") {
       return redirect(303, "/users");

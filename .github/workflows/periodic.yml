@@ -1,0 +1,29 @@
+name: GitHub Actions
+
+on:
+  schedule:
+    - cron: "12 4 * * 1"
+
+permissions: {}
+
+jobs:
+  periodic:
+    runs-on: ubuntu-latest
+    env:
+      GIT_AUTHOR_NAME: Jumpei Ogawa (bot)
+      GIT_AUTHOR_EMAIL: bot@phanective.org
+      GIT_COMMITTER_NAME: Jumpei Ogawa (bot)
+      GIT_COMMITTER_EMAIL: bot@phanective.org
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - name: Use Node.js v22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          check-latest: true
+          cache: pnpm
+
+      - run: echo "NODE_ENV=ci-periodic" | tee ./.env
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm periodic

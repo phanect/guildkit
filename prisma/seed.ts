@@ -4,39 +4,39 @@ import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 
 const candidates: Prisma.UserCreateInput[] = [
   {
-    full_name: "Ayaka Kamisato",
-    email: "ayaka.kamisato@yaemail.example.net",
+    fullname: "Heizou Shikanoin",
+    email: "heizou9876@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
   {
-    full_name: "Shinobu Kuki",
+    fullname: "Shinobu Kuki",
     email: "kuki@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
   {
-    full_name: "Thoma",
-    email: "thoma@yaemail.example.net",
+    fullname: "Kazuha Kaedehara",
+    email: "kazuha.kaedehara@yaemail.example.net",
     password: await hashPassword("Pa$$w0rd!"),
     role: "CANDIDATE",
   },
 ];
 
-const employers = [
+const recruiters = [
   {
     id: "yaemiko",
-    full_name: "Miko Yae",
+    fullname: "Miko Yae",
     email: "miko.yae@yaedo.example.com",
     password: await hashPassword("Pa$$w0rd!"),
-    role: "EMPLOYER",
+    role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
   {
     id: "raidenei",
-    full_name: "Ei Raiden",
-    email: "ei.raiden@inazuma.gov",
+    fullname: "Ei Raiden",
+    email: "ei.raiden@shogunate.example.go.jp",
     password: await hashPassword("Pa$$w0rd!"),
-    role: "EMPLOYER",
+    role: "RECRUITER",
   } as const satisfies Prisma.UserCreateInput,
 ];
 
@@ -45,6 +45,14 @@ const jobs: Prisma.JobCreateInput[] = [
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
       We are hiring a software developer for our ebook store. Your will be responsibile for one or some of the frontend, backend, and mobile app development.
+
+      # Responsibilities
+
+      You will be responsible for the one or more of the followings:
+
+      - Web frontend development for our ebook store (Svelte)
+      - Backend development for our ebook store (Hono + Cloudflare Workers)
+      - Mobile app development for our ebook store (React Native)
       ...
     `.trim(),
     requirements: `
@@ -57,26 +65,25 @@ const jobs: Prisma.JobCreateInput[] = [
         - Node.js, Cloudflare Workers, or any other backend JavaScript/TypeScript framework(s)/platform(s)
         - React Native or any other mobile JavaScript/TypeScript framework(s)
     `.trim(),
-    responsibilities: `
-      You will be responsible for the one or more of the followings:
-
-      - Web frontend development for our ebook store (Svelte)
-      - Backend development for our ebook store (Hono + Cloudflare Workers)
-      - Mobile app development for our ebook store (React Native)
-    `.trim(),
     applicationUrl: "https://phanective.org/job-example-1",
     location: "Remote (any location in Inazuma)",
-    salary: "8,000,000 Mora/year",
+    salary: 8000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[0].id },
+      connect: { id: recruiters[0].id },
     },
   },
   {
     title: "[WFH] SRE for our ebook store",
     description: `
       We are hiring an SRE for our ebook store.
+
+      # Responsibilities
+
+      You will be responsible for the infrastructure administration and the site reliability engineering for our online ebook store.
       ...
     `.trim(),
     requirements: `
@@ -90,22 +97,26 @@ const jobs: Prisma.JobCreateInput[] = [
 
       - Experience in Node.js server administration
     `.trim(),
-    responsibilities: `
-      You will be responsible for the infrastructure administration and the site reliability engineering for our online ebook store.
-    `.trim(),
     applicationUrl: "https://phanective.org/job-example-2",
     location: "Remote (any location in Inazuma)",
-    salary: "8,000,000 Mora/year",
+    salary: 8000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[0].id },
+      connect: { id: recruiters[0].id },
     },
   },
   {
     title: "[WFH] Marketing lead",
     description: `
       We are hiring a marketing lead for our ebook store.
+
+      # Responsibilities
+
+      - Marketing for our ebook store
+      - Marketers management
       ...
     `.trim(),
     requirements: `
@@ -117,23 +128,26 @@ const jobs: Prisma.JobCreateInput[] = [
 
       - Basic understandings for HTML
     `.trim(),
-    responsibilities: `
-      - Marketing for our ebook store
-      - Marketers management
-    `.trim(),
     applicationUrl: "https://phanective.org/job-example-3",
     location: "Remote (any location in Inazuma)",
-    salary: "8,000,000 Mora/year",
+    salary: 8000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
-    deadline: dayjs().add(1, "month").toDate(),
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[0].id },
+      connect: { id: recruiters[0].id },
     },
   },
   {
     title: "Corporate Engineer",
     description: `
       We are hiring a software engineer for the Shogunate's internal systems.
+
+      # Responsibilities
+
+      - Development for the Shogunate's internal accounting systems (The Kanjou-kei)
+      - Vendor management for the Shogunate's internal accounting systems (The Kanjou-kei)
       ...
     `.trim(),
     requirements: `
@@ -145,17 +159,15 @@ const jobs: Prisma.JobCreateInput[] = [
 
       - Experience as a corporate IT admin
     `.trim(),
-    responsibilities: `
-      - Development for the Shogunate's internal systems
-      - Vendor management for the Shogunate's internal systems
-    `.trim(),
     applicationUrl: "https://phanective.org/job-example-4",
-    location: "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
-    salary: "9,000,000 Mora/year",
-    company: "Tenryou Commission, The Shogunate of Inazuma",
-    deadline: dayjs().add(1, "month").toDate(),
+    location: "The Hiiragi Estate, 4-1-1, Rito, Narukami Island, Inazuma",
+    salary: 9000000,
+    currency: "JPY",
+    salaryPer: "YEAR",
+    company: "Kanjou Commission, The Shogunate of Inazuma",
+    expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: employers[1].id },
+      connect: { id: recruiters[1].id },
     },
   },
 ];
@@ -163,7 +175,7 @@ const jobs: Prisma.JobCreateInput[] = [
 const prisma = new PrismaClient();
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
-for (const user of [ ...candidates, ...employers ]) {
+for (const user of [ ...candidates, ...recruiters ]) {
   await prisma.user.create({
     data: user,
   });

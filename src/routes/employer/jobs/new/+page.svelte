@@ -72,22 +72,7 @@
           <small class="text-red-600">{$errors.requirements}</small>
         {/if}
       </div>
-      <div class="mb-6">
-        <label class="label" for="responsibilities">
-          <span class="font-bold">Responsibilities <span class="text-red-400">*</span></span>
-          <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
-          <textarea
-            class={$errors.responsibilities ? "input-error block w-full rounded-sm" : "input"}
-            placeholder="Responsibility 1; Responsibility 2; Responsibility 3; etc"
-            name="responsibilities"
-            id="responsibilities"
-            bind:value={$form.responsibilities}
-          ></textarea>
-        </label>
-        {#if $errors.responsibilities}
-          <small class="text-red-600">{$errors.responsibilities}</small>
-        {/if}
-      </div>
+
       <div class="mb-6">
         <label class="label" for="applicationUrl">
           <span class="font-bold">Application URL <span class="text-red-400">*</span></span>
@@ -160,15 +145,15 @@
           <label class="label" for="applicationUrl">
             <span class="font-bold">Deadline <span class="text-red-400">*</span></span>
             <input
-              class={$errors.deadline ? "input-error block w-full rounded-sm" : "input"}
+              class={$errors.expiresAt ? "input-error block w-full rounded-sm" : "input"}
               type="date"
-              name="deadline"
-              id="deadline"
-              bind:value={$form.deadline}
+              name="expiresAt"
+              id="expiresAt"
+              bind:value={$form.expiresAt}
             />
           </label>
-          {#if $errors.deadline}
-            <small class="text-red-600 block mt-1">{$errors.deadline}</small>
+          {#if $errors.expiresAt}
+            <small class="text-red-600 block mt-1">{$errors.expiresAt}</small>
           {/if}
         </div>
       </div>

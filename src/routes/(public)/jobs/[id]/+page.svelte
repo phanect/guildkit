@@ -25,13 +25,14 @@
         class="bg-green-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full inline-flex gap-2"
       >
         <img src="/vendor/tabler/coins.svg" alt="Salary" width="16" />
-        {job.salary}
+        <!-- TODO Use user's locale in `toLocaleString()` -->
+        {job.salary.toLocaleString("en-US")} {job.currency}/{job.salaryPer}
       </span>
       <span
         class="bg-red-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full inline-flex gap-2"
       >
         <img src="/vendor/octicons/clock.svg" alt="Money Icon" width="16" />
-        {getRemainingTime(job.deadline)}
+        {getRemainingTime(job.expiresAt)}
       </span>
     </div>
     <hr class="h-px my-8 mb-16 bg-gray-600 border-0 w-[300px]" />
@@ -47,14 +48,7 @@
         {/if}
       {/each}
     </ul>
-    <h3 class="text-2xl font-bold text-gray-800 my-4">Responsibilities</h3>
-    <ul class="list-disc ml-8">
-      {#each parseString(job.responsibilities) as responsibility}
-        {#if responsibility}
-          <li>{responsibility}</li>
-        {/if}
-      {/each}
-    </ul>
+
     <div class="mt-6">
       <a href={job.applicationUrl} class="btn btn-xl bg-black text-white w-fit rounded-full">Apply</a>
     </div>

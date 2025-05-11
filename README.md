@@ -15,6 +15,12 @@ pnpm install
 
 Then run `pnpm dev` to run GuildKit on your local machine.
 
+### Wording conventions
+
+- organization: The organization (i.e. company in most cases) to hire the candidate(s).
+- recruiter: The recruitment staff (user) who belongs to the organization(s).
+- employer: Only use this term if you want to express both the organization or its recruitment staff(s).
+
 ## Credit
 
 Copyright (c) 2025-present Jumpei Ogawa and the contributors
