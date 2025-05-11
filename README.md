@@ -30,6 +30,9 @@ This project includes source code derived from:
 - [JOB PORTAL](https://github.com/irakozetony/jobportal) by [**@irakozetony**](https://github.com/irakozetony)
   - License: [MIT](https://github.com/irakozetony/jobportal/blob/69f5478cb18c97e5a703dfc2235e2b9c900f40c0/LICENSE)
   - Hash of the HEAD at the time of fork: [69f5478](https://github.com/irakozetony/jobportal/commit/69f5478cb18c97e5a703dfc2235e2b9c900f40c0)
+- [Modern-Login-Page-OrangeRed#](https://github.com/SortedCoding/Modern-Login-Page-OrangeRed#) by [**@SortedCoding**](https://github.com/SortedCoding)
+  - License: [MIT](https://github.com/SortedCoding/Modern-Login-Page-OrangeRed/blob/54e6bd83e9f77c9b994089ccb43a32a8b19e9bbb/LICENSE)
+  - Hash of the HEAD at the time of fork: [54e6bd8](https://github.com/SortedCoding/Modern-Login-Page-OrangeRed/tree/54e6bd83e9f77c9b994089ccb43a32a8b19e9bbb)
 
 This project includes thirdparty assets listed in [CREDITS.md](./static/vendor/CREDITS.md)
 
