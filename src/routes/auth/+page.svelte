@@ -1,5 +1,7 @@
 <script lang="ts">
   import { superForm } from "sveltekit-superforms/client";
+  import { signInWith } from "$lib/auth/client.ts";
+  import Button from "$lib/components/generic/Button.svelte";
   import Toast, { addToast } from "$lib/components/generic/Toast.svelte";
   import { loginSchema } from "$lib/validation/user.validation.ts";
   import type { PageProps } from "./$types";
@@ -25,6 +27,24 @@
   class="border border-gray-300 w-fit shadow-md mx-auto align-middle p-5 rounded-sm font-roboto h-fit my-auto mt-32"
 >
   <h3 class="font-medium mb-7 text-xl">Login</h3>
+
+  <Button onclick={() => signInWith("google")}>
+    Signin with Google
+  </Button>
+
+  <br />
+
+  <Button onclick={() => signInWith("facebook")}>
+    Signin with Facebook
+  </Button>
+
+  <br />
+
+  <Button onclick={() => signInWith("github")}>
+    Signin with GitHub
+  </Button>
+
+  <br />
 
   <form method="post" use:enhance>
     <div>
