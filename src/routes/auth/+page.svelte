@@ -157,7 +157,7 @@
     margin: 20px 0;
   }
 
-  .social-icons a {
+  .icon {
     border: 1px solid #ccc;
     border-radius: 20%;
     display: inline-flex;
@@ -209,7 +209,7 @@
       <span>with thirdparty accounts</span>
 
       <div class="social-icons">
-        <a href="#" class="icon">
+        <button class="icon">
           <img
             src="/vendor/tabler/brand-google.svg"
             alt="Login with Google"
@@ -217,8 +217,8 @@
             height="24"
             decoding="async"
           />
-        </a>
-        <a href="#" class="icon">
+        </button>
+        <button class="icon">
           <img
             src="/vendor/tabler/brand-facebook.svg"
             alt="Login with Facebook"
@@ -226,8 +226,8 @@
             height="24"
             decoding="async"
           />
-        </a>
-        <a href="#" class="icon">
+        </button>
+        <button class="icon">
           <img
             src="/vendor/octicons/mark-github.svg"
             alt="Login with Google"
@@ -235,7 +235,7 @@
             height="24"
             decoding="async"
           />
-        </a>
+        </button>
       </div>
     </div>
 
