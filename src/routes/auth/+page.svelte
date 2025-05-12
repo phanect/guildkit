@@ -24,7 +24,7 @@
 <section
   class="border border-gray-300 w-fit shadow-md mx-auto align-middle p-5 rounded-sm font-roboto h-fit my-auto mt-32"
 >
-  <h3 class="font-medium mb-7 text-xl">Login</h3>
+  <h3 class="font-medium mb-7 text-xl">Sign in or Sign up</h3>
 
   <form method="post" use:enhance>
     <div>
@@ -57,11 +57,4 @@
     </div>
     <button type="submit" class="btn variant-filled w-full mt-8 mb-8">Log in</button>
   </form>
-
-  <hr class="h-px my-8 bg-gray-200 border-0" />
-
-  <div class="flex flex-col justify-center items-center">
-    <p class="text-gray-500">Don't have an account?</p>
-    <a href="/auth/signup" class="block text-blue-700">Sign up</a>
-  </div>
 </section>

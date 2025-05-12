@@ -56,7 +56,7 @@
   </a>
   <div class="right-section">
     {#if !isLoggedIn}
-      <Link href="/auth/signup" theme="button">Log in <span class="text-separator"></span> Sign up</Link>
+      <Link href="/auth" theme="button">Log in <span class="text-separator"></span> Sign up</Link>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
 
