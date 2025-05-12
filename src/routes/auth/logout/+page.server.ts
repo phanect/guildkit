@@ -7,6 +7,6 @@ export const actions: Actions = {
       path: "/",
       maxAge: 0,
     });
-    redirect(303, "/auth/login");
+    redirect(303, "/auth");
   },
 };
