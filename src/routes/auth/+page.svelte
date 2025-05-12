@@ -126,7 +126,7 @@
     height: 100%;
   }
 
-  .container input {
+  .textbox {
     background-color: #eee;
     border: none;
     display: flex;
@@ -255,9 +255,9 @@
             <h2>Sign up with password</h2>
 
             <form>
-              <input type="text" placeholder="Name">
-              <input type="email" placeholder="Email">
-              <input type="password" class="last-input" placeholder="Password">
+              <input type="text" placeholder="Name" class="textbox" />
+              <input type="email" placeholder="Email" class="textbox" />
+              <input type="password" placeholder="Password" class="textbox last-input" />
               <button class="button execute">Sign Up</button>
             </form>
 
@@ -273,8 +273,8 @@
             <h2>Login with password</h2>
 
             <form>
-              <input type="email" placeholder="Email">
-              <input type="password" class="last-input" placeholder="Password">
+              <input type="email" placeholder="Email" class="textbox">
+              <input type="password" placeholder="Password" class="textbox last-input">
               <button class="button execute">Sign In</button>
             </form>
 
