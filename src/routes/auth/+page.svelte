@@ -28,13 +28,14 @@
     font-size: 12px;
   }
 
-  body {
+  .container-outer {
     background-color: #c9d6ff;
     background: linear-gradient(to-right, #e2e2e2, #c9d6ff);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
     height: 100vh;
   }
 
@@ -56,7 +57,7 @@
     height: 80%;
   }
 
-  .container {
+  .container-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -208,84 +209,86 @@
   }
 </style>
 
-<div class="container">
-  <div class="form-container">
-    <h1 class="title">Login or Sign up</h1>
-    <span>with thirdparty accounts</span>
+<div class="container-outer">
+  <div class="container-inner">
+    <div class="form-container">
+      <h1 class="title">Login or Sign up</h1>
+      <span>with thirdparty accounts</span>
 
-    <div class="social-icons">
-      <a href="#" class="icon">
-        <img
-          src="/vendor/tabler/brand-google.svg"
-          alt="Login with Google"
-          width="24"
-          height="24"
-          decoding="async"
-        />
-      </a>
-      <a href="#" class="icon">
-        <img
-          src="/vendor/tabler/brand-facebook.svg"
-          alt="Login with Facebook"
-          width="24"
-          height="24"
-          decoding="async"
-        />
-      </a>
-      <a href="#" class="icon">
-        <img
-          src="/vendor/octicons/mark-github.svg"
-          alt="Login with Google"
-          width="24"
-          height="24"
-          decoding="async"
-        />
-      </a>
+      <div class="social-icons">
+        <a href="#" class="icon">
+          <img
+            src="/vendor/tabler/brand-google.svg"
+            alt="Login with Google"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/tabler/brand-facebook.svg"
+            alt="Login with Facebook"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+        <a href="#" class="icon">
+          <img
+            src="/vendor/octicons/mark-github.svg"
+            alt="Login with Google"
+            width="24"
+            height="24"
+            decoding="async"
+          />
+        </a>
+      </div>
     </div>
-  </div>
 
-  <hr class="line-vertical" />
+    <hr class="line-vertical" />
 
-  <div class="toggle-container">
-    <div class="toggle">
-      {#if showSignUpForm}
-        <div class="toggle-panel">
-          <h2>Sign up with password</h2>
+    <div class="toggle-container">
+      <div class="toggle">
+        {#if showSignUpForm}
+          <div class="toggle-panel">
+            <h2>Sign up with password</h2>
 
-          <form>
-            <input type="text" placeholder="Name">
-            <input type="email" placeholder="Email">
-            <input type="password" class="last-input" placeholder="Password">
-            <button class="button execute">Sign Up</button>
-          </form>
+            <form>
+              <input type="text" placeholder="Name">
+              <input type="email" placeholder="Email">
+              <input type="password" class="last-input" placeholder="Password">
+              <button class="button execute">Sign Up</button>
+            </form>
 
-          <hr class="line-horizontal" />
+            <hr class="line-horizontal" />
 
-          <div class="email-options">
-            <p>Already have an account?</p>
-            <a href="./auth" class="button switch">Sign In</a>
+            <div class="email-options">
+              <p>Already have an account?</p>
+              <a href="./auth" class="button switch">Sign In</a>
+            </div>
           </div>
-        </div>
-      {:else}
-        <div class="toggle-panel">
-          <h2>Login with password</h2>
+        {:else}
+          <div class="toggle-panel">
+            <h2>Login with password</h2>
 
-          <form>
-            <input type="email" placeholder="Email">
-            <input type="password" class="last-input" placeholder="Password">
-            <button class="button execute">Sign In</button>
-          </form>
+            <form>
+              <input type="email" placeholder="Email">
+              <input type="password" class="last-input" placeholder="Password">
+              <button class="button execute">Sign In</button>
+            </form>
 
-          <hr class="line-horizontal" />
+            <hr class="line-horizontal" />
 
-          <div class="email-options">
-            <p class="switch-button-annotation">Don't have an account yet?</p>
-            <a href="./auth?signup=true" class="button switch">Sign up</a>
+            <div class="email-options">
+              <p class="switch-button-annotation">Don't have an account yet?</p>
+              <a href="./auth?signup=true" class="button switch">Sign up</a>
 
-            <a href="#" class="forget-password">Or forget Your Password?</a>
+              <a href="#" class="forget-password">Or forget Your Password?</a>
+            </div>
           </div>
-        </div>
-      {/if}
+        {/if}
+      </div>
     </div>
   </div>
 </div>
