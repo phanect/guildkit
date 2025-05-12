@@ -57,11 +57,4 @@
     </div>
     <button type="submit" class="btn variant-filled w-full mt-8 mb-8">Log in</button>
   </form>
-
-  <hr class="h-px my-8 bg-gray-200 border-0" />
-
-  <div class="flex flex-col justify-center items-center">
-    <p class="text-gray-500">Don't have an account?</p>
-    <a href="/auth/signup" class="block text-blue-700">Sign up</a>
-  </div>
 </section>
