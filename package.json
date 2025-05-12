@@ -26,7 +26,7 @@
     "@prisma/client": "^6.3.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.0",
-    "pg": "^8.14.1"
+    "pg": "^8.16.0"
   },
   "devDependencies": {
     "@markuplint/ml-config": "^4.8.10",
