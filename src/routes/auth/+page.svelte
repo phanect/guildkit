@@ -110,14 +110,19 @@
     transform: scale(1.1);
   }
 
-  .form-container {
-    background-color: #fff;
+  .left-section, .right-section {
+    width: 50%;
+    height: 100%;
+    border-radius: 150px 0 0 100px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .left-section {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0  40px;
-    height: 100%;
   }
 
   .textbox {
@@ -166,12 +171,6 @@
     transition: 0.3s ease;
   }
 
-  .toggle-container {
-    width: 50%;
-    height: 100%;
-    border-radius: 150px 0 0 100px;
-  }
-
   .toggle {
     height: 100%;
     width: 200%;
@@ -205,7 +204,7 @@
 
 <div class="container-outer">
   <div class="container-inner">
-    <div class="form-container">
+    <div class="left-section">
       <h1 class="title">Login or Sign up</h1>
       <span>with thirdparty accounts</span>
 
@@ -242,7 +241,7 @@
 
     <hr class="line-vertical" />
 
-    <div class="toggle-container">
+    <div class="right-section">
       <div class="toggle">
         {#if showSignUpForm}
           <div class="toggle-panel">
