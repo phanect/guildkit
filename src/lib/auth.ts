@@ -1,4 +1,5 @@
 import { env } from "node:process";
+import { error, redirect, type ServerLoad } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
 import { admin } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
@@ -74,3 +75,38 @@ export type User = Simplify<
   }
 >;
 export type Session = typeof auth.$Infer.Session["session"];
+
+//
+// requireAuthAs()
+//
+
+type RequireLoginAsOptions = Pick<Parameters<ServerLoad>[0], "request">;
+
+export const requireAuthAs = async (
+  expectedRoles: Exclude<Role, "user">[] | "any",
+  { request }: RequireLoginAsOptions
+): Promise<{ user: User; session: Session; }> => {
+  const reqURL = new URL(request.url);
+
+  const { user, session } = await getSession({
+    headers: request.headers,
+  }) ?? {};
+
+  if (!user || !session) {
+    return redirect(303, "/auth");
+  }
+
+  if (user.roles.length <= 0 || user.roles.includes("user")) {
+    if (reqURL.pathname === "/auth/signup") {
+      return { user, session };
+    } else {
+      return redirect(302, "/auth/signup");
+    }
+  }
+
+  if (expectedRoles === "any" || !expectedRoles.includes(user.role)) {
+    return { user, session };
+  } else {
+    return error(401, `This page is for the ${ expectedRoles.join(" or ") }.`);
+  }
+};
