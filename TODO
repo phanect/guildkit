@@ -1,0 +1,6 @@
+role を設定する画面を作ってサインアップがうまく行くようにする
+
+Email OTP のセットアップ
+seed でのサインアップ方法を Email OTP に書き換える? どうにかして自動化する方法を…
+
+https://www.better-auth.com/docs/plugins/email-otp
