@@ -1,44 +1,50 @@
 import dayjs from "dayjs";
 import { PrismaClient, type Prisma } from "@prisma/client";
-import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
+import { auth } from "../src/lib/auth.ts";
 
-const candidates: Prisma.UserCreateInput[] = [
-  {
-    fullname: "Heizou Shikanoin",
-    email: "heizou9876@yaemail.example.net",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "CANDIDATE",
-  },
-  {
-    fullname: "Shinobu Kuki",
-    email: "kuki@yaemail.example.net",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "CANDIDATE",
-  },
-  {
-    fullname: "Kazuha Kaedehara",
-    email: "kazuha.kaedehara@yaemail.example.net",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "CANDIDATE",
-  },
-];
+await Promise.all([
+  auth.api.signUpEmail({
+    body: {
+      name: "Heizou Shikanoin",
+      email: "heizou9876@yaemail.example.net",
+      password: "Pa$$w0rd!",
+      role: "CANDIDATE",
+    },
+  }),
+  auth.api.signUpEmail({
+    body: {
+      name: "Shinobu Kuki",
+      email: "kuki@yaemail.example.net",
+      password: "Pa$$w0rd!",
+      role: "CANDIDATE",
+    },
+  }),
+  auth.api.signUpEmail({
+    body: {
+      name: "Kazuha Kaedehara",
+      email: "kazuha.kaedehara@yaemail.example.net",
+      password: "Pa$$w0rd!",
+      role: "CANDIDATE",
+    },
+  }),
+]);
 
-const recruiters = [
-  {
-    id: "yaemiko",
-    fullname: "Miko Yae",
+const { user: recruiterYae } = await auth.api.signUpEmail({
+  body: {
+    name: "Miko Yae",
     email: "miko.yae@yaedo.example.com",
-    password: await hashPassword("Pa$$w0rd!"),
+    password: "Pa$$w0rd!",
     role: "RECRUITER",
-  } as const satisfies Prisma.UserCreateInput,
-  {
-    id: "raidenei",
-    fullname: "Ei Raiden",
+  },
+});
+const { user: recruiterRaiden } = await auth.api.signUpEmail({
+  body: {
+    name: "Ei Raiden",
     email: "ei.raiden@shogunate.example.go.jp",
-    password: await hashPassword("Pa$$w0rd!"),
+    password: "Pa$$w0rd!",
     role: "RECRUITER",
-  } as const satisfies Prisma.UserCreateInput,
-];
+  },
+});
 
 const jobs: Prisma.JobCreateInput[] = [
   {
@@ -73,7 +79,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[0].id },
+      connect: { id: recruiterYae.id },
     },
   },
   {
@@ -105,7 +111,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[0].id },
+      connect: { id: recruiterYae.id },
     },
   },
   {
@@ -136,7 +142,7 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[0].id },
+      connect: { id: recruiterYae.id },
     },
   },
   {
@@ -167,19 +173,12 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Kanjou Commission, The Shogunate of Inazuma",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[1].id },
+      connect: { id: recruiterRaiden.id },
     },
   },
 ];
 
 const prisma = new PrismaClient();
-
-// Allow N+1 problem here since we don't have to be serious for performance here.
-for (const user of [ ...candidates, ...recruiters ]) {
-  await prisma.user.create({
-    data: user,
-  });
-}
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
 for (const job of jobs) {
