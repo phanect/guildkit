@@ -1,4 +1,5 @@
 import { env } from "node:process";
+import { error, redirect } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
@@ -62,3 +63,35 @@ export const auth = betterAuth({
     enabled: false,
   },
 });
+
+export type User = typeof auth.$Infer.Session["user"];
+export type Session = typeof auth.$Infer.Session["session"];
+
+export const requireAuthAs = async (
+  expectedType: User["type"] | "any",
+  { request }: { request: Request; },
+): Promise<{ user: User; session: Session; }> => {
+  const reqURL = new URL(request.url);
+
+  const { user, session } = await auth.api.getSession({
+    headers: request.headers,
+  }) ?? {};
+
+  if (!user || !session) {
+    return redirect(303, "/auth");
+  }
+
+  if (!user.type) {
+    if (reqURL.pathname.startsWith("/auth/signup/")) {
+      return { user, session };
+    } else {
+      return redirect(302, "/auth/signup/candidate");
+    }
+  }
+
+  if (expectedType === "any" || expectedType === user.type) {
+    return { user, session };
+  } else {
+    return error(401, `This page is for the ${ expectedType }s.`);
+  }
+};
