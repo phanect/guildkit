@@ -1,7 +1,9 @@
 import { env } from "node:process";
+import { error, redirect, type ServerLoad } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma.ts";
+import type { UserRole } from "@prisma/client";
 
 if (
   !env.GOOGLE_CLIENT_ID
@@ -46,3 +48,30 @@ export const auth = betterAuth({
     enabled: false,
   },
 });
+
+export type User = typeof auth.$Infer.Session["user"];
+export type Session = typeof auth.$Infer.Session["session"];
+
+type RequireLoginAsOptions = Pick <Parameters<ServerLoad>[0], "locals" | "request">;
+
+export const requireAuthAs = async (
+  expectedRole: UserRole,
+  { locals, request }: RequireLoginAsOptions
+): Promise<{ user: User; session: Session; }> => {
+  const { user, session } = await auth.api.getSession({
+    headers: request.headers,
+  }) ?? {};
+
+  if (!user || !session) {
+    return redirect(303, "/auth");
+  }
+
+  if (user.role !== expectedRole) {
+    return error(401, `This page is for the ${ expectedRole === "CANDIDATE" ? "candidates" : "employers" }.`);
+  }
+
+  locals.user = user;
+  locals.session = session;
+
+  return { user, session };
+};
