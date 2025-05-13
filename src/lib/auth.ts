@@ -1,9 +1,11 @@
 import { env } from "node:process";
+import { error, redirect, type ServerLoad } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
 import { admin } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { ac, roles, type Role } from "./auth/roles.ts";
 import prisma from "./prisma.ts";
+import { arrayElementOverwraps } from "./utils.ts";
 import type { Simplify } from "type-fest";
 
 if (
@@ -78,3 +80,32 @@ export const getSession = async (
 };
 
 export const roleConfigured = (roles: User["roles"]) => !roles.includes("user") && 0 < roles.length;
+
+export const requireAuthAs = async (
+  expectedRoles: Exclude<Role, "user">[] | "any",
+  { request }: Pick<Parameters<ServerLoad>[0], "request">,
+): Promise<{ user: User; session: Session; }> => {
+  const reqURL = new URL(request.url);
+
+  const { user, session } = await getSession({
+    headers: request.headers,
+  }) ?? {};
+
+  if (!user || !session) {
+    return redirect(303, "/auth");
+  }
+
+  if (!roleConfigured(user.roles)) {
+    if (reqURL.pathname.startsWith("/auth/signup/")) {
+      return { user, session };
+    } else {
+      return redirect(302, "/auth/signup/candidate");
+    }
+  }
+
+  if (expectedRoles === "any" || !arrayElementOverwraps(expectedRoles, user.roles)) {
+    return { user, session };
+  } else {
+    return error(401, `This page is for the ${ expectedRoles.join(" or ") }.`);
+  }
+};
