@@ -1,4 +1,4 @@
-import { fail, redirect, type ActionFailure } from "@sveltejs/kit";
+import { error, fail, redirect, type ActionFailure } from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 import { superValidate } from "sveltekit-superforms/server";
 import prisma from "$lib/prisma.ts";
@@ -12,29 +12,20 @@ type LoadReturn = {
   role: UserRole;
 } | ActionFailure<{ reason: string; }>;
 
-export const load: PageServerLoad<LoadReturn> = async ({ cookies }) => {
-  const token = cookies.get("token");
-  if (typeof token !== "string") {
-    return fail(400, { reason: "Invalid token" });
+export const load: PageServerLoad<LoadReturn> = async ({ locals }) => {
+  if (!locals.user || locals.user.role !== "RECRUITER") {
+    // This should not happen because the +layout.server.ts should check if the user logged-in.
+    return error(500, "Something is technically wrong. Sorry, this is probably a bug of GuildKit. Error code: GK-937T2");
   }
-  const decodedToken = jwt.verify(token, JWT_SECRET) as { role: UserRole; id: string; };
-  const { id, role } = decodedToken;
 
-  if (role === "RECRUITER") {
-    return {
-      jobs: await prisma.job.findMany({
-        where: {
-          employerId: id,
-        },
-      }),
-      role,
-    };
-  } else if (role === "CANDIDATE" || role === "ADMIN") {
-    return fail(400, { reason: "Unauthorized" });
-  } else {
-    console.error(`Unexpected \`role\` value: "${ role as string }"`);
-    return fail(400, { reason: "Unauthorized" });
-  }
+  return {
+    jobs: await prisma.job.findMany({
+      where: {
+        employerId: locals.user.id,
+      },
+    }),
+    role: locals.user.role,
+  };
 };
 
 export const actions = {
