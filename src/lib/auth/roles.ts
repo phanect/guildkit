@@ -28,3 +28,4 @@ export const roles = {
 };
 
 export type Role = keyof typeof roles;
+export type SignUpRole = "candidate" | "recruiter";
