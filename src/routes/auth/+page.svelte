@@ -28,19 +28,19 @@
 >
   <h3 class="font-medium mb-7 text-xl">Login</h3>
 
-  <Button onclick={() => signInWith("google")}>
+  <Button onclick={() => signInWith("google", "candidate")}>
     Signin with Google
   </Button>
 
   <br />
 
-  <Button onclick={() => signInWith("facebook")}>
+  <Button onclick={() => signInWith("facebook", "candidate")}>
     Signin with Facebook
   </Button>
 
   <br />
 
-  <Button onclick={() => signInWith("github")}>
+  <Button onclick={() => signInWith("github", "candidate")}>
     Signin with GitHub
   </Button>
 

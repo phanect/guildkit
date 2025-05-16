@@ -76,3 +76,5 @@ export const getSession = async (
     return session ?? undefined;
   }
 };
+
+export const roleConfigured = (roles: User["roles"]) => !roles.includes("user") && 0 < roles.length;
