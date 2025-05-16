@@ -7,6 +7,14 @@ A CMS for job search services
 
 ## Development
 
+### Prerequisites
+
+- [mise](https://mise.jdx.dev/getting-started.html)
+- Postgres dependencies
+  - On Ubuntu and its derivatives, run the following command to install the packages: `sudo apt install "linux-headers-$(uname -r)" build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev libbison-dev flex`
+
+### Run local server
+
 ```sh
 cd /path/to/guildkit
 cp ./.env.example ./.env
