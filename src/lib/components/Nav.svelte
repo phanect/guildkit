@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { signOut } from "$lib/auth.client.ts";
   import Button from "./generic/Button.svelte";
 
   type Props = {
@@ -57,7 +58,7 @@
       <Button href="/auth">Log in <span class="text-separator"></span> Sign up</Button>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
-      <Button action="/auth/logout?">Log out</Button>
+      <Button onclick={ async () => signOut() }>Log out</Button>
     {/if}
   </div>
 </nav>
