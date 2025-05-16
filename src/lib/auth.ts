@@ -66,6 +66,10 @@ export const requireAuthAs = async (
     return redirect(303, "/auth");
   }
 
+  if (!user.role) {
+    return redirect(302, "/auth/signup");
+  }
+
   if (user.role !== expectedRole) {
     return error(401, `This page is for the ${ expectedRole === "CANDIDATE" ? "candidates" : "employers" }.`);
   }

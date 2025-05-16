@@ -210,7 +210,7 @@
       <span>with thirdparty accounts</span>
 
       <div class="social-icons">
-        <button class="icon" onclick={() => signInWith("google")}>
+        <button class="icon" onclick={() => signInWith("google", "CANDIDATE")}>
           <img
             src="/vendor/tabler/brand-google.svg"
             alt="Login with Google"
@@ -219,7 +219,7 @@
             decoding="async"
           />
         </button>
-        <button class="icon" onclick={() => signInWith("facebook")}>
+        <button class="icon" onclick={() => signInWith("facebook", "CANDIDATE")}>
           <img
             src="/vendor/tabler/brand-facebook.svg"
             alt="Login with Facebook"
@@ -228,7 +228,7 @@
             decoding="async"
           />
         </button>
-        <button class="icon" onclick={() => signInWith("github")}>
+        <button class="icon" onclick={() => signInWith("github", "CANDIDATE")}>
           <img
             src="/vendor/octicons/mark-github.svg"
             alt="Login with GitHub"
