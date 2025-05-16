@@ -21,6 +21,13 @@
       href?: undefined;
       preload?: undefined;
     }
+    | {
+      href?: undefined;
+      action?: undefined;
+      method?: undefined;
+      params?: undefined;
+      preload?: false;
+    }
   );
 
   const { href, preload = false, action, method = "post", params = {}, children }: Props = $props();
@@ -49,11 +56,13 @@
   }
 </style>
 
+<!-- TODO Avoid if blocks? It might cause performance overhead on frontend. -->
+
 {#if href}
   <a {href} class="button" data-sveltekit-preload-data={ preload ? "hover" : null }>
     {@render children()}
   </a>
-{:else}
+{:else if action}
   <form {action} {method} use:enhance>
     {#each Object.entries(params) as [ name, val ] }
       <input type="hidden" {name} value={val} />
@@ -63,4 +72,8 @@
       {@render children()}
     </button>
   </form>
+{:else}
+  <button type="submit" class="button">
+    {@render children()}
+  </button>
 {/if}
