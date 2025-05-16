@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
   import type { Job } from "@prisma/client";
@@ -106,9 +107,12 @@
           <Button href={`/employer/jobs/edit/${ job.id }`} preload={true}>
             Edit
           </Button>
-          <Button action="/employer/jobs?/delete" params={{ id: job.id }}>
-            Delete
-          </Button>
+          <form action="/employer/jobs?/delete" use:enhance>
+            <input type="hidden" name="id" value={ job.id} />
+            <Button>
+              Delete
+            </Button>
+          </form>
         </div>
       {/if}
     </div>

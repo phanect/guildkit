@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import Button from "./generic/Button.svelte";
 
   type Props = {
@@ -57,7 +58,10 @@
       <Button href="/auth/signup">Log in <span class="text-separator"></span> Sign up</Button>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
-      <Button action="/auth/logout?">Log out</Button>
+
+      <form action="/auth/logout?" use:enhance>
+        <Button>Log out</Button>
+      </form>
     {/if}
   </div>
 </nav>
