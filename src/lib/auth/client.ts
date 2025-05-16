@@ -12,6 +12,7 @@ export const { signIn, signOut: baseSignOut } = createAuthClient({
 export const signInWith = async (provider: "google" | "github") => signIn.social({
   provider,
   callbackURL: "/",
+  errorCallbackURL: "/auth/error",
 });
 
 export const signOut = async () => baseSignOut({
