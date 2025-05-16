@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
   import type { Snippet } from "svelte";
 
   type Props = {
@@ -9,21 +8,17 @@
       href: string;
       preload?: boolean;
 
-      action?: undefined;
-      method?: undefined;
-      params?: undefined;
+      onclick?: undefined;
     }
     | {
-      action: string;
-      method?: "post";
-      params?: Record<string, string>;
+      onclick?: HTMLButtonElement["onclick"];
 
       href?: undefined;
-      preload?: undefined;
+      preload?: false;
     }
   );
 
-  const { href, preload = false, action, method = "post", params = {}, children }: Props = $props();
+  const { href, preload = false, action, method = "post", params = {}, onclick, children }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -49,18 +44,14 @@
   }
 </style>
 
+<!-- TODO Avoid if blocks? It might cause performance overhead on frontend. -->
+
 {#if href}
   <a {href} class="button" data-sveltekit-preload-data={ preload ? "hover" : null }>
     {@render children()}
   </a>
 {:else}
-  <form {action} {method} use:enhance>
-    {#each Object.entries(params) as [ name, val ] }
-      <input type="hidden" {name} value={val} />
-    {/each}
-
-    <button type="submit" class="button">
-      {@render children()}
-    </button>
-  </form>
+  <button type="submit" class="button" {onclick}>
+    {@render children()}
+  </button>
 {/if}
