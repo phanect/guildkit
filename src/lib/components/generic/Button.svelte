@@ -12,6 +12,7 @@
       action?: undefined;
       method?: undefined;
       params?: undefined;
+      onclick?: undefined;
     }
     | {
       action: string;
@@ -20,17 +21,20 @@
 
       href?: undefined;
       preload?: undefined;
+      onclick?: undefined;
     }
     | {
-      href?: undefined;
+      onclick?: HTMLButtonElement["onclick"];
+
       action?: undefined;
       method?: undefined;
       params?: undefined;
+      href?: undefined;
       preload?: false;
     }
   );
 
-  const { href, preload = false, action, method = "post", params = {}, children }: Props = $props();
+  const { href, preload = false, action, method = "post", params = {}, onclick, children }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -73,7 +77,7 @@
     </button>
   </form>
 {:else}
-  <button type="submit" class="button">
+  <button type="submit" class="button" {onclick}>
     {@render children()}
   </button>
 {/if}
