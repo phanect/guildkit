@@ -1,29 +1,35 @@
 import dayjs from "dayjs";
+// import { $, Seed, users } from "@better-auth-kit/seed";
 import { PrismaClient, type Prisma } from "@prisma/client";
 import { auth } from "../src/lib/auth.ts";
 
+// export const seed = Seed({
+//   ...users({
+//     user: {
+//       role: $.custom(() => "CANDIDATE"),
+//     },
+//   }),
+// });
+
 await Promise.all([
-  auth.api.signUpEmail({
+  auth.api.signInMagicLink({
     body: {
       name: "Heizou Shikanoin",
       email: "heizou9876@yaemail.example.net",
-      password: "Pa$$w0rd!",
       role: "CANDIDATE",
     },
   }),
-  auth.api.signUpEmail({
+  auth.api.signInMagicLink({
     body: {
       name: "Shinobu Kuki",
       email: "kuki@yaemail.example.net",
-      password: "Pa$$w0rd!",
-      role: "CANDIDATE",
+      // role: "CANDIDATE",
     },
   }),
-  auth.api.signUpEmail({
+  auth.api.signInMagicLink({
     body: {
       name: "Kazuha Kaedehara",
       email: "kazuha.kaedehara@yaemail.example.net",
-      password: "Pa$$w0rd!",
       role: "CANDIDATE",
     },
   }),

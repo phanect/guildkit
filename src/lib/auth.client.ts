@@ -1,8 +1,13 @@
 import { createAuthClient } from "better-auth/svelte";
+import { adminClient } from "better-auth/client/plugins";
 import { invalidateAll } from "$app/navigation";
 import type { UserRole } from "@prisma/client";
 
-export const { signIn, signOut: baseSignOut } = createAuthClient();
+export const { signIn, signOut: baseSignOut } = createAuthClient({
+  plugins: {
+    adminClient,
+  }
+});
 
 export const signInWith = async (
   provider: "google" | "facebook" | "github",

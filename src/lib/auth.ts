@@ -1,6 +1,7 @@
 import { env } from "node:process";
 import { error, redirect, type ServerLoad } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
+import { admin } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma.ts";
 import type { UserRole } from "@prisma/client";
@@ -21,6 +22,9 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+  plugins: [
+    admin(),
+  ],
   user: {
     additionalFields: {
       role: {
