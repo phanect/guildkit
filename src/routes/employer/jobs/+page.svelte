@@ -5,7 +5,7 @@
 
   const { data }: PageProps = $props();
   const { jobs = [], role } = data;
-  const editable = role === "RECRUITER";
+  const editable = (role === "recruiter" || role === "recruiterOrgAdmin");
 </script>
 
 <style lang="scss">
