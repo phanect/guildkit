@@ -4,8 +4,8 @@
   import type { PageProps } from "./$types";
 
   const { data }: PageProps = $props();
-  const { jobs = [], role } = data;
-  const editable = role === "RECRUITER";
+  const { jobs = [], roles } = data;
+  const editable = (roles.includes("recruiter") || roles.includes("recruiterOrgOwner"));
 </script>
 
 <style lang="scss">
