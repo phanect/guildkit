@@ -25,10 +25,10 @@ model Job {
   updatedAt        DateTime @updatedAt
 }
 
-enum UserRole {
-  ADMIN
-  RECRUITER
-  CANDIDATE
+enum UserType {
+  administrative
+  recruiter
+  candidate
 }
 
 // User is one of the better-auth core schema.
@@ -39,12 +39,18 @@ model User {
   email     String
   emailVerified Boolean
   image     String?
-  role      UserRole
+  type      UserType?
+  role      String?
+  banned    Boolean?
+  banReason String?
+  banExpires DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Job       Job[]
   sessions  Session[]
   accounts  Account[]
+  members   Member[]
+  invitations Invitation[]
 
   @@unique([email])
   @@map("user")
@@ -68,10 +74,12 @@ model Session {
   token     String
   createdAt DateTime
   updatedAt DateTime
+  impersonatedBy String?
   ipAddress String?
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activeOrganizationId String?
 
   @@unique([token])
   @@map("session")
@@ -105,6 +113,46 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Organization {
+  id          String       @id
+  name        String
+  slug        String?
+  logo        String?
+  createdAt   DateTime
+  metadata    String?
+  members     Member[]
+  invitations Invitation[]
+
+  @@unique([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String
+  createdAt      DateTime
+
+  @@map("member")
+}
+
+model Invitation {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           String?
+  status         String
+  expiresAt      DateTime
+  inviterId      String
+  user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+
+  @@map("invitation")
 }
 
 // ↑↑↑↑↑ Other better-auth core schema ↑↑↑↑↑
