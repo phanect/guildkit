@@ -1,44 +1,39 @@
 import dayjs from "dayjs";
 import { PrismaClient, type Prisma } from "@prisma/client";
-import { hashPassword } from "../src/lib/utils/bcrypt.utils.ts";
 
 const candidates: Prisma.UserCreateInput[] = [
   {
-    fullname: "Heizou Shikanoin",
+    name: "Heizou Shikanoin",
     email: "heizou9876@yaemail.example.net",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "CANDIDATE",
+    emailVerified: true,
+    role: "candidate",
   },
   {
-    fullname: "Shinobu Kuki",
+    name: "Shinobu Kuki",
     email: "kuki@yaemail.example.net",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "CANDIDATE",
+    emailVerified: true,
+    role: "candidate",
   },
   {
-    fullname: "Kazuha Kaedehara",
+    name: "Kazuha Kaedehara",
     email: "kazuha.kaedehara@yaemail.example.net",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "CANDIDATE",
+    emailVerified: true,
+    role: "candidate",
   },
 ];
 
-const recruiters = [
-  {
-    id: "yaemiko",
-    fullname: "Miko Yae",
-    email: "miko.yae@yaedo.example.com",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "RECRUITER",
-  } as const satisfies Prisma.UserCreateInput,
-  {
-    id: "raidenei",
-    fullname: "Ei Raiden",
-    email: "ei.raiden@shogunate.example.go.jp",
-    password: await hashPassword("Pa$$w0rd!"),
-    role: "RECRUITER",
-  } as const satisfies Prisma.UserCreateInput,
-];
+const recruiterYae = {
+  name: "Miko Yae",
+  email: "miko.yae@yaedo.example.com",
+  emailVerified: true,
+  role: "recruiter",
+} as const satisfies Prisma.UserCreateInput;
+const recruiterRaiden = {
+  name: "Ei Raiden",
+  email: "ei.raiden@shogunate.example.go.jp",
+  emailVerified: true,
+  role: "recruiter",
+} as const satisfies Prisma.UserCreateInput;
 
 const jobs: Prisma.JobCreateInput[] = [
   {
@@ -73,7 +68,12 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[0].id },
+      connectOrCreate: {
+        where: {
+          email: recruiterYae.email,
+        },
+        create: recruiterYae,
+      },
     },
   },
   {
@@ -105,7 +105,12 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[0].id },
+      connectOrCreate: {
+        where: {
+          email: recruiterYae.email,
+        },
+        create: recruiterYae,
+      },
     },
   },
   {
@@ -136,7 +141,12 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[0].id },
+      connectOrCreate: {
+        where: {
+          email: recruiterYae.email,
+        },
+        create: recruiterYae,
+      },
     },
   },
   {
@@ -167,7 +177,12 @@ const jobs: Prisma.JobCreateInput[] = [
     company: "Kanjou Commission, The Shogunate of Inazuma",
     expiresAt: dayjs().add(1, "month").toDate(),
     employer: {
-      connect: { id: recruiters[1].id },
+      connectOrCreate: {
+        where: {
+          email: recruiterRaiden.email,
+        },
+        create: recruiterRaiden,
+      },
     },
   },
 ];
@@ -175,9 +190,9 @@ const jobs: Prisma.JobCreateInput[] = [
 const prisma = new PrismaClient();
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
-for (const user of [ ...candidates, ...recruiters ]) {
+for (const candidate of candidates) {
   await prisma.user.create({
-    data: user,
+    data: candidate,
   });
 }
 
