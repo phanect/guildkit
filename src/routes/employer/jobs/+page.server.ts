@@ -14,12 +14,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
   const decodedToken = jwt.verify(token, JWT_SECRET) as { role: UserRole; id: string; };
   const { id, role } = decodedToken;
 
-  if (role === "ADMIN") {
-    return {
-      jobs: await prisma.job.findMany({}),
-      role,
-    };
-  } else if (role === "RECRUITER") {
+  if (role === "RECRUITER") {
     return {
       jobs: await prisma.job.findMany({
         where: {
@@ -28,7 +23,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
       }),
       role,
     };
-  } else if (role === "CANDIDATE") {
+  } else if (role === "CANDIDATE" || role === "ADMIN") {
     return fail(400, { reason: "Unauthorized" });
   } else {
     console.error(`Unexpected \`role\` value: "${ role as string }"`);
