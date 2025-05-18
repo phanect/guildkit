@@ -1,18 +1,12 @@
-import { fail, redirect, type ActionFailure } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 import { superValidate } from "sveltekit-superforms/server";
 import prisma from "$lib/prisma.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
-import type { Job, UserRole } from "@prisma/client";
 import type { PageServerLoad, RequestEvent } from "./$types";
 import { JWT_SECRET } from "$env/static/private";
 
-type LoadReturn = {
-  jobs: Job[];
-  role: UserRole;
-} | ActionFailure<{ reason: string; }>;
-
-export const load: PageServerLoad<LoadReturn> = async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
   const token = cookies.get("token");
   if (typeof token !== "string") {
     return fail(400, { reason: "Invalid token" });
