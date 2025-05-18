@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
-    "bcryptjs": "^2.4.3",
     "better-auth": "^1.2.7",
     "pg": "^8.14.1"
   },
@@ -43,7 +42,6 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/postcss": "^4.0.7",
     "@tailwindcss/vite": "^4.0.7",
-    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^24.0.7",
     "dayjs": "^1.11.11",
     "deepmerge": "^4.3.1",
