@@ -5,6 +5,7 @@ import { admin } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { ac, roles, type Role } from "./auth/roles.ts";
 import prisma from "./prisma.ts";
+import { arrayElementOverwraps } from "./utils.ts";
 import type { Simplify } from "type-fest";
 
 if (
@@ -29,7 +30,13 @@ export const auth = betterAuth({
   plugins: [
     admin({
       ac,
-      roles,
+      roles: {
+        ...roles,
+
+        // Disable default roles
+        admin: undefined,
+        user: undefined,
+      },
     }),
   ],
   socialProviders: {
@@ -104,7 +111,7 @@ export const requireAuthAs = async (
     }
   }
 
-  if (expectedRoles === "any" || !expectedRoles.includes(user.role)) {
+  if (expectedRoles === "any" || !arrayElementOverwraps(expectedRoles, user.roles)) {
     return { user, session };
   } else {
     return error(401, `This page is for the ${ expectedRoles.join(" or ") }.`);

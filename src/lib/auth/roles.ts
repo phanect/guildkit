@@ -30,6 +30,7 @@ export const roles = {
     project: [],
   }),
 };
+export const roleNames = Object.keys(roles) as Role[];
 
 export type Role = keyof typeof roles;
 export type SignUpRole = "candidate" | "recruiter";
