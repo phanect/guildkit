@@ -8,7 +8,10 @@ export const load: PageServerLoad = async ({ parent }) => {
   const { user } = await parent();
 
   if (!user || (user.role !== "recruiter" && user.role !== "recruiterOrgAdmin")) {
-    console.error(user ? `user.role: ${ user.role }` : "user does not exist.");
+    console.error(
+      "[ERROR] User role must be `recruiter` or `recruiterOrgAdmin`, but "
+      + (user ? `the user.role is \`${ user.role }\`` : "user does not exist.")
+    );
     // This should not happen because the +layout.server.ts should check if the user logged-in.
     return error(500, "Something is technically wrong. Sorry, this is probably a bug of GuildKit. Error code: GK-937T2");
   }

@@ -5,6 +5,7 @@ import { admin } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { ac, roles, type Role } from "./auth/roles.ts";
 import prisma from "./prisma.ts";
+import { arrayElementOverwraps } from "./utils.ts";
 import type { Simplify } from "type-fest";
 
 if (
@@ -29,7 +30,13 @@ export const auth = betterAuth({
   plugins: [
     admin({
       ac,
-      roles,
+      roles: {
+        ...roles,
+
+        // Disable default roles
+        admin: undefined,
+        user: undefined,
+      },
     }),
   ],
   socialProviders: {
@@ -58,7 +65,10 @@ export const getSession = async (...args: Parameters<typeof auth.api.getSession>
   if (session && "user" in session) {
     return {
       ...session,
-      user: session.user as User,
+      user: {
+        ...(session.user ?? {}),
+        roles: session.user?.role?.split(",") as Role[],
+      },
     };
   } else {
     return session;
@@ -67,7 +77,7 @@ export const getSession = async (...args: Parameters<typeof auth.api.getSession>
 
 export type User = Simplify<
   typeof auth.$Infer.Session["user"] & {
-    role?: Role | null | undefined;
+    roles?: Role[];
   }
 >;
 export type Session = typeof auth.$Infer.Session["session"];
@@ -90,11 +100,11 @@ export const requireAuthAs = async (
     return redirect(303, "/auth");
   }
 
-  if (!user.role || user.role.length <= 0) {
+  if (!user.roles || user.roles.length <= 0) {
     return redirect(302, "/auth/signup");
   }
 
-  if (expectedRoles === "any" || !expectedRoles.includes(user.role)) {
+  if (expectedRoles === "any" || !arrayElementOverwraps(expectedRoles, user.roles)) {
     return { user, session };
   } else {
     return error(401, `This page is for the ${ expectedRoles.join(" or ") }.`);
