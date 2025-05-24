@@ -6,15 +6,15 @@ export const ac = createAccessControl({
 
 export const roles = {
   /** Role for the GuildKit admins. They can control everything. */
-  gkAdmin: ac.newRole({
+  admin: ac.newRole({
     project: [ "create", "update" ],
   }),
-  /** Role for the admins of the each job search websites built by GuildKit. They can control everything in their own job search service(s). */
-  siteAdmin: ac.newRole({
+  /** Role for the owners of the each job search websites built by GuildKit. They can control everything in their own job search service(s). */
+  siteOwner: ac.newRole({
     project: [],
   }),
-  /** Role for the admins of the each organizations. They can control everything in their organization(s). */
-  recruiterOrgAdmin: ac.newRole({
+  /** Role for the owners of the each organizations. They can control everything in their organization(s). */
+  recruiterOrgOwner: ac.newRole({
     project: [],
   }),
   /** Role for the candidate users */
@@ -25,8 +25,11 @@ export const roles = {
   recruiter: ac.newRole({
     project: [],
   }),
+  /** Default user role. They can do nothing and have to set their role first. */
+  user: ac.newRole({
+    project: [],
+  }),
 };
-export const roleNames = Object.keys(roles) as Role[];
 
 export type Role = keyof typeof roles;
 export type SignUpRole = "candidate" | "recruiter";
