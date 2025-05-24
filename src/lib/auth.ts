@@ -90,9 +90,11 @@ export type Session = typeof auth.$Infer.Session["session"];
 type RequireLoginAsOptions = Pick<Parameters<ServerLoad>[0], "request">;
 
 export const requireAuthAs = async (
-  expectedRoles: Role[] | "any",
+  expectedRoles: Exclude<Role, "user">[] | "any",
   { request }: RequireLoginAsOptions
 ): Promise<{ user: User; session: Session; }> => {
+  const reqURL = new URL(request.url);
+
   const { user, session } = await getSession({
     headers: request.headers,
   }) ?? {};
@@ -101,8 +103,12 @@ export const requireAuthAs = async (
     return redirect(303, "/auth");
   }
 
-  if (!user.roles || user.roles.length <= 0) {
-    return redirect(302, "/auth/signup");
+  if (user.roles.length <= 0 || user.roles.includes("user")) {
+    if (reqURL.pathname === "/auth/signup") {
+      return { user, session };
+    } else {
+      return redirect(302, "/auth/signup");
+    }
   }
 
   if (expectedRoles === "any" || !arrayElementOverwraps(expectedRoles, user.roles)) {
