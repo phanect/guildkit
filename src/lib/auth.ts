@@ -63,11 +63,12 @@ export const getSession = async (...args: Parameters<typeof auth.api.getSession>
   const session = await auth.api.getSession(...args);
 
   if (session && "user" in session) {
+    const { role, ...user } = session.user;
     return {
       ...session,
       user: {
-        ...(session.user ?? {}),
-        roles: session.user?.role?.split(",") as Role[],
+        ...user,
+        roles: role?.split(",") as Role[] ?? [],
       },
     };
   } else {
@@ -76,8 +77,8 @@ export const getSession = async (...args: Parameters<typeof auth.api.getSession>
 };
 
 export type User = Simplify<
-  typeof auth.$Infer.Session["user"] & {
-    roles?: Role[];
+  Omit<typeof auth.$Infer.Session["user"], "role"> & {
+    roles: Role[];
   }
 >;
 export type Session = typeof auth.$Infer.Session["session"];
