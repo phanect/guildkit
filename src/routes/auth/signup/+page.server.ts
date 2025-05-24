@@ -1,14 +1,19 @@
 import { error, redirect } from "@sveltejs/kit";
 import { auth, requireAuthAs } from "$lib/auth.ts";
-import prisma from "$lib/prisma.ts";
+import { admin } from "$lib/auth/client.ts";
 import type { Actions, PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ locals, request }) => {
-  const { user } = await requireAuthAs("any", { locals, request }) ?? {};
+export const load: PageServerLoad = async ({ request }) => {
+  const { user } = await requireAuthAs("any", { request }) ?? {};
 
-  if (user.role) {
-    return redirect(302, (user.role === "recruiterOrgAdmin" || user.role === "recruiter") ? "/employer" : "/");
+  if (user.roles.includes("user") || user.roles.length <= 0) {
+    return;
   }
+
+  return redirect(302, (user.roles.includes("recruiterOrgOwner") || user.roles.includes("recruiter"))
+    ? "/employer"
+    : "/"
+  );
 };
 
 export const actions: Actions = {
@@ -31,13 +36,9 @@ export const actions: Actions = {
       return error(401, "Not authenticated yet.");
     }
 
-    await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        role,
-      },
+    await admin.setRole({
+      userId: user.id,
+      role,
     });
   },
 };
