@@ -23,7 +23,7 @@
     "prepare": "nu ./scripts/scripts.nu prepare"
   },
   "dependencies": {
-    "@prisma/client": "^6.3.0",
+    "@prisma/client": "^6.9.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.14.1"
