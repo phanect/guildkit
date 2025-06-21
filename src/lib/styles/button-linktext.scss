@@ -18,3 +18,13 @@
     color: #111111;
   }
 }
+
+.linktext {
+  color: #000000;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: #111111;
+  }
+}
