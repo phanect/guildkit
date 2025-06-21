@@ -105,7 +105,7 @@
 
       {#if editable}
         <div class="flex items-end gap-2">
-          <Link href={`/employer/jobs/edit/${ job.id }`} preload={true}>
+          <Link href={`/employer/jobs/edit/${ job.id }`} preload={true} theme="button">
             Edit
           </Link>
           <form action="/employer/jobs?/delete" use:enhance>

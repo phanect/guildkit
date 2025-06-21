@@ -4,16 +4,17 @@
   type Props = {
     children: Snippet;
     href: string;
+    theme?: "button" | "linktext";
     preload?: boolean;
   };
 
-  const { href, preload = false, children }: Props = $props();
+  const { href, theme = "linktext", preload = false, children }: Props = $props();
 </script>
 
 <style lang="scss">
   @use "$lib/styles/button-linktext.scss";
 </style>
 
-<a {href} class="button" data-sveltekit-preload-data={ preload ? "hover" : null }>
+<a {href} class={ theme } data-sveltekit-preload-data={ preload ? "hover" : null }>
   {@render children()}
 </a>
