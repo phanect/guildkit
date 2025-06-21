@@ -20,7 +20,7 @@ model Job {
   company          String
   employer         User     @relation(fields: [employerId], references: [id])
   employerId       String
-  expiresAt         DateTime
+  expiresAt        DateTime
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
