@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
+  import Link from "./generic/Link.svelte";
   import type { Job } from "@prisma/client";
 
   type Props = {
@@ -103,9 +104,9 @@
 
       {#if editable}
         <div class="flex items-end gap-2">
-          <Button href={`/employer/jobs/edit/${ job.id }`} preload={true}>
+          <Link href={`/employer/jobs/edit/${ job.id }`} preload={true}>
             Edit
-          </Button>
+          </Link>
           <Button action="/employer/jobs?/delete" params={{ id: job.id }}>
             Delete
           </Button>
