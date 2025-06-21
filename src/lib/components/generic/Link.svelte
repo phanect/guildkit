@@ -3,16 +3,17 @@
 
   type Props = {
     children: Snippet;
-    onclick?: HTMLButtonElement["onclick"];
+    href: string;
+    preload?: boolean;
   };
 
-  const { onclick, children }: Props = $props();
+  const { href, preload = false, children }: Props = $props();
 </script>
 
 <style lang="scss">
   @use "$lib/styles/button-linktext.scss";
 </style>
 
-<button type="submit" class="button" {onclick}>
+<a {href} class="button" data-sveltekit-preload-data={ preload ? "hover" : null }>
   {@render children()}
-</button>
+</a>
