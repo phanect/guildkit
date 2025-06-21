@@ -1,8 +1,9 @@
 import { env } from "node:process";
-import { error, redirect, type ServerLoad } from "@sveltejs/kit";
+import { error, redirect, type Action, type ServerLoad } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { admin } from "./auth/client.ts";
 import { ac, roles, type Role } from "./auth/roles.ts";
 import prisma from "./prisma.ts";
 import { arrayElementOverwraps } from "./utils.ts";
@@ -28,7 +29,7 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   plugins: [
-    admin({
+    adminPlugin({
       ac,
       roles,
     }),
@@ -108,4 +109,29 @@ export const requireAuthAs = async (
   } else {
     return error(401, `This page is for the ${ expectedRoles.join(" or ") }.`);
   }
+};
+
+export const setRoleAction: Action = async ({ request }) => {
+  const role = (await request.formData()).get("role");
+
+  if (typeof role !== "string") {
+    return error(400, "`role` must be given as a string format");
+  }
+
+  if (role !== "candidate" && role !== "recruiter") {
+    return error(400, "`role` must be `candidate` or `recruiter`");
+  }
+
+  const { user } = await auth.api.getSession({
+    headers: request.headers,
+  }) ?? {};
+
+  if (!user) {
+    return error(401, "Not authenticated yet.");
+  }
+
+  await admin.setRole({
+    userId: user.id,
+    role,
+  });
 };
