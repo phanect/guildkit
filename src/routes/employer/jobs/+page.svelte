@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "$lib/components/generic/Button.svelte";
+  import Link from "$lib/components/generic/Link.svelte";
   import JobList from "$lib/components/JobList.svelte";
   import type { PageProps } from "./$types";
 
@@ -34,9 +34,9 @@
 
 <div class="container">
   <section class="button-section">
-    <Button href="/employer/jobs/new" preload={true}>
+    <Link href="/employer/jobs/new" preload={true}>
       Add job
-    </Button>
+    </Link>
   </section>
 
   <JobList {jobs} {editable} />

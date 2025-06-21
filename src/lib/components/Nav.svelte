@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import Button from "./generic/Button.svelte";
+  import Link from "./generic/Link.svelte";
 
   type Props = {
     isLoggedIn: boolean;
@@ -55,7 +56,7 @@
   </a>
   <div class="right-section">
     {#if !isLoggedIn}
-      <Button href="/auth/signup">Log in <span class="text-separator"></span> Sign up</Button>
+      <Link href="/auth/signup">Log in <span class="text-separator"></span> Sign up</Link>
     {:else}
       <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
 
