@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
   import Link from "./generic/Link.svelte";
@@ -107,9 +108,12 @@
           <Link href={`/employer/jobs/edit/${ job.id }`} preload={true}>
             Edit
           </Link>
-          <Button action="/employer/jobs?/delete" params={{ id: job.id }}>
-            Delete
-          </Button>
+          <form action="/employer/jobs?/delete" use:enhance>
+            <input type="hidden" name="id" value={ job.id} />
+            <Button>
+              Delete
+            </Button>
+          </form>
         </div>
       {/if}
     </div>
