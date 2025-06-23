@@ -8,7 +8,7 @@
     "dev": "nu ./scripts/scripts.nu dev; pnpm db:stop",
     "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit; pnpm db:stop",
     "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres; pnpm db:stop",
-    "resetdb": "pnpm db:restart && prisma migrate reset",
+    "resetdb": "pnpm db:restart && prisma migrate reset --skip-seed && prisma migrate dev --skip-seed && prisma db seed",
     "resetdb:demo": "prisma migrate reset --force",
     "db:restart": "nu ./scripts/scripts.nu restartdb",
     "db:stop": "nu ./scripts/scripts.nu stopdb",
