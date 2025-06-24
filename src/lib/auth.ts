@@ -19,6 +19,10 @@ if (
 //
 // auth setup
 //
+const oAuthConfigs = {
+  disableImplicitSignUp: true,
+};
+
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -53,10 +57,12 @@ export const auth = betterAuth({
       prompt: "select_account",
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+      ...oAuthConfigs,
     },
     github: {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
+      ...oAuthConfigs,
     },
   },
   emailAndPassword: {
