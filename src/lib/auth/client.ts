@@ -22,6 +22,17 @@ export const signInWith = async (provider: "google" | "github") => signIn.social
   provider,
   callbackURL: "/",
   errorCallbackURL: "/auth/error",
+  requestSignUp: false,
+});
+
+export const signUpWith = async (
+  provider: "google" | "github",
+) => signIn.social({
+  provider,
+  callbackURL: "/",
+  newUserCallbackURL: "/",
+  errorCallbackURL: "/auth/error",
+  requestSignUp: true,
 });
 
 export const signOut = async () => baseSignOut({
