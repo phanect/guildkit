@@ -82,8 +82,8 @@ importers:
         specifier: ^4.11.8
         version: 4.12.0(typescript@5.8.3)
       nushell:
-        specifier: ^0.104.0
-        version: 0.104.1
+        specifier: ^0.105.1
+        version: 0.105.1
       postcss:
         specifier: ^8.4.23
         version: 8.5.6
@@ -121,8 +121,8 @@ importers:
         specifier: ^6.0.11
         version: 6.3.5(@types/node@24.0.7)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.2)
       vite-plugin-devtools-json:
-        specifier: ^0.1.0
-        version: 0.1.1(vite@6.3.5(@types/node@24.0.7)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.2))
+        specifier: ^0.2.0
+        version: 0.2.0(vite@6.3.5(@types/node@24.0.7)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.2))
       zod:
         specifier: ^3.21.4
         version: 3.25.67
@@ -694,43 +694,43 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nushell/darwin-arm64@0.104.1':
-    resolution: {integrity: sha512-msegRg5LC0WnciyKmQveaCVVygBb3nborYBrEA70rCHdNVltoG9GqweTVydVcgdXW5FTd+7i/3M0FkJegnymkA==}
+  '@nushell/darwin-arm64@0.105.1':
+    resolution: {integrity: sha512-Tx+iaGxzHDxl0P/85JHwa5oShViW5ZwehYd6myua7OLLiBAkdzxd6Z98tSYj3bfxP/OAZwkhHW4tFoIbhxV3QA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@nushell/darwin-x64@0.104.1':
-    resolution: {integrity: sha512-4ERcOlK0E8aHT1LbvERhWsCpmp5mWBECTvnU3dby7O17BdkLlyaNkMFIwqj/k2KLovLJJhQ1AtHAgafMCxK0pQ==}
+  '@nushell/darwin-x64@0.105.1':
+    resolution: {integrity: sha512-GEfQSwdXbfKrCZWjqWoAg0OjKARvlGVDM/+1YknGD/2OZDwVkZS0dyVHrmKOr0z/RmlNMA+R2xwPVQ3ki/LyZg==}
     cpu: [x64]
     os: [darwin]
 
-  '@nushell/linux-arm64@0.104.1':
-    resolution: {integrity: sha512-huW8isCU0QdQqu9Jqrn4cvI8YAjvmf+Mzj6xoVTKUY0yB3aaksHmkMSXrAdfABe+ROQMOIXy7dRRloE6592ukQ==}
+  '@nushell/linux-arm64@0.105.1':
+    resolution: {integrity: sha512-8BNJhk5nwUafwtWaslERsXRVGlDxUPYw5J4Qe1snKbYa6O8gIUKUiy6kHetYvACJjyUlWHV35Hf3Zzwe42RZ3A==}
     cpu: [arm64]
     os: [linux]
 
-  '@nushell/linux-arm@0.104.1':
-    resolution: {integrity: sha512-Vo1pp7ItWwQX3tm1X9s4jZKGWo/GmWs6LZnq2APCjnQaE06BgUHDnGnTM7eGSoOY54NXgNQyGNVHB40Pwq9/JQ==}
+  '@nushell/linux-arm@0.105.1':
+    resolution: {integrity: sha512-7GV+nRD93xNcDJaH9gXAlTwr5oTfrKeQ9McGNOghAXCYwwgXVsiG8dLE0Au4Qqw07LsdJAUud/621WhEbmnhiA==}
     cpu: [arm]
     os: [linux]
 
-  '@nushell/linux-riscv64@0.104.1':
-    resolution: {integrity: sha512-hiRNBagCB//RSmkY1J9YEUcxeBa52F7G3POu8XFaVg4ZAZpqWDvaCiLWZQvHa5MUsZI28ZR+1U9mFQeLX0/N9Q==}
+  '@nushell/linux-riscv64@0.105.1':
+    resolution: {integrity: sha512-msMrHm7jqftmunkL10E12o1j1ZkYkCo+Hgto5VljM+t5WBnc/B9vIpDzo1xEAMuhIj7/VhQBZEXMCI1wM8BvJA==}
     cpu: [riscv64]
     os: [linux]
 
-  '@nushell/linux-x64@0.104.1':
-    resolution: {integrity: sha512-2U/okXCEP/QE6SIMjQO83Siu5XTTa4YOn6APpnA93GztlZ236TY6EvslROItgQ+DSosULZfWX7Zzk1EAJBP/9Q==}
+  '@nushell/linux-x64@0.105.1':
+    resolution: {integrity: sha512-HR+fBOsyq2h/biHTKypxrViYrzHdTek8zyo28zmNJ4sP8cTJIjb3IaBn/gLPhgiHPlFw43+6vvOP7+xB9mui7A==}
     cpu: [x64]
     os: [linux]
 
-  '@nushell/windows-arm64@0.104.1':
-    resolution: {integrity: sha512-NZPEfrACEh+jdC1LMLIE7rbIouBYV4f3/n4t69zC3qiYsuHjXGTGLSeTgsa+If7x2IX6R+DnHWVETcEmwk5hnw==}
+  '@nushell/windows-arm64@0.105.1':
+    resolution: {integrity: sha512-44+5+K98/GPqOQTxlU35uyPunEz2DcElytLI79kEk8MhdybVjBG+3NP23eBTGv0Omo1S1ZKFuxbW8KkclurOvw==}
     cpu: [arm64]
     os: [win32]
 
-  '@nushell/windows-x64@0.104.1':
-    resolution: {integrity: sha512-M0x6paPlHBQtR8xNpQoux6/3d117An5SY4D86+AD79K1MBZkoLc0kUjyeeLIGhXi1NGyFe1fWQrxhCsw8ULA4A==}
+  '@nushell/windows-x64@0.105.1':
+    resolution: {integrity: sha512-hnRSvfkDB0GvxfJHm2YQqIZ7x6DwONi5PDy3CUQ0B3hd2dOflXxSSnBbsuZUaUw9XLeVo3617WOzBxZVJFX8EQ==}
     cpu: [x64]
     os: [win32]
 
@@ -2949,8 +2949,8 @@ packages:
     resolution: {integrity: sha512-Ee/R3SyN4BuynXcnTaekmaVdbDAEiNrHqjQIA37mHU8G9pf7aaAD4ZX3XjBLo6rsdcxA/gtkcNYZLt30ACgynw==}
     engines: {node: '>=14.16'}
 
-  nushell@0.104.1:
-    resolution: {integrity: sha512-jNI01QC/iUoChbDfOzAAM9b1tAsKTt5efvvvraKbrW3IpCiM65I5eD6pR08PSq2KGjFLyiQaHlXnQMh43T6LRQ==}
+  nushell@0.105.1:
+    resolution: {integrity: sha512-w6/ZmM8T5V4p2DbPmHkIPrTlUDOxkMOoz+W2P/mdecbFEipFBTASsrZS9pfzH8hRwMRRCIxOWOYTQlpXChI94Q==}
     engines: {node: '>=20.0.0', pnpm: '>=9'}
     hasBin: true
 
@@ -3733,8 +3733,8 @@ packages:
     resolution: {integrity: sha512-BgWVbCI72aIQy937xbawcs+hrVaN/CZ2UwutgaJ36hGqRrLNM+f5LUT/YPRbo8IV/ASeFzXszezV+y2+rq3l8A==}
     engines: {node: '>= 0.10'}
 
-  vite-plugin-devtools-json@0.1.1:
-    resolution: {integrity: sha512-kjXyDTZDwOKiqum/DBWZ6JenUh9qWFr/0/peoQqARanseFyNmtxOrexAxbE7ERqBSsMSkQA7qNTSQkZGw1SfPw==}
+  vite-plugin-devtools-json@0.2.0:
+    resolution: {integrity: sha512-K7PoaWOEJECZ1n3VbhJXsUAX2PsO0xY7KFMM/Leh7tUev0M5zi+lz+vnVVdCK17IOK9Jp9rdzHXc08cnQirGbg==}
     peerDependencies:
       vite: ^2.7.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
 
@@ -4634,28 +4634,28 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@nushell/darwin-arm64@0.104.1':
+  '@nushell/darwin-arm64@0.105.1':
     optional: true
 
-  '@nushell/darwin-x64@0.104.1':
+  '@nushell/darwin-x64@0.105.1':
     optional: true
 
-  '@nushell/linux-arm64@0.104.1':
+  '@nushell/linux-arm64@0.105.1':
     optional: true
 
-  '@nushell/linux-arm@0.104.1':
+  '@nushell/linux-arm@0.105.1':
     optional: true
 
-  '@nushell/linux-riscv64@0.104.1':
+  '@nushell/linux-riscv64@0.105.1':
     optional: true
 
-  '@nushell/linux-x64@0.104.1':
+  '@nushell/linux-x64@0.105.1':
     optional: true
 
-  '@nushell/windows-arm64@0.104.1':
+  '@nushell/windows-arm64@0.105.1':
     optional: true
 
-  '@nushell/windows-x64@0.104.1':
+  '@nushell/windows-x64@0.105.1':
     optional: true
 
   '@parcel/watcher-android-arm64@2.5.1':
@@ -6891,16 +6891,16 @@ snapshots:
   normalize-url@8.0.2:
     optional: true
 
-  nushell@0.104.1:
+  nushell@0.105.1:
     optionalDependencies:
-      '@nushell/darwin-arm64': 0.104.1
-      '@nushell/darwin-x64': 0.104.1
-      '@nushell/linux-arm': 0.104.1
-      '@nushell/linux-arm64': 0.104.1
-      '@nushell/linux-riscv64': 0.104.1
-      '@nushell/linux-x64': 0.104.1
-      '@nushell/windows-arm64': 0.104.1
-      '@nushell/windows-x64': 0.104.1
+      '@nushell/darwin-arm64': 0.105.1
+      '@nushell/darwin-x64': 0.105.1
+      '@nushell/linux-arm': 0.105.1
+      '@nushell/linux-arm64': 0.105.1
+      '@nushell/linux-riscv64': 0.105.1
+      '@nushell/linux-x64': 0.105.1
+      '@nushell/windows-arm64': 0.105.1
+      '@nushell/windows-x64': 0.105.1
 
   nypm@0.5.4:
     dependencies:
@@ -7775,7 +7775,7 @@ snapshots:
   validator@13.15.15:
     optional: true
 
-  vite-plugin-devtools-json@0.1.1(vite@6.3.5(@types/node@24.0.7)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.2)):
+  vite-plugin-devtools-json@0.2.0(vite@6.3.5(@types/node@24.0.7)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.2)):
     dependencies:
       uuid: 11.1.0
       vite: 6.3.5(@types/node@24.0.7)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.2)
