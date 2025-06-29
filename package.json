@@ -18,7 +18,6 @@
     "fix": "pnpm sync && eslint --fix",
     "clean": "pnpm db:stop; git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
-    "periodic": "nu ./scripts/scripts.nu periodic",
     "sync": "nu ./scripts/scripts.nu sync",
     "prepare": "nu ./scripts/scripts.nu prepare"
   },

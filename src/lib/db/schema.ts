@@ -7,8 +7,10 @@ import {
   uuid,
   pgEnum,
 } from "drizzle-orm/pg-core";
-import { user } from "./better-auth.ts";
-import { currency } from "./generated.ts";
+import { currency } from "../../../tmp/drizzle-schema/currencies.ts";
+import { user } from "../../../tmp/drizzle-schema/better-auth.ts";
+
+export * from "../../../tmp/drizzle-schema/better-auth.ts";
 
 export const salaryPer = pgEnum("SalaryPer", [
   "YEAR",
