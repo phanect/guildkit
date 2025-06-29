@@ -37,23 +37,14 @@ def "main stopdb" [] {
   }
 }
 
-def "main periodic" [--startdb] {
-  jiti ./scripts/periodic-generate.ts
-
-  const newBranch = "bot-rebuild-enum-$(date --iso-8601)"
-
-  git fetch origin
-  git switch --create $newBranch
-  git add --all
-
-  if (git diff --cached | is-not-empty) {
-    git commit --message="feat: rebuild Prisma enum of currency codes"
-    gh pr create --base=main
-  }
-}
-
 def "main sync" [--startdb] {
   pnpm svelte-kit sync
+
+  # Generate DB Schemas
+  pnpm jiti ($scriptDirPath | path join "scripts-sync-currency.ts")
+
+  touch ($scriptDirPath | path join "../tmp/drizzle-schema/better-auth.ts")
+  pnpx @better-auth/cli generate -y --output="./tmp/drizzle-schema/better-auth.ts" # relative path from project root
 
   if ($isLocal) {
     main restartdb
