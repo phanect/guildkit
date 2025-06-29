@@ -52,13 +52,15 @@ def "main sync" [--seed] {
 
   if ($isLocal) {
     container compose up -d --wait
-    pnpm prisma migrate dev --skip-seed
+    pnpm drizzle-kit generate
+    pnpm drizzle-kit migrate
 
     if ($seed) {
-      pnpm prisma db seed
+      pnpm jiti ./scripts/seed.ts
     }
   } else {
-    pnpm prisma generate
+    pnpm drizzle-kit generate
+    pnpm drizzle-kit migrate
   }
 }
 

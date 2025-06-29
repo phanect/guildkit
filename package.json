@@ -10,7 +10,7 @@
     "resetdb": "nu ./scripts/scripts.nu resetdb",
     "resetdb:demo": "prisma migrate reset --force",
     "build": "pnpm sync && vite build",
-    "release": "pnpm sync && prisma migrate deploy",
+    "release": "pnpm sync && drizzle-kit migrate",
     "lint": "pnpm sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm sync && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --force",
@@ -20,8 +20,8 @@
     "prepare": "nu ./scripts/scripts.nu sync --seed"
   },
   "dependencies": {
-    "@prisma/client": "^6.11.1",
     "better-auth": "^1.3.4",
+    "drizzle-orm": "^0.44.2",
     "pg": "^8.14.1"
   },
   "devDependencies": {
@@ -40,8 +40,11 @@
     "@tailwindcss/postcss": "^4.0.7",
     "@tailwindcss/vite": "^4.0.7",
     "@types/node": "^24.0.10",
+    "@types/pg": "^8.15.4",
     "dayjs": "^1.11.11",
     "deepmerge": "^4.3.1",
+    "dotenv": "^17.0.0",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.30.1",
     "fast-xml-parser": "^5.2.1",
     "jiti": "^2.4.2",
@@ -49,7 +52,6 @@
     "nushell": "^0.106.1",
     "postcss": "^8.4.23",
     "postcss-load-config": "^6.0.1",
-    "prisma": "^6.11.1",
     "sass": "^1.86.1",
     "svelte": "^5.35.4",
     "svelte-check": "^4.1.4",
@@ -75,9 +77,6 @@
       "svelte-preprocess",
       "unrs-resolver"
     ]
-  },
-  "prisma": {
-    "seed": "jiti ./prisma/seed.ts"
   },
   "engines": {
     "node": "20.x || 22.x || >=24.x",
