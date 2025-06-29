@@ -3,8 +3,10 @@ import { error, redirect } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { eq } from "drizzle-orm";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
 import { db } from "./db/db.ts";
+import { userPropsTable, type UserProps } from "./db/schema.ts";
 
 if (
   !env.GOOGLE_CLIENT_ID
@@ -29,10 +31,9 @@ export const auth = betterAuth({
   }),
   user: {
     additionalFields: {
-      type: {
-        type: [ "candidate", "recruiter", "administrative" ],
-        required: false,
-        input: true,
+      propsId: {
+        type: "string",
+        required: true,
       },
     },
   },
@@ -70,16 +71,18 @@ export const auth = betterAuth({
   },
 });
 
-export type User = typeof auth.$Infer.Session["user"];
+export type User = typeof auth.$Infer.Session["user"] & {
+  props: UserProps;
+};
 export type Session = typeof auth.$Infer.Session["session"];
 
 export const requireAuthAs = async (
-  expectedType: User["type"] | "any",
+  expectedType: User["props"]["type"] | "any",
   { request }: { request: Request; },
 ): Promise<{ user: User; session: Session; }> => {
   const reqURL = new URL(request.url);
 
-  const { user, session } = await auth.api.getSession({
+  const { user, session } = await getSession({
     headers: request.headers,
   }) ?? {};
 
@@ -87,7 +90,7 @@ export const requireAuthAs = async (
     return redirect(303, "/auth");
   }
 
-  if (!user.type) {
+  if (!user.props.type) {
     if (reqURL.pathname.startsWith("/auth/signup/")) {
       return { user, session };
     } else {
@@ -95,9 +98,29 @@ export const requireAuthAs = async (
     }
   }
 
-  if (expectedType === "any" || expectedType === user.type) {
+  if (expectedType === "any" || expectedType === user.props.type) {
     return { user, session };
   } else {
     return error(401, `This page is for the ${ expectedType }s.`);
   }
+};
+
+export const getSession = async (...args: Parameters<typeof auth.api.getSession>) => {
+  const { user, session } = await auth.api.getSession(...args) ?? {};
+
+  if (!user) {
+    return;
+  }
+
+  const props = await db.select().from(userPropsTable)
+    .where(eq(userPropsTable.id, user?.propsId))
+    .limit(1);
+
+  return {
+    user: {
+      ...user,
+      props: props[0],
+    },
+    session,
+  };
 };
