@@ -7,6 +7,7 @@ const configs: Linter.Config[] = [
   {
     ignores: [
       "./build/**",
+      "./tmp/**",
     ],
   },
   ...core,
