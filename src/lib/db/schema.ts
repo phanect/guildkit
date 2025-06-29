@@ -1,4 +1,4 @@
-import { type InferInsertModel } from "drizzle-orm";
+import { relations, type InferInsertModel } from "drizzle-orm";
 import {
   pgTable,
   timestamp,
@@ -45,3 +45,17 @@ export const userType = pgEnum("UserType", [
   "recruiter",
   "candidate",
 ]);
+
+export const userProps = pgTable("userProps", {
+  id: uuid().primaryKey().notNull().defaultRandom(),
+  type: userType(),
+});
+
+export const userPropsRelations = relations(user, ({ one }) => ({
+  props: one(userProps, {
+    fields: [ user.propsId ],
+    references: [ userProps.id ],
+  }),
+}));
+
+export type UserProps = InferInsertModel<typeof userProps>;
