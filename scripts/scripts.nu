@@ -57,13 +57,15 @@ def "main sync" [--startdb] {
 
   if ($isLocal) {
     main restartdb
-    pnpm prisma migrate dev
+    pnpm drizzle-kit generate
+    pnpm drizzle-kit migrate
 
     if not $startdb {
       main stopdb
     }
   } else {
-    pnpm prisma generate
+    pnpm drizzle-kit generate
+    pnpm drizzle-kit migrate
   }
 }
 
