@@ -2,9 +2,9 @@ import { env } from "node:process";
 import { error, redirect } from "@sveltejs/kit";
 import { betterAuth } from "better-auth";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
-import { prismaAdapter } from "better-auth/adapters/prisma";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
-import prisma from "./prisma.ts";
+import { db } from "./db/db.ts";
 
 if (
   !env.GOOGLE_CLIENT_ID
@@ -24,8 +24,8 @@ const oAuthConfigs = {
 };
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: "postgresql",
+  database: drizzleAdapter(db, {
+    provider: "pg",
   }),
   user: {
     additionalFields: {
