@@ -7,6 +7,20 @@ import {
   uuid,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { currency } from "../../../tmp/drizzle-schema/currencies.ts";
+import { user as userTable } from "../../../tmp/drizzle-schema/better-auth.ts";
+
+export { currency, userTable };
+export {
+  session as sessionTable,
+  account as accountTable,
+  verification as verificationTable,
+  organization as organizationTable,
+  member as memberTable,
+  invitation as invitationTable,
+} from "../../../tmp/drizzle-schema/better-auth.ts";
+
+export type User = InferInsertModel<typeof userTable>;
 
 export const salaryPer = pgEnum("SalaryPer", [
   "YEAR",
@@ -23,10 +37,10 @@ export const jobTable = pgTable("Jobs", {
   applicationUrl: text().notNull(),
   location: text().notNull(),
   salary: integer().notNull(),
-  // TODO currency: currency().notNull(),
+  currency: currency().notNull(),
   salaryPer: salaryPer().notNull(),
   company: text().notNull(),
-  employerId: text().notNull(),
+  employerId: text().notNull().references(() => userTable.id),
   expiresAt: timestamp().notNull(),
   createdAt: timestamp().defaultNow().notNull(),
   updatedAt: timestamp().$onUpdateFn(() => new Date()),

@@ -50,6 +50,14 @@ def "main resetdb" [] {
 def "main sync" [--seed] {
   pnpm svelte-kit sync
 
+  # Generate DB Schemas
+  pnpm jiti ($scriptDirPath | path join "scripts-sync-currency.ts")
+
+  touch ($scriptDirPath | path join "../tmp/drizzle-schema/better-auth.ts")
+  # TODO replace deprecated `--y` option with `--yes` after better-auth/better-auth#3749 is released.
+  # https://github.com/better-auth/better-auth/pull/3749
+  pnpx @better-auth/cli generate --y --output="./tmp/drizzle-schema/better-auth.ts" # relative path from project root
+
   if ($isLocal) {
     container compose up -d --wait
     pnpm drizzle-kit generate
