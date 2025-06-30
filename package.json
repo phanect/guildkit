@@ -8,8 +8,8 @@
     "dev": "nu ./scripts/scripts.nu dev; pnpm db:stop",
     "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit; pnpm db:stop",
     "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres; pnpm db:stop",
-    "resetdb": "pnpm db:restart && prisma migrate reset --skip-seed && prisma migrate dev --skip-seed && prisma db seed",
-    "resetdb:demo": "prisma migrate reset --force",
+    "resetdb": "pnpm db:restart && jiti ./scripts/resetdb.ts && drizzle-kit generate && drizzle-kit migrate && jiti ./scripts/seed.ts",
+    "resetdb:demo": "jiti ./scripts/resetdb.ts && drizzle-kit migrate && jiti ./scripts/seed.ts",
     "db:restart": "nu ./scripts/scripts.nu restartdb",
     "db:stop": "nu ./scripts/scripts.nu stopdb",
     "build": "pnpm sync && vite build",
@@ -47,6 +47,7 @@
     "deepmerge": "^4.3.1",
     "dotenv": "^17.0.0",
     "drizzle-kit": "^0.31.4",
+    "drizzle-seed": "^0.3.1",
     "eslint": "^9.11.0",
     "fast-xml-parser": "^5.2.1",
     "jiti": "^2.4.2",
@@ -79,9 +80,6 @@
       "svelte-preprocess",
       "unrs-resolver"
     ]
-  },
-  "prisma": {
-    "seed": "jiti ./prisma/seed.ts"
   },
   "engines": {
     "node": "20.x || 22.x || >=24.x",

@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
-import { PrismaClient, type Prisma } from "@prisma/client";
+import { db } from "../src/lib/db/db.ts";
+import { user, job, type Job, type User } from "../src/lib/db/schema.ts";
 
-const candidates: Prisma.UserCreateInput[] = [
+const candidates: User[] = [
   {
     name: "Heizou Shikanoin",
     email: "heizou9876@yaemail.example.net",
@@ -31,16 +32,16 @@ const recruiterYae = {
   emailVerified: true,
   type: "recruiter",
   role: "recruiter",
-} as const satisfies Prisma.UserCreateInput;
+} as const satisfies User;
 const recruiterRaiden = {
   name: "Ei Raiden",
   email: "ei.raiden@shogunate.example.go.jp",
   emailVerified: true,
   type: "recruiter",
   role: "recruiter",
-} as const satisfies Prisma.UserCreateInput;
+} as const satisfies User;
 
-const jobs: Prisma.JobCreateInput[] = [
+const jobs: Job[] = [
   {
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
@@ -192,18 +193,5 @@ const jobs: Prisma.JobCreateInput[] = [
   },
 ];
 
-const prisma = new PrismaClient();
-
-// Allow N+1 problem here since we don't have to be serious for performance here.
-for (const candidate of candidates) {
-  await prisma.user.create({
-    data: candidate,
-  });
-}
-
-// Allow N+1 problem here since we don't have to be serious for performance here.
-for (const job of jobs) {
-  await prisma.job.create({
-    data: job,
-  });
-}
+await db.insert(user).values(candidates);
+await db.insert(job).values(jobs);
