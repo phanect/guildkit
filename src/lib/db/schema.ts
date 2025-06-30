@@ -1,4 +1,4 @@
-import { type InferSelectModel } from "drizzle-orm";
+import { type InferInsertModel } from "drizzle-orm";
 import {
   pgTable,
   timestamp,
@@ -11,6 +11,8 @@ import { currency } from "../../../tmp/drizzle-schema/currencies.ts";
 import { user } from "../../../tmp/drizzle-schema/better-auth.ts";
 
 export * from "../../../tmp/drizzle-schema/better-auth.ts";
+
+export type User = InferInsertModel<typeof user>;
 
 export const salaryPer = pgEnum("SalaryPer", [
   "YEAR",
@@ -36,7 +38,7 @@ export const job = pgTable("Jobs", {
   updatedAt: timestamp().$onUpdateFn(() => new Date()),
 });
 
-export type Job = InferSelectModel<typeof job>;
+export type Job = InferInsertModel<typeof job>;
 
 export const userType = pgEnum("UserType", [
   "administrative",
