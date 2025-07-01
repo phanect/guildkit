@@ -10,8 +10,25 @@ export const load: PageServerLoad = async ({ parent }) => {
 
   return {
     jobs: await prisma.job.findMany({
-      where: {
-        employerId: user.id,
+      orderBy: {
+        updatedAt: "desc",
+      },
+      include: {
+        employer: {
+          select: {
+            name: true,
+          },
+          include: {
+            recruiters: {
+              where: {
+                id,
+              },
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
       },
     }),
     type: user.type,

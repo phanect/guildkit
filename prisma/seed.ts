@@ -40,157 +40,204 @@ const recruiterRaiden = {
   role: "recruiter",
 } as const satisfies Prisma.UserCreateInput;
 
-const jobs: Prisma.JobCreateInput[] = [
-  {
-    title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
-    description: `
-      We are hiring a software developer for our ebook store. Your will be responsibile for one or some of the frontend, backend, and mobile app development.
-
-      # Responsibilities
-
-      You will be responsible for the one or more of the followings:
-
-      - Web frontend development for our ebook store (Svelte)
-      - Backend development for our ebook store (Hono + Cloudflare Workers)
-      - Mobile app development for our ebook store (React Native)
-      ...
-    `.trim(),
-    requirements: `
-      # Required
-
-      - One year or more experience in TypeScript development
-      - Two years or more experience in JavaScript or altJS (e.g. TypeScript, Elm, CoffeeScript)
-      - One year or more experience in one of the followings:
-        - Svelte, React, Vue.js, Angular, or any other component-oriented frontend framework(s)
-        - Node.js, Cloudflare Workers, or any other backend JavaScript/TypeScript framework(s)/platform(s)
-        - React Native or any other mobile JavaScript/TypeScript framework(s)
-    `.trim(),
-    applicationUrl: "https://phanective.org/job-example-1",
-    location: "Remote (any location in Inazuma)",
-    salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
-    expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterYae.email,
-        },
-        create: recruiterYae,
-      },
-    },
+const orgYae: Prisma.OrganizationCreateInput = {
+  name: "Yae Publishing House, K.K.",
+  emails: [ "hr@yaedo.example.com" ],
+  addresses: [ "2-14-3, Hanamizaka, Inazuma City, Narukami Island, Inazuma" ],
+  currencies: [ "JPY" ],
+  recruiters: {
+    create: recruiterYae,
   },
-  {
-    title: "[WFH] SRE for our ebook store",
-    description: `
-      We are hiring an SRE for our ebook store.
+  jobs: {
+    create: [
+      {
+        title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
+        description: `
+          We are hiring a software developer for our ebook store. Your will be responsibile for one or some of the frontend, backend, and mobile app development.
 
-      # Responsibilities
+          # Responsibilities
 
-      You will be responsible for the infrastructure administration and the site reliability engineering for our online ebook store.
-      ...
-    `.trim(),
-    requirements: `
-      # Required
+          You will be responsible for the one or more of the followings:
 
-      - Two year or more experience as an SRE or an infrastructure engineer.
-      - One year or more experience in the production Docker server administration
-      - One year or more experience in Infrastructure as Code tools such as Terraform and Ansible
+          - Web frontend development for our ebook store (Svelte)
+          - Backend development for our ebook store (Hono + Cloudflare Workers)
+          - Mobile app development for our ebook store (React Native)
+          ...
+        `.trim(),
+        requirements: `
+          # Required
 
-      # Nice to have
-
-      - Experience in Node.js server administration
-    `.trim(),
-    applicationUrl: "https://phanective.org/job-example-2",
-    location: "Remote (any location in Inazuma)",
-    salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
-    expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterYae.email,
+          - One year or more experience in TypeScript development
+          - Two years or more experience in JavaScript or altJS (e.g. TypeScript, Elm, CoffeeScript)
+          - One year or more experience in one of the followings:
+            - Svelte, React, Vue.js, Angular, or any other component-oriented frontend framework(s)
+            - Node.js, Cloudflare Workers, or any other backend JavaScript/TypeScript framework(s)/platform(s)
+            - React Native or any other mobile JavaScript/TypeScript framework(s)
+        `.trim(),
+        applicationUrl: "https://phanective.org/job-example-1",
+        location: "Remote (any location in Inazuma)",
+        salary: 8000000,
+        currency: "JPY",
+        salaryPer: "YEAR",
+        company: "Yae Publishing House K.K.",
+        expiresAt: dayjs().add(1, "month").toDate(),
+        employer: {
+          connectOrCreate: {
+            where: {
+              email: recruiterYae.email,
+            },
+            create: recruiterYae,
+          },
         },
-        create: recruiterYae,
       },
-    },
-  },
-  {
-    title: "[WFH] Marketing lead",
-    description: `
-      We are hiring a marketing lead for our ebook store.
+      {
+        title: "[WFH] SRE for our ebook store",
+        description: `
+          We are hiring an SRE for our ebook store.
 
-      # Responsibilities
+          # Responsibilities
 
-      - Marketing for our ebook store
-      - Marketers management
-      ...
-    `.trim(),
-    requirements: `
-      # Required
+          You will be responsible for the one or more of the followings:
 
-      - Two year or more experience as a digital marketer in B2C field
+          - Web frontend development for our ebook store (Svelte)
+          - Backend development for our ebook store (Hono + Cloudflare Workers)
+          - Mobile app development for our ebook store (React Native)
+          ...
+        `.trim(),
+        requirements: `
+          # Required
 
-      # Nice to have
+          - One year or more experience in TypeScript development
+          - Two years or more experience in JavaScript or altJS (e.g. TypeScript, Elm, CoffeeScript)
+          - One year or more experience in one of the followings:
+            - Svelte, React, Vue.js, Angular, or any other component-oriented frontend framework(s)
+            - Node.js, Cloudflare Workers, or any other backend JavaScript/TypeScript framework(s)/platform(s)
+            - React Native or any other mobile JavaScript/TypeScript framework(s)
+        `.trim(),
+        applicationUrl: "https://phanective.org/job-example-1",
+        location: "Remote (any location in Inazuma)",
+        salary: 8000000,
+        currency: "JPY",
+        salaryPer: "YEAR",
+        deadline: dayjs().add(1, "month").toDate(),
+      },
+      {
+        id: "dummy-job-2",
+        title: "[WFH] SRE for our ebook store",
+        description: `
+          We are hiring an SRE for our ebook store.
 
-      - Basic understandings for HTML
-    `.trim(),
-    applicationUrl: "https://phanective.org/job-example-3",
-    location: "Remote (any location in Inazuma)",
-    salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
-    expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterYae.email,
+          - Experience in Node.js server administration
+        `.trim(),
+        applicationUrl: "https://phanective.org/job-example-2",
+        location: "Remote (any location in Inazuma)",
+        salary: 8000000,
+        currency: "JPY",
+        salaryPer: "YEAR",
+        company: "Yae Publishing House K.K.",
+        expiresAt: dayjs().add(1, "month").toDate(),
+        employer: {
+          connectOrCreate: {
+            where: {
+              email: recruiterYae.email,
+            },
+            create: recruiterYae,
+          },
         },
-        create: recruiterYae,
       },
-    },
-  },
-  {
-    title: "Corporate Engineer",
-    description: `
-      We are hiring a software engineer for the Shogunate's internal systems.
+      {
+        title: "[WFH] Marketing lead",
+        description: `
+          We are hiring a marketing lead for our ebook store.
 
-      # Responsibilities
+          # Responsibilities
 
-      - Development for the Shogunate's internal accounting systems (The Kanjou-kei)
-      - Vendor management for the Shogunate's internal accounting systems (The Kanjou-kei)
-      ...
-    `.trim(),
-    requirements: `
-      # Required
+          - Marketing for our ebook store
+          - Marketers management
+          ...
+        `.trim(),
+        requirements: `
+          # Required
 
-      - Two or more experience in Java
+          - Two year or more experience as a digital marketer in B2C field
 
-      # Nice to have
+          # Nice to have
 
-      - Experience in vendor management
-    `.trim(),
-    applicationUrl: "https://phanective.org/job-example-4",
-    location: "The Hiiragi Estate, 4-1-1, Rito, Narukami Island, Inazuma",
-    salary: 9000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
-    company: "Kanjou Commission, The Shogunate of Inazuma",
-    expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterRaiden.email,
+          - Basic understandings for HTML
+        `.trim(),
+        applicationUrl: "https://phanective.org/job-example-3",
+        location: "Remote (any location in Inazuma)",
+        salary: 8000000,
+        currency: "JPY",
+        salaryPer: "YEAR",
+        company: "Yae Publishing House K.K.",
+        expiresAt: dayjs().add(1, "month").toDate(),
+        employer: {
+          connectOrCreate: {
+            where: {
+              email: recruiterYae.email,
+            },
+            create: recruiterYae,
+          },
         },
-        create: recruiterRaiden,
       },
-    },
+    ],
   },
-];
+};
+
+const orgShogunate: Prisma.OrganizationCreateInput = {
+  name: "The Shogunate of Inazuma",
+  emails: [ "personnel@inazuma.gov" ],
+  addresses: [
+    "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
+    "Tenryou Commission Office, 1-2-5, Inazuma City, Narukami Island, Inazuma",
+    "The Hiiragi Estate, 5-1-1, Rito, Narukami Island, Inazuma",
+  ],
+  currencies: [ "JPY" ],
+  recruiters: {
+    create: recruiterRaiden,
+  },
+  jobs: {
+    create: [{
+      id: "dummy-job-4",
+      title: "Corporate Engineer",
+      description: `
+        We are hiring a software engineer for the Shogunate's internal systems.
+        # Responsibilities
+
+        - Development for the Shogunate's internal accounting systems (The Kanjou-kei)
+        - Vendor management for the Shogunate's internal accounting systems (The Kanjou-kei)
+        ...
+      `.trim(),
+      requirements: `
+        # Required
+
+        - Two or more experience in Java
+
+        # Nice to have
+
+        - Experience in vendor management
+      `.trim(),
+      applicationUrl: "https://phanective.org/job-example-4",
+      location: "The Hiiragi Estate, 4-1-1, Rito, Narukami Island, Inazuma",
+      salary: 9000000,
+      currency: "JPY",
+      salaryPer: "YEAR",
+      company: "Kanjou Commission, The Shogunate of Inazuma",
+      expiresAt: dayjs().add(1, "month").toDate(),
+      employer: {
+        connectOrCreate: {
+          where: {
+            email: recruiterRaiden.email,
+          },
+          create: recruiterRaiden,
+        },
+      },
+    }],
+  },
+};
+
+const organizations = [ orgYae, orgShogunate ];
 
 const prisma = new PrismaClient();
 
@@ -202,8 +249,8 @@ for (const candidate of candidates) {
 }
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
-for (const job of jobs) {
-  await prisma.job.create({
-    data: job,
+for (const org of organizations) {
+  await prisma.organization.create({
+    data: org,
   });
 }
