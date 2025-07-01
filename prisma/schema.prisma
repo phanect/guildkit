@@ -17,8 +17,7 @@ model Job {
   salary           Int
   currency         Currency
   salaryPer        SalaryPer
-  company          String
-  employer         User     @relation(fields: [employerId], references: [id])
+  employer         Organization @relation(fields: [ employerId ], references: [ id ])
   employerId       String
   expiresAt        DateTime
   createdAt        DateTime @default(now())
@@ -124,6 +123,13 @@ model Organization {
   metadata    String?
   members     Member[]
   invitations Invitation[]
+
+  // Additional fields
+  emails     String[]
+  addresses  String[]
+  currencies Currency[]
+  jobs       Job[]         @relation
+  updatedAt  DateTime      @updatedAt
 
   @@unique([slug])
   @@map("organization")
