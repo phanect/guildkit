@@ -12,7 +12,7 @@
     <h1 class="text-3xl font-black text-gray-900">{job.title}</h1>
     <p class="italic inline-flex gap-2 mt-2 text-gray-400">
       <img src="/vendor/octicons/mention.svg" alt="At Symbol Icon" width="18" />
-      {job.company}
+      {job.organization.name}
     </p>
     <div class="mt-4">
       <span
