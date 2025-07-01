@@ -15,7 +15,7 @@
     "build": "pnpm sync && vite build",
     "release": "pnpm sync && prisma migrate deploy",
     "lint": "pnpm sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
-    "fix": "pnpm sync && eslint --fix",
+    "fix": "pnpm sync && prisma format && eslint --fix",
     "clean": "pnpm db:stop; git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
     "periodic": "nu ./scripts/scripts.nu periodic",
