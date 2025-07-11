@@ -79,16 +79,7 @@ const orgYae: Prisma.OrganizationCreateInput = {
         salary: 8000000,
         currency: "JPY",
         salaryPer: "YEAR",
-        company: "Yae Publishing House K.K.",
         expiresAt: dayjs().add(1, "month").toDate(),
-        employer: {
-          connectOrCreate: {
-            where: {
-              email: recruiterYae.email,
-            },
-            create: recruiterYae,
-          },
-        },
       },
       {
         title: "[WFH] SRE for our ebook store",
