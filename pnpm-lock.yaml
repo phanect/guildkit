@@ -605,9 +605,6 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.4':
     resolution: {integrity: sha512-VT2+G1VQs/9oz078bLrYbecdZKs912zQlkelYpuf+SXF+QvZDYJlbx/LSx+meSAwdDFnF8FVXW92AVjjkVmgFw==}
 
-  '@jridgewell/trace-mapping@0.3.25':
-    resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
   '@jridgewell/trace-mapping@0.3.29':
     resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
 
@@ -1562,8 +1559,8 @@ packages:
   better-auth@1.2.12:
     resolution: {integrity: sha512-YicCyjQ+lxb7YnnaCewrVOjj3nPVa0xcfrOJK7k5MLMX9Mt9UnJ8GYaVQNHOHLyVxl92qc3C758X1ihqAUzm4w==}
 
-  better-call@1.0.9:
-    resolution: {integrity: sha512-Qfm0gjk0XQz0oI7qvTK1hbqTsBY4xV2hsHAxF8LZfUYl3RaECCIifXuVqtPpZJWvlCCMlQSvkvhhyuApGUba6g==}
+  better-call@1.0.12:
+    resolution: {integrity: sha512-ssq5OfB9Ungv2M1WVrRnMBomB0qz1VKuhkY2WxjHaLtlsHoSe9EPolj1xf7xf8LY9o3vfk3Rx6rCWI4oVHeBRg==}
 
   better-sqlite3@11.10.0:
     resolution: {integrity: sha512-EwhOpyXiOEL/lKzHz9AW1msWFNzGc/z+LzeB3/jnFJpxu+th2yqvzsSWas1v9jgs9+xiXJcD5A8CJxAG2TaghQ==}
@@ -4431,11 +4428,6 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.4': {}
 
-  '@jridgewell/trace-mapping@0.3.25':
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.4
-
   '@jridgewell/trace-mapping@0.3.29':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
@@ -5489,14 +5481,14 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@simplewebauthn/browser': 13.1.0
       '@simplewebauthn/server': 13.1.1
-      better-call: 1.0.9
+      better-call: 1.0.12
       defu: 6.1.4
       jose: 6.0.11
       kysely: 0.28.2
       nanostores: 0.11.4
       zod: 3.25.75
 
-  better-call@1.0.9:
+  better-call@1.0.12:
     dependencies:
       '@better-fetch/fetch': 1.1.18
       rou3: 0.5.1
@@ -7490,7 +7482,7 @@ snapshots:
 
   svelte-check@4.2.2(picomatch@4.0.2)(svelte@5.35.4)(typescript@5.8.3):
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/trace-mapping': 0.3.29
       chokidar: 4.0.3
       fdir: 6.4.6(picomatch@4.0.2)
       picocolors: 1.1.1
