@@ -5,22 +5,19 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "type": "module",
   "scripts": {
-    "dev": "nu ./scripts/scripts.nu dev; pnpm db:stop",
-    "db": "pnpm db:restart && psql --username=guildkit --dbname=guildkit; pnpm db:stop",
-    "dbsu": "pnpm db:restart && psql --username=postgres --dbname=postgres; pnpm db:stop",
-    "resetdb": "pnpm db:restart && prisma migrate reset --skip-seed && prisma migrate dev --skip-seed && prisma db seed",
+    "dev": "pnpm sync && vite dev",
+    "db": "psql --username=guildkit --dbname=guildkit --host=localhost --port=5432",
+    "resetdb": "nu ./scripts/scripts.nu resetdb",
     "resetdb:demo": "prisma migrate reset --force",
-    "db:restart": "nu ./scripts/scripts.nu restartdb",
-    "db:stop": "nu ./scripts/scripts.nu stopdb",
     "build": "pnpm sync && vite build",
     "release": "pnpm sync && prisma migrate deploy",
     "lint": "pnpm sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm sync && eslint --fix",
-    "clean": "pnpm db:stop; git clean -dX --exclude=\"!.env\" --exclude=\"!/tmp\" --exclude=\"!/tmp/pgdata/*.pid\" --force",
+    "clean": "git clean -dX --exclude=\"!.env\" --force",
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
     "periodic": "nu ./scripts/scripts.nu periodic",
     "sync": "nu ./scripts/scripts.nu sync",
-    "prepare": "nu ./scripts/scripts.nu prepare"
+    "prepare": "nu ./scripts/scripts.nu sync"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",

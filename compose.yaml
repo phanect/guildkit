@@ -1,0 +1,24 @@
+name: guildkit-local
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: guildkit
+      POSTGRES_PASSWORD: guildkit
+      POSTGRES_DB: guildkit
+      # With this configuration, password is no longer required to login PostgreSQL
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
+    volumes:
+      - guildkit-db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "--username=guildkit", "--dbname=guildkit", "--host=localhost", "--port=5432" ]
+      interval: 1s
+      timeout: 1m
+
+volumes:
+  guildkit-db: {}
