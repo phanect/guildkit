@@ -1,7 +1,5 @@
 const scriptDirPath = path self | path dirname
 const dotEnvPath = $scriptDirPath | path join "../.env" | path expand
-const pgDataDirPath = $scriptDirPath | path join "../tmp/pgdata" | path expand
-const pgLogPath = $scriptDirPath | path join "../tmp/postgresql.log" | path expand
 
 if ($dotEnvPath | path exists) {
   open --raw $dotEnvPath | from toml | load-env
@@ -14,30 +12,7 @@ if not ("NODE_ENV" in $env) {
 
 let isLocal = ($env.NODE_ENV == "development")
 
-def "main dev" [] {
-  main sync --startdb
-  pnpm vite dev
-}
-
-def "main restartdb" [] {
-  try {
-    print "restarting..."
-    mise x -- pg_ctl --pgdata=($pgDataDirPath) -l ($pgLogPath) --options=$"-D ($pgDataDirPath)" restart
-    print "restarted"
-  } catch {
-    print "starting..."
-    mise x -- pg_ctl --pgdata=($pgDataDirPath) -l ($pgLogPath) --options=$"-D ($pgDataDirPath)" start
-    print "started"
-  }
-}
-
-def "main stopdb" [] {
-  try {
-    mise x -- pg_ctl --pgdata=($pgDataDirPath) -l ($pgLogPath) --options=$"-D ($pgDataDirPath)" stop
-  }
-}
-
-def "main periodic" [--startdb] {
+def "main periodic" [] {
   jiti ./scripts/periodic-generate.ts
 
   const newBranch = "bot-rebuild-enum-$(date --iso-8601)"
@@ -52,28 +27,20 @@ def "main periodic" [--startdb] {
   }
 }
 
-def "main sync" [--startdb] {
+def "main resetdb" [] {
+  podman compose down --rmi local --volumes --remove-orphans
+  main sync
+}
+
+def "main sync" [] {
   pnpm svelte-kit sync
 
   if ($isLocal) {
-    main restartdb
+    podman compose up -d --wait
     pnpm prisma migrate dev
-
-    if not $startdb {
-      main stopdb
-    }
   } else {
     pnpm prisma generate
   }
-}
-
-def "main prepare" [] {
-  if ($isLocal) {
-    bash ($scriptDirPath | path join "scripts-prepare-pg-deps.sh")
-    bash ($scriptDirPath | path join "scripts-prepare-pg-install.sh")
-  }
-
-  main sync
 }
 
 # Required to run subcommands
