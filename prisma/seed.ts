@@ -1,3 +1,4 @@
+import { exit } from "node:process";
 import dayjs from "dayjs";
 import { PrismaClient, type Prisma } from "@prisma/client";
 
@@ -193,6 +194,15 @@ const jobs: Prisma.JobCreateInput[] = [
 ];
 
 const prisma = new PrismaClient();
+
+const firstUser = await prisma.user.findFirst();
+const firstJob = await prisma.job.findFirst();
+const alreadySeeded = Boolean(firstUser) || Boolean(firstJob);
+
+if (alreadySeeded) {
+  console.info("The data already exists in the database. Skip seeding.");
+  exit(0);
+}
 
 // Allow N+1 problem here since we don't have to be serious for performance here.
 for (const candidate of candidates) {

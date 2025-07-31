@@ -29,15 +29,19 @@ def "main periodic" [] {
 
 def "main resetdb" [] {
   podman compose down --rmi local --volumes --remove-orphans
-  main sync
+  main sync --seed
 }
 
-def "main sync" [] {
+def "main sync" [--seed] {
   pnpm svelte-kit sync
 
   if ($isLocal) {
     podman compose up -d --wait
-    pnpm prisma migrate dev
+    pnpm prisma migrate dev --skip-seed
+
+    if ($seed) {
+      pnpm prisma db seed
+    }
   } else {
     pnpm prisma generate
   }
