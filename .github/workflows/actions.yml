@@ -24,6 +24,7 @@ jobs:
           - 20
           - 22
     env:
+      NODE_ENV: preview
       # On the build process, the credentials for OAuth can be dummy
       GOOGLE_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy
@@ -48,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
+      NODE_ENV: preview
       # On the build process, the credentials for OAuth can be dummy
       GOOGLE_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy
@@ -75,6 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
+      NODE_ENV: production
       # On the build process, the credentials for OAuth can be dummy
       GOOGLE_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy
