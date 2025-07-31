@@ -17,7 +17,7 @@
     "refresh": "pnpm run clean && rm --force ./pnpm-lock.yaml && corepack up && pnpm install",
     "periodic": "nu ./scripts/scripts.nu periodic",
     "sync": "nu ./scripts/scripts.nu sync",
-    "prepare": "nu ./scripts/scripts.nu sync"
+    "prepare": "nu ./scripts/scripts.nu sync --seed"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
