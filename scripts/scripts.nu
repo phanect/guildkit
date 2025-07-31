@@ -1,6 +1,21 @@
 const scriptDirPath = path self | path dirname
 const dotEnvPath = $scriptDirPath | path join "../.env" | path expand
 
+def type [cmd] {
+  return (0 < (which $cmd | length))
+}
+
+def --wrapped container [ ...args ] {
+  if (type podman) {
+    (podman ...$args)
+  } else if (type docker) {
+    (docker ...$args)
+  } else {
+    print "[ERROR] Neither Docker nor Podman are found. Please install one of them."
+    exit 1
+  }
+}
+
 if ($dotEnvPath | path exists) {
   open --raw $dotEnvPath | from toml | load-env
 }
@@ -28,7 +43,7 @@ def "main periodic" [] {
 }
 
 def "main resetdb" [] {
-  podman compose down --rmi local --volumes --remove-orphans
+  container compose down --rmi local --volumes --remove-orphans
   main sync --seed
 }
 
@@ -36,7 +51,7 @@ def "main sync" [--seed] {
   pnpm svelte-kit sync
 
   if ($isLocal) {
-    podman compose up -d --wait
+    container compose up -d --wait
     pnpm prisma migrate dev --skip-seed
 
     if ($seed) {
