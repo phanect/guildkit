@@ -9,19 +9,25 @@ A CMS for job search services
 
 ### Prerequisites
 
-- [mise](https://mise.jdx.dev/getting-started.html)
-- Postgres dependencies
-  - On Ubuntu and its derivatives, run the following command to install the packages: `sudo apt install "linux-headers-$(uname -r)" build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev libbison-dev flex`
+- Node.js v20, v22, or v24
+- corepack
+- [Podman](https://podman.io)
+  - Requires Podman engine only. Podman Desktop is optional.
 
 ### Run local server
+
+First, start Podman daemon.
+
+Then run the following commands:
 
 ```sh
 cd /path/to/guildkit
 cp ./.env.example ./.env
 pnpm install
+pnpm dev
 ```
 
-Then run `pnpm dev` to run GuildKit on your local machine.
+Now GuildKit will be served via http://localhost:3000.
 
 ### Wording conventions
 
