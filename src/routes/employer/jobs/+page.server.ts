@@ -1,7 +1,9 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms/server";
-import prisma from "$lib/prisma.ts";
+import { eq } from "drizzle-orm";
 import { requireAuthAs } from "$lib/auth.ts";
+import { db } from "$lib/db/db.js";
+import { jobTable } from "$lib/db/schema.js";
 import { jobSchema } from "$lib/validation/job.validation.ts";
 import type { PageServerLoad, RequestEvent } from "./$types";
 
@@ -9,12 +11,8 @@ export const load: PageServerLoad = async ({ parent }) => {
   const { user } = await parent();
 
   return {
-    jobs: await prisma.job.findMany({
-      where: {
-        employerId: user.id,
-      },
-    }),
-    type: user.type,
+    jobs: await db.select().from(jobTable).where(eq(jobTable.employerId, user.id)),
+    type: user.props.type,
   };
 };
 
@@ -35,8 +33,9 @@ export const actions = {
       return fail(400, { form });
     }
 
-    await prisma.job.create({
-      data: { ...form.data, employerId },
+    await db.insert(jobTable).values({
+      ...form.data,
+      employerId,
     });
 
     redirect(303, "/employer/jobs");
@@ -55,8 +54,6 @@ export const actions = {
       return;
     }
 
-    await prisma.job.delete({
-      where: { id },
-    });
+    await db.delete(jobTable).where(eq(jobTable.id, id));
   },
 };
