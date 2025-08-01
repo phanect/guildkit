@@ -1,7 +1,7 @@
 <script lang="ts">
   import JobCard from "$lib/components/JobCard.svelte";
-  import type { Job } from "@prisma/client";
   import JobCardEmpty from "./JobCardEmpty.svelte";
+  import type { Job } from "$lib/db/schema.ts";
 
   type Props = {
     jobs: Job[];

@@ -27,7 +27,7 @@ export const signInWith = async (provider: "google" | "github") => signIn.social
 
 export const signUpWith = async (
   provider: "google" | "github",
-  userType: User["type"],
+  userType: User["props"]["type"],
 ) => signIn.social({
   provider,
   callbackURL: "/",
