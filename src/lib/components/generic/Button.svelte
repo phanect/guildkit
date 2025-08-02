@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import type { MouseEventHandler } from "svelte/elements";
 
   type Props = {
     children: Snippet;
-    onclick?: HTMLButtonElement["onclick"];
+    onclick?: MouseEventHandler<HTMLButtonElement>;
     theme?: "button" | "linktext";
     width?: number | string;
   };
