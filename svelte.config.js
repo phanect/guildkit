@@ -23,6 +23,12 @@ const config = {
         tsconfigPhanective,
         tsconfigSvelte,
         {
+          // Check by ESLint to ignore files under tmp/
+          compilerOptions: {
+            noUnusedLocals: false,
+          },
+        },
+        {
           include: [
             "../*.ts",
             "../*.js",
