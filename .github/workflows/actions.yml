@@ -24,8 +24,11 @@ jobs:
           - 20
           - 22
     env:
-      NODE_ENV: preview
-      # On the build process, the credentials for OAuth can be dummy
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
+      BETTER_AUTH_URL: "http://localhost:3000"
+      # On the build process, the credentials can be dummy
+      BETTER_AUTH_SECRET: dummy
       GOOGLE_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy
       GITHUB_CLIENT_ID: dummy
@@ -43,7 +46,6 @@ jobs:
           check-latest: true
           cache: pnpm
 
-      - run: cp ./.env.example ./.env
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       # TODO - run: pnpm test
@@ -52,8 +54,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      NODE_ENV: preview
-      # On the build process, the credentials for OAuth can be dummy
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
+      BETTER_AUTH_URL: "http://localhost:3000"
+      # On the build process, the credentials can be dummy
+      BETTER_AUTH_SECRET: dummy
       GOOGLE_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy
       GITHUB_CLIENT_ID: dummy
@@ -71,7 +76,6 @@ jobs:
           check-latest: true
           cache: pnpm
 
-      - run: cp ./.env.example ./.env
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
 
