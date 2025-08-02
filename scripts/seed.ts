@@ -1,47 +1,67 @@
 import { exit } from "node:process";
 import dayjs from "dayjs";
-import { PrismaClient, type Prisma } from "@prisma/client";
+import { db } from "../src/lib/db/db.ts";
+import { userTable, jobTable, userPropsTable, type Job, type User, type UserProps } from "../src/lib/db/schema.ts";
 
-const candidates: Prisma.UserCreateInput[] = [
+type UserToCreate = Omit<User, "propsId"> & {
+  props: UserProps;
+};
+
+const candidates: UserToCreate[] = [
   {
+    id: "heizou",
     name: "Heizou Shikanoin",
     email: "heizou9876@yaemail.example.net",
     emailVerified: true,
-    type: "candidate",
     role: "none",
+    props: {
+      type: "candidate",
+    },
   },
   {
+    id: "shinobu",
     name: "Shinobu Kuki",
     email: "kuki@yaemail.example.net",
     emailVerified: true,
-    type: "candidate",
     role: "none",
+    props: {
+      type: "candidate",
+    },
   },
   {
+    id: "kazuha",
     name: "Kazuha Kaedehara",
     email: "kazuha.kaedehara@yaemail.example.net",
     emailVerified: true,
-    type: "candidate",
     role: "none",
+    props: {
+      type: "candidate",
+    },
   },
 ];
 
 const recruiterYae = {
+  id: "yae",
   name: "Miko Yae",
   email: "miko.yae@yaedo.example.com",
   emailVerified: true,
-  type: "recruiter",
   role: "recruiter",
-} as const satisfies Prisma.UserCreateInput;
+  props: {
+    type: "recruiter",
+  },
+} as const satisfies UserToCreate;
 const recruiterRaiden = {
+  id: "ei",
   name: "Ei Raiden",
   email: "ei.raiden@shogunate.example.go.jp",
   emailVerified: true,
-  type: "recruiter",
   role: "recruiter",
-} as const satisfies Prisma.UserCreateInput;
+  props: {
+    type: "recruiter",
+  },
+} as const satisfies UserToCreate;
 
-const jobs: Prisma.JobCreateInput[] = [
+const jobs: Job[] = [
   {
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
@@ -73,14 +93,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterYae.email,
-        },
-        create: recruiterYae,
-      },
-    },
+    employerId: recruiterYae.id,
   },
   {
     title: "[WFH] SRE for our ebook store",
@@ -110,14 +123,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterYae.email,
-        },
-        create: recruiterYae,
-      },
-    },
+    employerId: recruiterYae.id,
   },
   {
     title: "[WFH] Marketing lead",
@@ -146,14 +152,7 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterYae.email,
-        },
-        create: recruiterYae,
-      },
-    },
+    employerId: recruiterYae.id,
   },
   {
     title: "Corporate Engineer",
@@ -182,38 +181,33 @@ const jobs: Prisma.JobCreateInput[] = [
     salaryPer: "YEAR",
     company: "Kanjou Commission, The Shogunate of Inazuma",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: {
-      connectOrCreate: {
-        where: {
-          email: recruiterRaiden.email,
-        },
-        create: recruiterRaiden,
-      },
-    },
+    employerId: recruiterRaiden.id,
   },
 ];
 
-const prisma = new PrismaClient();
-
-const firstUser = await prisma.user.findFirst();
-const firstJob = await prisma.job.findFirst();
-const alreadySeeded = Boolean(firstUser) || Boolean(firstJob);
+const userExists = (await db.select().from(userTable).limit(1)).length > 0;
+const jobExists = (await db.select().from(jobTable).limit(1)).length > 0;
+const alreadySeeded = userExists || jobExists;
 
 if (alreadySeeded) {
   console.info("The data already exists in the database. Skip seeding.");
   exit(0);
 }
 
-// Allow N+1 problem here since we don't have to be serious for performance here.
-for (const candidate of candidates) {
-  await prisma.user.create({
-    data: candidate,
-  });
-}
+export const createUsers = async (users: UserToCreate[] | UserToCreate) => {
+  const _users = Array.isArray(users) ? users : [ users ];
 
-// Allow N+1 problem here since we don't have to be serious for performance here.
-for (const job of jobs) {
-  await prisma.job.create({
-    data: job,
+  await db.transaction(async (tx) => {
+    for (const user of _users) {
+      const [{ id: propsId }] = await tx.insert(userPropsTable).values(user.props).returning({ id: userPropsTable.id });
+
+      await tx.insert(userTable).values({
+        ...user,
+        propsId: propsId,
+      });
+    }
   });
-}
+};
+
+await createUsers([ ...candidates, recruiterYae, recruiterRaiden ]);
+await db.insert(jobTable).values(jobs);
