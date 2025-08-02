@@ -39,6 +39,10 @@ export const auth = betterAuth({
       },
     },
   },
+  baseURL:
+    env.BETTER_AUTH_URL
+    ?? (env.NODE_ENV === "preview" || env.NODE_ENV === "demo-preview") ? `https://${ env.VERCEL_URL }` // TODO Make it independent to Vercel
+    : undefined,
   plugins: [
     organization({
       defaultRole: "recruiter",
