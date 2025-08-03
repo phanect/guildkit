@@ -35,7 +35,7 @@ export const salaryPer = pgEnum("SalaryPer", [
   "HOUR",
 ]);
 
-export const jobTable = pgTable("Jobs", {
+export const jobTable = pgTable("job", {
   id: uuid().primaryKey().notNull().defaultRandom(),
   title: text().notNull(),
   description: text().notNull(),
