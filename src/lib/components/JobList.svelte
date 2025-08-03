@@ -1,7 +1,7 @@
 <script lang="ts">
   import JobCard from "$lib/components/JobCard.svelte";
   import JobCardEmpty from "./JobCardEmpty.svelte";
-  import type { Job } from "$lib/db/schema.ts";
+  import type { Job } from "$lib/db/schema/job.ts";
 
   type Props = {
     jobs: Job[];

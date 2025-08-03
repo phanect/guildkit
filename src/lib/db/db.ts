@@ -1,7 +1,8 @@
 import "dotenv/config";
 import { eq, type InferInsertModel } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
-import * as schema from "./schema.ts";
+import * as schema from "./schema/index.ts";
+import { user } from "./schema/better-auth.ts";
 
 export const db = drizzle({
   connection: {
@@ -10,7 +11,7 @@ export const db = drizzle({
   schema,
 });
 
-export const updateUserProps = (user: InferInsertModel<typeof schema.user>) => {
+export const updateUserProps = (user: InferInsertModel<typeof user>) => {
   type UpdateFn = typeof db.update<typeof schema.userProps>;
   type SetFn = ReturnType<UpdateFn>["set"];
   type SetParams = Parameters<SetFn>;

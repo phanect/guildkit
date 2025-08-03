@@ -3,7 +3,7 @@
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
   import Link from "./generic/Link.svelte";
-  import type { Job } from "$lib/db/schema.ts";
+  import type { Job } from "$lib/db/schema/job.ts";
 
   type Props = {
     job: Job;

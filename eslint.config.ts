@@ -8,6 +8,9 @@ const configs: Linter.Config[] = [
     ignores: [
       "./build/**",
       "./tmp/**",
+      "./src/lib/db/schema/better-auth.ts",
+      "./src/lib/db/schema/currencies.ts",
+      "./src/lib/db/schema/index.ts",
     ],
   },
   ...core,
