@@ -11,7 +11,7 @@
   <h1 class="title">{job.title}</h1>
   <p class="employer">
     <img src="/vendor/octicons/organization.svg" alt="Employer" title="Employer" width="18" />
-    {job.company}
+    {job.employer.name}
   </p>
   <div>
     <span class="condition condition-location">
