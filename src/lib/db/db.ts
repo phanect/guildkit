@@ -1,7 +1,7 @@
 import "dotenv/config";
-import { eq } from "drizzle-orm";
+import { eq, type InferInsertModel } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { userPropsTable, type User } from "./schema.ts";
+import { userPropsTable, type userTable } from "./schema.ts";
 
 export const db = drizzle({
   connection: {
@@ -9,7 +9,7 @@ export const db = drizzle({
   },
 });
 
-export const updateUserProps = ({ user }: { user: User; }) => {
+export const updateUserProps = ({ user }: { user: InferInsertModel<typeof userTable>; }) => {
   type UpdateFn = typeof db.update<typeof userPropsTable>;
   type SetFn = ReturnType<UpdateFn>["set"];
   type SetParams = Parameters<SetFn>;
