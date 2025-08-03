@@ -22,6 +22,11 @@ export {
 
 export type User = InferInsertModel<typeof userTable>;
 
+const timeLogs = {
+  createdAt: timestamp().defaultNow().notNull(),
+  updatedAt: timestamp().$onUpdateFn(() => new Date()),
+};
+
 export const salaryPer = pgEnum("SalaryPer", [
   "YEAR",
   "MONTH",
@@ -42,8 +47,7 @@ export const jobTable = pgTable("Jobs", {
   company: text().notNull(),
   employerId: text().notNull().references(() => userTable.id),
   expiresAt: timestamp().notNull(),
-  createdAt: timestamp().defaultNow().notNull(),
-  updatedAt: timestamp().$onUpdateFn(() => new Date()),
+  ...timeLogs,
 });
 
 export type Job = InferInsertModel<typeof jobTable>;
@@ -57,6 +61,7 @@ export const userType = pgEnum("UserType", [
 export const userPropsTable = pgTable("userProps", {
   id: uuid().primaryKey().notNull().defaultRandom(),
   type: userType(),
+  ...timeLogs,
 });
 
 export const userPropRelations = relations(userTable, ({ one }) => ({
