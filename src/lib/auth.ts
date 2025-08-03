@@ -6,8 +6,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { eq } from "drizzle-orm";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
 import { db } from "./db/db.ts";
-import { userProps, type UserProps } from "./db/schema.ts";
-import * as betterAuthSchemas from "../../tmp/drizzle-schema/better-auth.ts";
+import { userProps, type UserProps } from "./db/schema/schema.ts";
+import * as schema from "./db/schema/index.ts";
 
 if (
   !env.GOOGLE_CLIENT_ID
@@ -29,7 +29,7 @@ const oAuthConfigs = {
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
-    schema: betterAuthSchemas,
+    schema,
   }),
   user: {
     additionalFields: {

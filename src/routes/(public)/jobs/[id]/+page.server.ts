@@ -1,7 +1,7 @@
 import { error } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import { db } from "$lib/db/db.ts";
-import { job } from "$lib/db/schema.ts";
+import { job } from "$lib/db/schema/job.ts";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params: { id }}) => {

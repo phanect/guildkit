@@ -1,5 +1,5 @@
 import { db } from "$lib/db/db.ts";
-import { job, type Job } from "$lib/db/schema.ts";
+import { job, type Job } from "$lib/db/schema/job.ts";
 import { gte } from "drizzle-orm";
 import type { PageServerLoad } from "./$types";
 

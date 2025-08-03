@@ -1,4 +1,12 @@
 #
+# Project-specific
+#
+
+/src/lib/db/schema/better-auth.ts
+/src/lib/db/schema/currencies.ts
+/src/lib/db/schema/index.ts
+
+#
 # System
 #
 

@@ -3,7 +3,7 @@ import { superValidate } from "sveltekit-superforms/server";
 import { eq } from "drizzle-orm";
 import { requireAuthAs } from "$lib/auth.ts";
 import { db } from "$lib/db/db.js";
-import { job } from "$lib/db/schema.js";
+import { job } from "$lib/db/schema/job.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
 import type { PageServerLoad, RequestEvent } from "./$types";
 

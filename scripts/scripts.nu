@@ -1,5 +1,6 @@
 const scriptDirPath = path self | path dirname
-const dotEnvPath = $scriptDirPath | path join "../.env" | path expand
+const projectRootPath = $scriptDirPath | path join ".." | path expand
+const dotEnvPath = $projectRootPath | path join ".env" | path expand
 
 def type [cmd] {
   return (0 < (which $cmd | length))
@@ -35,13 +36,18 @@ def "main resetdb" [] {
 def "main sync" [--seed] {
   pnpm svelte-kit sync
 
-  # Generate DB Schemas
+  # Generate DB Schemas: Currency codes
   pnpm jiti ($scriptDirPath | path join "scripts-sync-currency.ts")
 
-  touch ($scriptDirPath | path join "../tmp/drizzle-schema/better-auth.ts")
+  # Generate DB Schemas: BetterAuth
+  ## Requires to proerly load auth.ts which imports the generated BetterAuth schema.
+  cp ($scriptDirPath | path join "fixtures/barrel-dummy.ts") ($projectRootPath | path join "src/lib/db/schema/index.ts")
   # TODO replace deprecated `--y` option with `--yes` after better-auth/better-auth#3749 is released.
   # https://github.com/better-auth/better-auth/pull/3749
-  pnpx @better-auth/cli generate --y --output="./tmp/drizzle-schema/better-auth.ts" # relative path from project root
+  pnpx @better-auth/cli generate --y --output="./src/lib/db/schema/better-auth.ts" # relative path from project root
+
+  # Generate barrel file for schemas
+  pnpm jiti ($scriptDirPath | path join "scripts-sync-barrel.ts")
 
   if ($isLocal) {
     container compose up -d --wait

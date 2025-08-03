@@ -1,7 +1,9 @@
 import { exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../src/lib/db/db.ts";
-import { user as userTable, job as jobTable, userProps, type Job, type User, type UserProps } from "../src/lib/db/schema.ts";
+import { user as userTable } from "../src/lib/db/schema/better-auth.ts";
+import { job as jobTable, type Job } from "../src/lib/db/schema/job.ts";
+import { userProps, type User, type UserProps } from "../src/lib/db/schema/user.ts";
 
 type UserToCreate = Omit<User, "propsId"> & {
   props: UserProps;

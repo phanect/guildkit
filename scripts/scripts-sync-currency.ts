@@ -32,7 +32,7 @@ const generateCurrencyEnum = async () => {
       .sort((codeA, codeB) => codeA > codeB ? 1 : -1)
   );
 
-  const schemaDirPath = join(import.meta.dirname, "../tmp/drizzle-schema");
+  const schemaDirPath = join(import.meta.dirname, "../src/lib/db/schema");
 
   await mkdir(schemaDirPath, { recursive: true });
   await writeFile(
