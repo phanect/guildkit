@@ -1,10 +1,24 @@
 import { db } from "$lib/db/db.ts";
-import { job, type Job } from "$lib/db/schema/job.ts";
-import { gte } from "drizzle-orm";
-import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad<{ jobs: Job[]; }> = async () => {
+export const load = async () => {
   const today = new Date();
-  const response = await db.select().from(job).where(gte(job.expiresAt, today));
-  return { jobs: response };
+  const jobs = await db.query.job.findMany({
+    columns: {
+      id: true,
+      title: true,
+      description: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+    with: {
+      employer: {
+        columns: {
+          name: true,
+        },
+      },
+    },
+    where: (job, { gte }) => gte(job.expiresAt, today),
+  });
+
+  return { jobs };
 };
