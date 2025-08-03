@@ -3,10 +3,15 @@
   import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import Button from "./generic/Button.svelte";
   import Link from "./generic/Link.svelte";
+  import type { Organization } from "better-auth/plugins";
   import type { Job } from "$lib/db/schema/job.ts";
 
+  export type JobCardInfo = Pick<Job, "id" | "title" | "description" | "expiresAt"> & {
+    employer: Pick<Organization, "name">;
+  };
+
   type Props = {
-    job: Job;
+    job: JobCardInfo;
     editable?: boolean;
   };
 
@@ -95,7 +100,7 @@
 
   <div class="actions">
     <div class="company">
-      {job.company}
+      {job.employer.name}
     </div>
 
     <div class="actions-right">
