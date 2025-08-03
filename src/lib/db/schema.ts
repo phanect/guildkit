@@ -6,6 +6,7 @@ import {
   integer,
   uuid,
   pgEnum,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 import { currency } from "../../../tmp/drizzle-schema/currencies.ts";
 import { user as userTable } from "../../../tmp/drizzle-schema/better-auth.ts";
@@ -51,6 +52,17 @@ export const jobTable = pgTable("Jobs", {
 });
 
 export type Job = InferSelectModel<typeof jobTable>;
+
+export const jobAndUserRelationTable = pgTable("jobsAndCandidatesRelation", {
+  appliedJobId: uuid().notNull().references(() => jobTable.id),
+  candidateId: text().notNull().references(() => userTable.id),
+}, (t) => [ primaryKey({ columns: [ t.appliedJobId, t.candidateId ]}) ]);
+export const jobAndUserRelation1 = relations(jobTable, ({ many }) => ({
+  jobsToCandidates: many(jobAndUserRelationTable),
+}));
+export const jobAndUserRelation2 = relations(userTable, ({ many }) => ({
+  usersToGroups: many(jobAndUserRelationTable),
+}));
 
 export const userType = pgEnum("UserType", [
   "administrative",
