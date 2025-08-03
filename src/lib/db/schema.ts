@@ -1,4 +1,4 @@
-import { relations, type InferInsertModel } from "drizzle-orm";
+import { relations, type InferSelectModel } from "drizzle-orm";
 import {
   pgTable,
   timestamp,
@@ -20,7 +20,7 @@ export {
   invitation as invitationTable,
 } from "../../../tmp/drizzle-schema/better-auth.ts";
 
-export type User = InferInsertModel<typeof userTable>;
+export type User = InferSelectModel<typeof userTable>;
 
 const timeLogs = {
   createdAt: timestamp().defaultNow().notNull(),
@@ -50,7 +50,7 @@ export const jobTable = pgTable("Jobs", {
   ...timeLogs,
 });
 
-export type Job = InferInsertModel<typeof jobTable>;
+export type Job = InferSelectModel<typeof jobTable>;
 
 export const userType = pgEnum("UserType", [
   "administrative",
@@ -71,4 +71,4 @@ export const userPropRelations = relations(userTable, ({ one }) => ({
   }),
 }));
 
-export type UserProps = InferInsertModel<typeof userPropsTable>;
+export type UserProps = InferSelectModel<typeof userPropsTable>;
