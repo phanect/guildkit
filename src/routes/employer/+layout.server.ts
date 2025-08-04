@@ -1,5 +1,5 @@
 import { redirect } from "@sveltejs/kit";
-import { requireAuthAs } from "$lib/auth.ts";
+import { requireAuthAs } from "$lib/auth/server.ts";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ request }) => {

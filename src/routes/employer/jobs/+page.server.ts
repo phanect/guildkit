@@ -1,7 +1,7 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms/server";
 import { eq } from "drizzle-orm";
-import { requireAuthAs } from "$lib/auth.ts";
+import { requireAuthAs } from "$lib/auth/server.ts";
 import { db } from "$lib/db/db.js";
 import { job } from "$lib/db/schema/job.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
