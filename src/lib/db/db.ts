@@ -9,7 +9,7 @@ export const db = drizzle({
   },
 });
 
-export const updateUserProps = ({ user }: { user: InferInsertModel<typeof userTable>; }) => {
+export const updateUserProps = (user: InferInsertModel<typeof userTable>) => {
   type UpdateFn = typeof db.update<typeof userPropsTable>;
   type SetFn = ReturnType<UpdateFn>["set"];
   type SetParams = Parameters<SetFn>;
