@@ -40,6 +40,13 @@ const configs: Linter.Config[] = [
       "@typescript-eslint/no-unused-vars": "error",
     },
   },
+  {
+    files: [ "**/*.svelte" ],
+    rules: {
+      // Maybe it does not work properly on Svelte?
+      "@typescript-eslint/no-unsafe-member-access": "off",
+    },
+  },
 ];
 
 export default configs;
