@@ -77,6 +77,16 @@ export const auth = betterAuth({
       creatorRole: "recruiterAdmin",
       ac: recruiterAc,
       roles: recruiterRoles,
+      schema: {
+        organization: {
+          additionalFields: {
+            propsId: {
+              type: "string",
+              required: true,
+            },
+          },
+        },
+      },
     }),
     adminPlugin({
       defaultRole: "none",
