@@ -10,14 +10,14 @@ export const db = drizzle({
   schema,
 });
 
-export const updateUserProps = (user: InferInsertModel<typeof schema.userTable>) => {
-  type UpdateFn = typeof db.update<typeof schema.userPropsTable>;
+export const updateUserProps = (user: InferInsertModel<typeof schema.user>) => {
+  type UpdateFn = typeof db.update<typeof schema.userProps>;
   type SetFn = ReturnType<UpdateFn>["set"];
   type SetParams = Parameters<SetFn>;
 
   return {
-    set: async (...values: SetParams) => db.update(schema.userPropsTable)
+    set: async (...values: SetParams) => db.update(schema.userProps)
       .set(...values)
-      .where(eq(schema.userPropsTable.id, user.propsId)),
+      .where(eq(schema.userProps.id, user.propsId)),
   };
 };
