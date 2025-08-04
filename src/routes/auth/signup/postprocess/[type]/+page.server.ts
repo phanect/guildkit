@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, request }) => {
   const { user } = await requireAuthAs("any", { request });
 
   if (user && !user.props.type) {
-    await updateUserProps({ user })
+    await updateUserProps(user)
       .set({ type: params.type });
   }
 
