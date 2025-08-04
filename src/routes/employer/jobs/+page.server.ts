@@ -3,7 +3,7 @@ import { superValidate } from "sveltekit-superforms/server";
 import { eq } from "drizzle-orm";
 import { requireAuthAs } from "$lib/auth.ts";
 import { db } from "$lib/db/db.js";
-import { jobTable } from "$lib/db/schema.js";
+import { job } from "$lib/db/schema.js";
 import { jobSchema } from "$lib/validation/job.validation.ts";
 import type { PageServerLoad, RequestEvent } from "./$types";
 
@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ parent }) => {
   const { user } = await parent();
 
   return {
-    jobs: await db.select().from(jobTable).where(eq(jobTable.employerId, user.id)),
+    jobs: await db.select().from(job).where(eq(job.employerId, user.id)),
     type: user.props.type,
   };
 };
@@ -33,7 +33,7 @@ export const actions = {
       return fail(400, { form });
     }
 
-    await db.insert(jobTable).values({
+    await db.insert(job).values({
       ...form.data,
       employerId,
     });
@@ -54,6 +54,6 @@ export const actions = {
       return;
     }
 
-    await db.delete(jobTable).where(eq(jobTable.id, id));
+    await db.delete(job).where(eq(job.id, id));
   },
 };

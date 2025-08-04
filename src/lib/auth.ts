@@ -6,7 +6,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { eq } from "drizzle-orm";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
 import { db } from "./db/db.ts";
-import { userPropsTable, type UserProps } from "./db/schema.ts";
+import { userProps, type UserProps } from "./db/schema.ts";
 import * as betterAuthSchemas from "../../tmp/drizzle-schema/better-auth.ts";
 
 if (
@@ -118,8 +118,8 @@ export const getSession = async (...args: Parameters<typeof auth.api.getSession>
     return;
   }
 
-  const props = await db.select().from(userPropsTable)
-    .where(eq(userPropsTable.id, user?.propsId))
+  const props = await db.select().from(userProps)
+    .where(eq(userProps.id, user?.propsId))
     .limit(1);
 
   return {

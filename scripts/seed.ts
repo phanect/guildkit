@@ -1,7 +1,7 @@
 import { exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../src/lib/db/db.ts";
-import { userTable, jobTable, userPropsTable, type Job, type User, type UserProps } from "../src/lib/db/schema.ts";
+import { user as userTable, job as jobTable, userProps, type Job, type User, type UserProps } from "../src/lib/db/schema.ts";
 
 type UserToCreate = Omit<User, "propsId"> & {
   props: UserProps;
@@ -61,7 +61,7 @@ const recruiterRaiden = {
   },
 } as const satisfies UserToCreate;
 
-const jobs: Job[] = [
+const job: Job[] = [
   {
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
@@ -199,7 +199,7 @@ export const createUsers = async (users: UserToCreate[] | UserToCreate) => {
 
   await db.transaction(async (tx) => {
     for (const user of _users) {
-      const [{ id: propsId }] = await tx.insert(userPropsTable).values(user.props).returning({ id: userPropsTable.id });
+      const [{ id: propsId }] = await tx.insert(userProps).values(user.props).returning({ id: userProps.id });
 
       await tx.insert(userTable).values({
         ...user,
@@ -210,4 +210,4 @@ export const createUsers = async (users: UserToCreate[] | UserToCreate) => {
 };
 
 await createUsers([ ...candidates, recruiterYae, recruiterRaiden ]);
-await db.insert(jobTable).values(jobs);
+await db.insert(jobTable).values(job);

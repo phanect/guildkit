@@ -9,19 +9,12 @@ import {
   primaryKey,
 } from "drizzle-orm/pg-core";
 import { currency } from "../../../tmp/drizzle-schema/currencies.ts";
-import { user as userTable } from "../../../tmp/drizzle-schema/better-auth.ts";
+import { user } from "../../../tmp/drizzle-schema/better-auth.ts";
 
-export { currency, userTable };
-export {
-  session as sessionTable,
-  account as accountTable,
-  verification as verificationTable,
-  organization as organizationTable,
-  member as memberTable,
-  invitation as invitationTable,
-} from "../../../tmp/drizzle-schema/better-auth.ts";
+export { currency };
+export * from "../../../tmp/drizzle-schema/better-auth.ts";
 
-export type User = InferSelectModel<typeof userTable>;
+export type User = InferSelectModel<typeof user>;
 
 const timeLogs = {
   createdAt: timestamp().defaultNow().notNull(),
@@ -35,7 +28,7 @@ export const salaryPer = pgEnum("SalaryPer", [
   "HOUR",
 ]);
 
-export const jobTable = pgTable("job", {
+export const job = pgTable("job", {
   id: uuid().primaryKey().notNull().defaultRandom(),
   title: text().notNull(),
   description: text().notNull(),
@@ -46,21 +39,21 @@ export const jobTable = pgTable("job", {
   currency: currency().notNull(),
   salaryPer: salaryPer().notNull(),
   company: text().notNull(),
-  employerId: text().notNull().references(() => userTable.id),
+  employerId: text().notNull().references(() => user.id),
   expiresAt: timestamp().notNull(),
   ...timeLogs,
 });
 
-export type Job = InferSelectModel<typeof jobTable>;
+export type Job = InferSelectModel<typeof job>;
 
 export const jobAndUserRelationTable = pgTable("jobsAndCandidatesRelation", {
-  appliedJobId: uuid().notNull().references(() => jobTable.id),
-  candidateId: text().notNull().references(() => userTable.id),
+  appliedJobId: uuid().notNull().references(() => job.id),
+  candidateId: text().notNull().references(() => user.id),
 }, (t) => [ primaryKey({ columns: [ t.appliedJobId, t.candidateId ]}) ]);
-export const jobAndUserRelation1 = relations(jobTable, ({ many }) => ({
+export const jobAndUserRelation1 = relations(job, ({ many }) => ({
   jobsToCandidates: many(jobAndUserRelationTable),
 }));
-export const jobAndUserRelation2 = relations(userTable, ({ many }) => ({
+export const jobAndUserRelation2 = relations(user, ({ many }) => ({
   usersToGroups: many(jobAndUserRelationTable),
 }));
 
@@ -70,17 +63,17 @@ export const userType = pgEnum("UserType", [
   "candidate",
 ]);
 
-export const userPropsTable = pgTable("userProps", {
+export const userProps = pgTable("userProps", {
   id: uuid().primaryKey().notNull().defaultRandom(),
   type: userType(),
   ...timeLogs,
 });
 
-export const userPropRelations = relations(userTable, ({ one }) => ({
-  props: one(userPropsTable, {
-    fields: [ userTable.propsId ],
-    references: [ userPropsTable.id ],
+export const userPropRelations = relations(user, ({ one }) => ({
+  props: one(userProps, {
+    fields: [ user.propsId ],
+    references: [ userProps.id ],
   }),
 }));
 
-export type UserProps = InferSelectModel<typeof userPropsTable>;
+export type UserProps = InferSelectModel<typeof userProps>;
