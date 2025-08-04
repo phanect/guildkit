@@ -1,4 +1,4 @@
-import { getSession } from "$lib/auth.ts";
+import { getSession } from "$lib/auth/server.ts";
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 

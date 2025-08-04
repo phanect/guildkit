@@ -2,7 +2,8 @@ import { createAuthClient } from "better-auth/svelte";
 import { adminClient, organizationClient, inferAdditionalFields } from "better-auth/client/plugins";
 import { invalidateAll } from "$app/navigation";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "$lib/auth/roles.ts";
-import type { auth, User } from "$lib/auth.ts";
+import type { auth } from "$lib/auth.ts";
+import type { User } from "./types.ts";
 
 export const { signIn, signOut: baseSignOut, organization, admin } = createAuthClient({
   plugins: [
