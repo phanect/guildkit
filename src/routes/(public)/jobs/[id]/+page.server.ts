@@ -25,6 +25,7 @@ export const load: PageServerLoad = async ({ params: { id }}) => {
       },
     },
     where: (job, { eq }) => eq(job.id, id),
+    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
   });
 
   if (!job) {

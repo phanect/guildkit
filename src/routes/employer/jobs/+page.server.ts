@@ -37,6 +37,7 @@ export const load: PageServerLoad = async ({ parent }) => {
       },
     },
     where: (job, { eq }) => eq(job.employer, organization.id),
+    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
   });
 
   return {
