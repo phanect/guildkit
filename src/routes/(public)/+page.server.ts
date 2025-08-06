@@ -18,6 +18,7 @@ export const load = async () => {
       },
     },
     where: (job, { gte }) => gte(job.expiresAt, today),
+    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
   });
 
   return { jobs };
