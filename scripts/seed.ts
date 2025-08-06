@@ -2,6 +2,8 @@ import { exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../src/lib/db/db.ts";
 import { job } from "../src/lib/db/schema/job.ts";
+import { orgProps } from "../src/lib/db/schema/organization.ts";
+import { organization } from "../src/lib/db/schema/better-auth.ts";
 import { insertUsers, type UserWithProps } from "../src/lib/db/helpers.ts";
 import type { InferInsertModel } from "drizzle-orm";
 
@@ -41,7 +43,7 @@ const candidates: UserWithProps[] = [
 const recruiterYae = {
   id: "yae",
   name: "Miko Yae",
-  email: "miko.yae@yaedo.example.com",
+  email: "miko.yae@yaedo.example.co.jp",
   emailVerified: true,
   role: "recruiter",
   props: {
@@ -58,7 +60,82 @@ const recruiterRaiden = {
     type: "recruiter",
   },
 } as const satisfies UserWithProps;
-const recruiters = [ recruiterYae, recruiterRaiden ];
+const recruiterHiiragi = {
+  id: "chisato",
+  name: "Chisato Hiiragi",
+  email: "chisato.hiiragi@shogunate.example.go.jp",
+  emailVerified: true,
+  role: "recruiter",
+  props: {
+    type: "recruiter",
+  },
+} as const satisfies UserWithProps;
+const recruiterZhongli = {
+  id: "zhongli",
+  name: "Zhongli",
+  email: "zhongli@wangsheng.example.com",
+  emailVerified: true,
+  role: "recruiter",
+  props: {
+    type: "recruiter",
+  },
+} as const satisfies UserWithProps;
+
+type InitialOrg = Omit<InferInsertModel<typeof organization>, "propsId"> & {
+  props: InferInsertModel<typeof orgProps>;
+  recruiters: UserWithProps[];
+};
+
+const initialOrgYaedo: InitialOrg = {
+  id: "yph",
+  slug: "yaedo",
+  name: "Yae Publishing House, K.K.",
+  createdAt: new Date(),
+  props: {
+    about: "Yae Publishing House is a leading light novel publisher from Inazuma. We also provide digital platforms to deliver the light novels and the other books to the global audience all over the Teyvat.",
+    url: "https://yaedo.example.co.jp",
+    addresses: [ "2-14-3, Hanamizaka, Inazuma City, Narukami Island, Inazuma" ],
+    emails: [ "hr@yaedo.example.co.jp" ],
+    currencies: [ "JPY" ],
+  },
+  recruiters: [ recruiterYae ],
+};
+
+const initialOrgShogunate: InitialOrg = {
+  id: "kanjou",
+  slug: "kanjou",
+  name: "Kanjou Commission, The Shogunate of Inazuma",
+  createdAt: new Date(),
+  props: {
+    about: "Kanjou Commission is a part of the Tri-Commission, The Shogunate of Inazuma. We are responsible for the Shogunate's financial and international affairs.",
+    url: "https://shogunate.example.go.jp",
+    addresses: [
+      "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
+      "Tenryou Commission Office, 1-2-5, Inazuma City, Narukami Island, Inazuma",
+      "The Hiiragi Estate, 5-1-1, Rito, Narukami Island, Inazuma",
+    ],
+    emails: [ "personnel@kanjou.example.go.jp" ],
+    currencies: [ "JPY" ],
+  },
+  recruiters: [ recruiterRaiden, recruiterHiiragi ],
+};
+
+const initialOrgWangsheng: InitialOrg = {
+  id: "wangsheng",
+  slug: "wangsheng",
+  name: "Wangsheng Funeral Parlor",
+  createdAt: new Date(),
+  props: {
+    // Without `about`
+    url: "https://wangsheng.example.com",
+    addresses: [
+      "123456 Feiyun Slope, Liyue Harbor, Liyue",
+    ],
+    emails: [ "zhongli@wangsheng.example.com" ],
+    currencies: [ "JPY" ],
+  },
+  recruiters: [ recruiterZhongli ],
+};
 
 const initialJobs: InferInsertModel<typeof job>[] = [
   {
@@ -90,9 +167,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 8000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterYae.id,
+    employer: initialOrgYaedo.id,
   },
   {
     title: "[WFH] SRE for our ebook store",
@@ -120,9 +196,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 8000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterYae.id,
+    employer: initialOrgYaedo.id,
   },
   {
     title: "[WFH] Marketing lead",
@@ -149,9 +224,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 8000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterYae.id,
+    employer: initialOrgYaedo.id,
   },
   {
     title: "Corporate Engineer",
@@ -178,9 +252,38 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 9000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Kanjou Commission, The Shogunate of Inazuma",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterRaiden.id,
+    employer: initialOrgShogunate.id,
+  },
+  {
+    title: "Web designer",
+    description: `
+      We are hiring a web designer to promote Wangsheng Funeral Parlor.
+
+      # Responsibilities
+
+      - Create and maintain our websites
+      ...
+    `.trim(),
+    requirements: `
+      # Required
+
+      - Two or more experience in web design
+      - Two or more experience in HTML and CSS
+
+      # Nice to have
+
+      - Experience in JavaScript
+      - Experience in SEO
+      - Interest in the tradition of funerary practices in Liyue
+    `.trim(),
+    applicationUrl: "https://phanective.org/job-example-4",
+    location: "123456 Feiyun Slope, Liyue Harbor, Liyue",
+    salary: 4500000,
+    currency: "CNY",
+    salaryPer: "YEAR",
+    expiresAt: dayjs().add(1, "month").toDate(),
+    employer: initialOrgWangsheng.id,
   },
 ];
 
@@ -193,9 +296,33 @@ if (alreadySeeded) {
   exit(0);
 }
 
-await insertUsers([
-  ...candidates,
-  ...recruiters,
-]);
+// Allow N+1 problems for the readability
+await db.transaction(async (tx) => {
+  await insertUsers(candidates);
+
+  for (const org of [ initialOrgYaedo, initialOrgShogunate, initialOrgWangsheng ]) {
+    const [{ orgPropsId }] = await tx.insert(orgProps).values(org.props).returning({ orgPropsId: orgProps.id });
+
+    await tx.insert(organization).values({
+      ...org,
+      propsId: orgPropsId,
+    });
+  }
+
+  await insertUsers([
+    ...initialOrgYaedo.recruiters.map((recruiter) => ({
+      ...recruiter,
+      recruitsFor: [ initialOrgYaedo.id ],
+    })),
+    ...initialOrgShogunate.recruiters.map((recruiter) => ({
+      ...recruiter,
+      recruitsFor: [ initialOrgShogunate.id ],
+    })),
+    ...initialOrgWangsheng.recruiters.map((recruiter) => ({
+      ...recruiter,
+      recruitsFor: [ initialOrgWangsheng.id ],
+    })),
+  ]);
+});
 
 await db.insert(job).values(initialJobs);
