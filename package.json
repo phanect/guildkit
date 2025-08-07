@@ -64,19 +64,6 @@
     "vite-plugin-devtools-json": "^0.4.1",
     "zod": "^3.25.75"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@prisma/client",
-      "@prisma/engines",
-      "@tailwindcss/oxide",
-      "better-sqlite3",
-      "esbuild",
-      "prisma",
-      "svelte-preprocess",
-      "unrs-resolver"
-    ]
-  },
   "engines": {
     "node": "20.x || 22.x || >=24.x",
     "pnpm": ">=10.x"
