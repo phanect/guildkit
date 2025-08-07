@@ -71,7 +71,6 @@
       "@prisma/engines",
       "@tailwindcss/oxide",
       "better-sqlite3",
-      "es5-ext",
       "esbuild",
       "prisma",
       "svelte-preprocess",
