@@ -4,7 +4,7 @@
   import "../../app.postcss";
   import type { LayoutProps } from "./$types";
 
-  const { children }: LayoutProps = $props();
+  const { children, data }: LayoutProps = $props();
 </script>
 
 <style lang="scss">
@@ -20,7 +20,7 @@
   }
 </style>
 
-<Nav isLoggedIn />
+<Nav for={data.user.props.type ?? "guest"} />
 <div class="wrapper">
   <Sidebar />
   <main class="main">

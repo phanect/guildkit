@@ -19,7 +19,7 @@
   }
 </style>
 
-<Nav isLoggedIn={data.isLoggedIn} />
+<Nav for={data.userType} />
 <main class="main">
   {@render children()}
 </main>

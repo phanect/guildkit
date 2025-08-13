@@ -1,4 +1,4 @@
-import { relations, type InferSelectModel } from "drizzle-orm";
+import { relations, type InferSelectModel, type InferEnum } from "drizzle-orm";
 import {
   pgTable,
   uuid,
@@ -23,6 +23,8 @@ export const userType = pgEnum("UserType", [
   "recruiter",
   "candidate",
 ]);
+
+export type UserType = InferEnum<typeof userType>;
 
 export const userProps = pgTable("userProps", {
   id: uuid().primaryKey().notNull().defaultRandom(),

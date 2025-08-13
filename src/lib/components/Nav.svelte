@@ -2,12 +2,13 @@
   import { signOut } from "$lib/auth/client";
   import Button from "./generic/Button.svelte";
   import Link from "./generic/Link.svelte";
+  import type { UserType } from "$lib/db/schema/user.ts";
 
   type Props = {
-    isLoggedIn: boolean;
+    for: UserType | "guest";
   };
 
-  const { isLoggedIn }: Props = $props();
+  const { for: userType }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -55,10 +56,13 @@
     <span class="title-text">GuildKit</span>
   </a>
   <div class="right-section">
-    {#if !isLoggedIn}
+    {#if userType === "recruiter" || userType === "administrative"}
+      <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
+    {/if}
+
+    {#if userType === "guest"}
       <Link href="/auth" theme="button">Log in <span class="text-separator"></span> Sign up</Link>
     {:else}
-      <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
       <Button onclick={ async () => signOut() }>Log out</Button>
     {/if}
   </div>
