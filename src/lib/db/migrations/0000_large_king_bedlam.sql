@@ -27,23 +27,6 @@ CREATE TABLE "invitation" (
 	"inviter_id" text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "Jobs" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"title" text NOT NULL,
-	"description" text NOT NULL,
-	"requirements" text NOT NULL,
-	"applicationUrl" text NOT NULL,
-	"location" text NOT NULL,
-	"salary" integer NOT NULL,
-	"currency" "Currency" NOT NULL,
-	"salaryPer" "SalaryPer" NOT NULL,
-	"company" text NOT NULL,
-	"employerId" text NOT NULL,
-	"expiresAt" timestamp NOT NULL,
-	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"updatedAt" timestamp
-);
---> statement-breakpoint
 CREATE TABLE "member" (
 	"id" text PRIMARY KEY NOT NULL,
 	"organization_id" text NOT NULL,
@@ -59,6 +42,7 @@ CREATE TABLE "organization" (
 	"logo" text,
 	"created_at" timestamp NOT NULL,
 	"metadata" text,
+	"props_id" integer NOT NULL,
 	CONSTRAINT "organization_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -76,11 +60,6 @@ CREATE TABLE "session" (
 	CONSTRAINT "session_token_unique" UNIQUE("token")
 );
 --> statement-breakpoint
-CREATE TABLE "userProps" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"type" "UserType"
-);
---> statement-breakpoint
 CREATE TABLE "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
@@ -94,6 +73,7 @@ CREATE TABLE "user" (
 	"ban_reason" text,
 	"ban_expires" timestamp,
 	"props_id" text NOT NULL,
+	"recruits_for" text,
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
@@ -106,10 +86,61 @@ CREATE TABLE "verification" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE "job" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"title" text NOT NULL,
+	"description" text NOT NULL,
+	"requirements" text NOT NULL,
+	"applicationUrl" text NOT NULL,
+	"location" text NOT NULL,
+	"salary" integer NOT NULL,
+	"currency" "Currency" NOT NULL,
+	"salaryPer" "SalaryPer" NOT NULL,
+	"employer" text NOT NULL,
+	"expiresAt" timestamp NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE "orgProps" (
+	"id" integer PRIMARY KEY NOT NULL,
+	"about" text,
+	"url" text NOT NULL,
+	"emails" text[],
+	"addresses" text[] NOT NULL,
+	"currencies" "Currency"[] NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp,
+	CONSTRAINT "orgProps_url_unique" UNIQUE("url")
+);
+--> statement-breakpoint
+CREATE TABLE "jobsAndCandidatesRelation" (
+	"appliedJobId" uuid NOT NULL,
+	"candidateId" text NOT NULL,
+	CONSTRAINT "jobsAndCandidatesRelation_appliedJobId_candidateId_pk" PRIMARY KEY("appliedJobId","candidateId")
+);
+--> statement-breakpoint
+CREATE TABLE "organizationAndRecruiterRelation" (
+	"organizationId" text NOT NULL,
+	"recruiterId" text NOT NULL,
+	CONSTRAINT "organizationAndRecruiterRelation_organizationId_recruiterId_pk" PRIMARY KEY("organizationId","recruiterId")
+);
+--> statement-breakpoint
+CREATE TABLE "userProps" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"type" "UserType",
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp
+);
+--> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "invitation" ADD CONSTRAINT "invitation_organization_id_organization_id_fk" FOREIGN KEY ("organization_id") REFERENCES "public"."organization"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "invitation" ADD CONSTRAINT "invitation_inviter_id_user_id_fk" FOREIGN KEY ("inviter_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "Jobs" ADD CONSTRAINT "Jobs_employerId_user_id_fk" FOREIGN KEY ("employerId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "member" ADD CONSTRAINT "member_organization_id_organization_id_fk" FOREIGN KEY ("organization_id") REFERENCES "public"."organization"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "member" ADD CONSTRAINT "member_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "job" ADD CONSTRAINT "job_employer_organization_id_fk" FOREIGN KEY ("employer") REFERENCES "public"."organization"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "jobsAndCandidatesRelation" ADD CONSTRAINT "jobsAndCandidatesRelation_appliedJobId_job_id_fk" FOREIGN KEY ("appliedJobId") REFERENCES "public"."job"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "jobsAndCandidatesRelation" ADD CONSTRAINT "jobsAndCandidatesRelation_candidateId_user_id_fk" FOREIGN KEY ("candidateId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "organizationAndRecruiterRelation" ADD CONSTRAINT "organizationAndRecruiterRelation_organizationId_organization_id_fk" FOREIGN KEY ("organizationId") REFERENCES "public"."organization"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "organizationAndRecruiterRelation" ADD CONSTRAINT "organizationAndRecruiterRelation_recruiterId_user_id_fk" FOREIGN KEY ("recruiterId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
