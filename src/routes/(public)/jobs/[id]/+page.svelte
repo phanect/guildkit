@@ -42,7 +42,7 @@
     </p>
     <h3 class="text-2xl font-bold text-gray-800 my-4">Requirements</h3>
     <ul class="list-disc ml-8">
-      {#each parseString(job.requirements) as requirement}
+      {#each parseString(job.requirements) as requirement, index (index)}
         {#if requirement}
           <li>{requirement}</li>
         {/if}
