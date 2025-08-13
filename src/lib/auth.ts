@@ -39,6 +39,30 @@ export const auth = betterAuth({
       },
     },
   },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          if (user.propsId) {
+            return {
+              data: user,
+            };
+          } else {
+            const [{ propsId }] = await db
+              .insert(schema.userProps).values({})
+              .returning({ propsId: schema.userProps.id });
+
+            return {
+              data: {
+                ...user,
+                propsId,
+              },
+            };
+          }
+        },
+      },
+    },
+  },
   baseURL:
     env.BETTER_AUTH_URL
     ?? (env.NODE_ENV === "preview" || env.NODE_ENV === "demo-preview") ? `https://${ env.VERCEL_URL }` // TODO Make it independent to Vercel
