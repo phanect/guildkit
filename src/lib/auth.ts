@@ -19,6 +19,15 @@ if (
 //
 // auth setup
 //
+const baseURL = env.BETTER_AUTH_URL ?? (
+  env.VERCEL_URL ? `https://${ env.VERCEL_URL }` // TODO Make it independent to Vercel
+  : undefined
+);
+
+if (!baseURL) {
+  throw new Error("baseURL is not set. Is BETTER_AUTH_URL set?");
+}
+
 const oAuthConfigs = {
   disableImplicitSignUp: true,
 };
@@ -28,6 +37,7 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
+  baseURL,
   user: {
     additionalFields: {
       propsId: {
@@ -60,10 +70,6 @@ export const auth = betterAuth({
       },
     },
   },
-  baseURL:
-    env.BETTER_AUTH_URL
-    ?? (env.NODE_ENV === "preview" || env.NODE_ENV === "demo-preview") ? `https://${ env.VERCEL_URL }` // TODO Make it independent to Vercel
-    : undefined,
   plugins: [
     organization({
       defaultRole: "recruiter",
