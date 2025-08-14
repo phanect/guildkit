@@ -12,6 +12,13 @@ import type { PageServerLoad, RequestEvent } from "./$types";
 export const load: PageServerLoad = async ({ parent }) => {
   const { user } = await parent();
 
+  if (!user.recruitsFor) {
+    return {
+      type: user.props.type,
+      userBelongsToOrganization: false,
+    };
+  }
+
   const jobs: JobCardInfo[] = await db.query.job.findMany({
     columns: {
       id: true,
@@ -41,6 +48,7 @@ export const load: PageServerLoad = async ({ parent }) => {
   return {
     jobs,
     type: user.props.type,
+    userBelongsToOrganization: true,
   };
 };
 
