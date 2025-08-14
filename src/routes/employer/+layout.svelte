@@ -5,6 +5,10 @@
   import type { LayoutProps } from "./$types";
 
   const { children, data }: LayoutProps = $props();
+
+  if (!data.user) {
+    throw new Error("Could not receive user. Sorry, this is probably a bug in GuildKit.");
+  }
 </script>
 
 <style lang="scss">
