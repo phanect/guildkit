@@ -58,11 +58,6 @@
 <style lang="scss">
   @use "$lib/styles/mixins.scss";
 
-  @mixin text-with-icon {
-    display: inline-flex;
-    gap: 0.375rem;
-  }
-
   .root {
     @include mixins.page-root;
   }
@@ -89,7 +84,7 @@
   }
 
   .condition {
-    @include text-with-icon;
+    @include mixins.text-with-icon;
 
     margin-right: 0.5rem;
     padding: {
@@ -114,7 +109,7 @@
   }
 
   .last-updated {
-    @include text-with-icon;
+    @include mixins.text-with-icon;
 
     width: 100%;
     justify-content: end;
