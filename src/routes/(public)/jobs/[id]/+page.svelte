@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import { parseString } from "$lib/helpers/parseString.ts";
   import type { PageProps } from "./$types";
 
@@ -31,8 +30,8 @@
       <span
         class="bg-red-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full inline-flex gap-2"
       >
-        <img src="/vendor/octicons/clock.svg" alt="Money Icon" width="16" />
-        {getRemainingTime(job.expiresAt)}
+        <img src="/vendor/octicons/clock.svg" alt="" width="16" />
+        Last updated at {job.expiresAt.toLocaleDateString()}
       </span>
     </div>
     <hr class="h-px my-8 mb-16 bg-gray-600 border-0 w-[300px]" />
