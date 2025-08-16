@@ -14,7 +14,11 @@
 
 <style lang="scss">
   .nav {
-    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1.5rem 5rem;
   }
 
   .title {
@@ -33,6 +37,13 @@
     column-gap: 1rem;
   }
 
+  .dashboard-link {
+    margin-right: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+  }
+
   .text-separator::after {
     content: "|";
     color: #606060;
@@ -45,7 +56,7 @@
 </TopBar>
 <!-- /Pre-alpha caution -->
 
-<nav class="nav flex items-center justify-between flex-wrap py-6 px-20">
+<nav class="nav">
   <a href="/" class="title">
     <img
       src="https://tmp.guildkit.net/canvaai/guildkit_icon_tmp.png"
@@ -58,7 +69,7 @@
   </a>
   <div class="right-section">
     {#if userType === "recruiter" || userType === "administrative"}
-      <a href="/employer/jobs" class="mr-8 font-bold">Dashboard</a>
+      <a href="/employer/jobs" class="dashboard-link">Dashboard</a>
     {/if}
 
     {#if userType === "guest"}
