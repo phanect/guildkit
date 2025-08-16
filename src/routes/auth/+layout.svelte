@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "../../app.postcss";
+  import "../../app.scss";
   import type { LayoutProps } from "./$types";
 
   const { children }: LayoutProps = $props();

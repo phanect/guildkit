@@ -45,8 +45,6 @@
     "markuplint": "^4.11.8",
     "neonctl": "^2.14.0",
     "nushell": "^0.106.1",
-    "postcss": "^8.4.23",
-    "postcss-load-config": "^6.0.1",
     "sass": "^1.86.1",
     "svelte": "^5.35.4",
     "svelte-check": "^4.1.4",

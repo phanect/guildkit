@@ -1,7 +1,7 @@
 <script lang="ts">
   import Nav from "$lib/components/Nav.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
-  import "../../app.postcss";
+  import "../../app.scss";
   import type { LayoutProps } from "./$types";
 
   const { children, data }: LayoutProps = $props();
