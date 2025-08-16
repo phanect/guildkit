@@ -21,15 +21,15 @@
 </script>
 
 <Toast />
-<section class="px-24 py-16">
-  <h1 class="text-2xl font-bold flex justify-center mb-5">Create a new job</h1>
-  <div class="border border-gray-200 rounded-lg p-12">
+<section class="job-form-section">
+  <h1 class="page-title">Create a new job</h1>
+  <div class="form-container">
     <form method="post" action="/employer/jobs?/create" use:enhance>
-      <div class="mb-6">
-        <label class="label" for="title">
-          <span class="font-bold">Title <span class="text-red-400">*</span></span>
+      <div class="form-field">
+        <label class="field-label" for="title">
+          <span class="label-text">Title <span class="required">*</span></span>
           <input
-            class={$errors.title ? "input-error block w-full rounded-sm" : "input"}
+            class={$errors.title ? "input input-error" : "input"}
             type="text"
             placeholder="Job Title"
             name="title"
@@ -38,14 +38,14 @@
           />
         </label>
         {#if $errors.title}
-          <small class="text-red-600">{$errors.title}</small>
+          <small class="error-text">{$errors.title}</small>
         {/if}
       </div>
-      <div class="mb-6">
-        <label class="label" for="description">
-          <span class="font-bold">Description <span class="text-red-400">*</span></span>
+      <div class="form-field">
+        <label class="field-label" for="description">
+          <span class="label-text">Description <span class="required">*</span></span>
           <textarea
-            class={$errors.description ? "input-error block w-full rounded-sm" : "input"}
+            class={$errors.description ? "input input-error" : "input"}
             placeholder="Job Description"
             name="description"
             id="description"
@@ -53,15 +53,15 @@
           ></textarea>
         </label>
         {#if $errors.description}
-          <small class="text-red-600">{$errors.description}</small>
+          <small class="error-text">{$errors.description}</small>
         {/if}
       </div>
-      <div class="mb-6">
-        <label class="label" for="requirements">
-          <span class="font-bold">Requirements <span class="text-red-400">*</span></span>
-          <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
+      <div class="form-field">
+        <label class="field-label" for="requirements">
+          <span class="label-text">Requirements <span class="required">*</span></span>
+          <span class="help-text">(Separate using ";" for better formatting)</span>
           <textarea
-            class={$errors.requirements ? "input-error block w-full rounded-sm" : "input"}
+            class={$errors.requirements ? "input input-error" : "input"}
             placeholder="Requirement 1; Requirement 2; Requirement 3; etc"
             name="requirements"
             id="requirements"
@@ -69,16 +69,16 @@
           ></textarea>
         </label>
         {#if $errors.requirements}
-          <small class="text-red-600">{$errors.requirements}</small>
+          <small class="error-text">{$errors.requirements}</small>
         {/if}
       </div>
 
-      <div class="mb-6">
-        <label class="label" for="applicationUrl">
-          <span class="font-bold">Application URL <span class="text-red-400">*</span></span>
-          <span class="text-sm text-gray-500">(Separate using ";" for better formatting)</span>
+      <div class="form-field">
+        <label class="field-label" for="applicationUrl">
+          <span class="label-text">Application URL <span class="required">*</span></span>
+          <span class="help-text">(Separate using ";" for better formatting)</span>
           <input
-            class={$errors.applicationUrl ? "input-error block w-full rounded-sm" : "input"}
+            class={$errors.applicationUrl ? "input input-error" : "input"}
             type="url"
             placeholder="https://yourcompany.com/careers/1"
             name="applicationUrl"
@@ -87,15 +87,15 @@
           />
         </label>
         {#if $errors.applicationUrl}
-          <small class="text-red-600">{$errors.applicationUrl}</small>
+          <small class="error-text">{$errors.applicationUrl}</small>
         {/if}
       </div>
-      <div class="mb-6 grid grid-cols-4 gap-6">
-        <div class="col-span-2">
-          <label class="label" for="location">
-            <span class="font-bold">Location <span class="text-red-400">*</span></span>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="field-label" for="location">
+            <span class="label-text">Location <span class="required">*</span></span>
             <input
-              class={$errors.location ? "input-error block w-full rounded-sm" : "input"}
+              class={$errors.location ? "input input-error" : "input"}
               type="text"
               placeholder="Remote"
               name="location"
@@ -104,14 +104,14 @@
             />
           </label>
           {#if $errors.location}
-            <small class="text-red-600 block mt-1">{$errors.location}</small>
+            <small class="error-text">{$errors.location}</small>
           {/if}
         </div>
-        <div class="col-span-2">
-          <label class="label" for="applicationUrl">
-            <span class="font-bold">Salary <span class="text-red-400">*</span></span>
+        <div class="form-field">
+          <label class="field-label" for="applicationUrl">
+            <span class="label-text">Salary <span class="required">*</span></span>
             <input
-              class={$errors.salary ? "input-error block w-full rounded-sm" : "input"}
+              class={$errors.salary ? "input input-error" : "input"}
               type="text"
               placeholder="800000"
               name="salary"
@@ -120,16 +120,16 @@
             />
           </label>
           {#if $errors.salary}
-            <small class="text-red-600 block mt-1">{$errors.salary}</small>
+            <small class="error-text">{$errors.salary}</small>
           {/if}
         </div>
       </div>
-      <div class="mb-6 grid grid-cols-4 gap-6">
-        <div class="col-span-2">
-          <label class="label" for="location">
-            <span class="font-bold">Company name <span class="text-red-400">*</span></span>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="field-label" for="location">
+            <span class="label-text">Company name <span class="required">*</span></span>
             <input
-              class={$errors.company ? "input-error block w-full rounded-sm" : "input"}
+              class={$errors.company ? "input input-error" : "input"}
               type="text"
               placeholder="Company Ltd"
               name="company"
@@ -138,14 +138,14 @@
             />
           </label>
           {#if $errors.company}
-            <small class="text-red-600 block mt-1">{$errors.company}</small>
+            <small class="error-text">{$errors.company}</small>
           {/if}
         </div>
-        <div class="col-span-2">
-          <label class="label" for="applicationUrl">
-            <span class="font-bold">Deadline <span class="text-red-400">*</span></span>
+        <div class="form-field">
+          <label class="field-label" for="applicationUrl">
+            <span class="label-text">Deadline <span class="required">*</span></span>
             <input
-              class={$errors.expiresAt ? "input-error block w-full rounded-sm" : "input"}
+              class={$errors.expiresAt ? "input input-error" : "input"}
               type="date"
               name="expiresAt"
               id="expiresAt"
@@ -153,11 +153,125 @@
             />
           </label>
           {#if $errors.expiresAt}
-            <small class="text-red-600 block mt-1">{$errors.expiresAt}</small>
+            <small class="error-text">{$errors.expiresAt}</small>
           {/if}
         </div>
       </div>
-      <button type="submit" class="btn variant-filled w-full mt-8 mb-8">Create Job</button>
+      <button type="submit" class="submit-button">Create Job</button>
     </form>
   </div>
 </section>
+
+<style lang="scss">
+  .job-form-section {
+    padding: 4rem 6rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 3rem;
+  }
+
+  .form-field {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .field-label {
+    display: block;
+    width: 100%;
+  }
+
+  .label-text {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .required {
+    color: #f87171;
+  }
+
+  .help-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    &.input-error {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+  }
+
+  textarea.input {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .error-text {
+    color: #dc2626;
+    font-size: 0.875rem;
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .submit-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+
+    &:hover {
+      background-color: #2563eb;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    }
+
+    &:active {
+      background-color: #1d4ed8;
+    }
+  }
+</style>

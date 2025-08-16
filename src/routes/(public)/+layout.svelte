@@ -14,8 +14,6 @@
     row-gap: 1em;
 
     width: 100%;
-    padding-left: 2.5em;
-    padding-right: 2.5em;
   }
 </style>
 
