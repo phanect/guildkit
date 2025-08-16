@@ -7,15 +7,9 @@
 </script>
 
 <style lang="scss">
+  @use "$lib/styles/mixins.scss";
   .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 1em;
-
-    width: 100%;
-    padding-left: 2.5em;
-    padding-right: 2.5em;
+    @include mixins.layout-root;
   }
 </style>
 

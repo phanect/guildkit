@@ -1,0 +1,15 @@
+@mixin layout-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1em;
+
+  width: 100%;
+}
+
+@mixin page-root {
+  width: 100%;
+  max-width: 60rem;
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
+}
