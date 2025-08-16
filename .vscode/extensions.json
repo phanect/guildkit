@@ -6,7 +6,6 @@
 
     "svelte.svelte-vscode",
     "csstools.postcss",
-    "bradlc.vscode-tailwindcss",
     "redhat.vscode-yaml",
     "tamasfe.even-better-toml",
     "TheNuProjectContributors.vscode-nushell-lang"
