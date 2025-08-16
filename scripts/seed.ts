@@ -1,15 +1,11 @@
 import { exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../src/lib/db/db.ts";
-import { user as userTable } from "../src/lib/db/schema/better-auth.ts";
-import { job as jobTable, type Job } from "../src/lib/db/schema/job.ts";
-import { userProps, type User, type UserProps } from "../src/lib/db/schema/user.ts";
+import { job } from "../src/lib/db/schema/job.ts";
+import { insertUsers, type UserWithProps } from "../src/lib/db/helpers.ts";
+import type { InferInsertModel } from "drizzle-orm";
 
-type UserToCreate = Omit<User, "propsId"> & {
-  props: UserProps;
-};
-
-const candidates: UserToCreate[] = [
+const candidates: UserWithProps[] = [
   {
     id: "heizou",
     name: "Heizou Shikanoin",
@@ -51,7 +47,7 @@ const recruiterYae = {
   props: {
     type: "recruiter",
   },
-} as const satisfies UserToCreate;
+} as const satisfies UserWithProps;
 const recruiterRaiden = {
   id: "ei",
   name: "Ei Raiden",
@@ -61,9 +57,10 @@ const recruiterRaiden = {
   props: {
     type: "recruiter",
   },
-} as const satisfies UserToCreate;
+} as const satisfies UserWithProps;
+const recruiters = [ recruiterYae, recruiterRaiden ];
 
-const job: Job[] = [
+const initialJobs: InferInsertModel<typeof job>[] = [
   {
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
@@ -187,8 +184,8 @@ const job: Job[] = [
   },
 ];
 
-const userExists = (await db.select().from(userTable).limit(1)).length > 0;
-const jobExists = (await db.select().from(jobTable).limit(1)).length > 0;
+const userExists = Boolean(await db.query.user.findFirst());
+const jobExists = Boolean(await db.query.job.findFirst());
 const alreadySeeded = userExists || jobExists;
 
 if (alreadySeeded) {
@@ -196,20 +193,9 @@ if (alreadySeeded) {
   exit(0);
 }
 
-export const createUsers = async (users: UserToCreate[] | UserToCreate) => {
-  const _users = Array.isArray(users) ? users : [ users ];
+await insertUsers([
+  ...candidates,
+  ...recruiters,
+]);
 
-  await db.transaction(async (tx) => {
-    for (const user of _users) {
-      const [{ id: propsId }] = await tx.insert(userProps).values(user.props).returning({ id: userProps.id });
-
-      await tx.insert(userTable).values({
-        ...user,
-        propsId: propsId,
-      });
-    }
-  });
-};
-
-await createUsers([ ...candidates, recruiterYae, recruiterRaiden ]);
-await db.insert(jobTable).values(job);
+await db.insert(job).values(initialJobs);
