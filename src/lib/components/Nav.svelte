@@ -3,6 +3,7 @@
   import Button from "./generic/Button.svelte";
   import Link from "./generic/Link.svelte";
   import type { UserType } from "$lib/db/schema/user.ts";
+  import TopBar from "./generic/TopBar.svelte";
 
   type Props = {
     for: UserType | "guest";
@@ -39,9 +40,9 @@
 </style>
 
 <!-- TODO Pre-alpha caution: Delete on the official release -->
-<div style="display: flex; justify-content: center; align-items: center; width=100%; height: 2.5rem; background-color: red; color: white;">
+<TopBar>
   Caution: GuildKit is still pre-alpha state and there are probably a lot of bugs. Do not enter any private information for your security.
-</div>
+</TopBar>
 <!-- /Pre-alpha caution -->
 
 <nav class="nav flex items-center justify-between flex-wrap py-6 px-20">
