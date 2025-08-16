@@ -8,8 +8,8 @@ import {
   pgEnum,
 } from "drizzle-orm/pg-core";
 import { currency } from "./currencies.ts";
-import { user } from "./better-auth.ts";
-import { jobAndUserRelationTable } from "./relations.ts";
+import { organization } from "./better-auth.ts";
+import { jobsAndUsersRelationTable } from "./relations.ts";
 import { timeLogs } from "../schema-utils.ts";
 
 export const salaryPer = pgEnum("SalaryPer", [
@@ -29,13 +29,16 @@ export const job = pgTable("job", {
   salary: integer().notNull(),
   currency: currency().notNull(),
   salaryPer: salaryPer().notNull(),
-  company: text().notNull(),
-  employerId: text().notNull().references(() => user.id),
+  employer: text().notNull().references(() => organization.id),
   expiresAt: timestamp().notNull(),
   ...timeLogs,
 });
-export const jobRelations = relations(job, ({ many }) => ({
-  candidates: many(jobAndUserRelationTable),
+export const jobRelations = relations(job, ({ one, many }) => ({
+  employer: one(organization, {
+    fields: [ job.employer ],
+    references: [ organization.id ],
+  }),
+  candidates: many(jobsAndUsersRelationTable),
 }));
 
 export type Job = InferSelectModel<typeof job>;

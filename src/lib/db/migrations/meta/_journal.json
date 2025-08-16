@@ -15,6 +15,13 @@
       "when": 1755313943559,
       "tag": "0001_long_morgan_stark",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755317849136,
+      "tag": "0002_smiling_korg",
+      "breakpoints": true
     }
   ]
 }

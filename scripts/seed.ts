@@ -2,6 +2,8 @@ import { exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../src/lib/db/db.ts";
 import { job } from "../src/lib/db/schema/job.ts";
+import { orgProps } from "../src/lib/db/schema/organization.ts";
+import { organization } from "../src/lib/db/schema/better-auth.ts";
 import { insertUsers, type UserWithProps } from "../src/lib/db/helpers.ts";
 import type { InferInsertModel } from "drizzle-orm";
 
@@ -58,7 +60,49 @@ const recruiterRaiden = {
     type: "recruiter",
   },
 } as const satisfies UserWithProps;
-const recruiters = [ recruiterYae, recruiterRaiden ];
+const recruiterHiiragi = {
+  id: "chisato",
+  name: "Chisato Hiiragi",
+  email: "chisato.hiiragi@shogunate.example.go.jp",
+  emailVerified: true,
+  role: "recruiter",
+  props: {
+    type: "recruiter",
+  },
+} as const satisfies UserWithProps;
+
+type InitialOrg = Omit<InferInsertModel<typeof organization>, "propsId"> & {
+  props: InferInsertModel<typeof orgProps>;
+  recruiters: UserWithProps[];
+};
+
+const initialOrgYaedo: InitialOrg = {
+  id: "yph",
+  name: "Yae Publishing House, K.K.",
+  createdAt: new Date(),
+  props: {
+    addresses: [ "2-14-3, Hanamizaka, Inazuma City, Narukami Island, Inazuma" ],
+    emails: [ "hr@yaedo.example.com" ],
+    currencies: [ "JPY" ],
+  },
+  recruiters: [ recruiterYae ],
+};
+
+const initialOrgShogunate: InitialOrg = {
+  id: "shogunate",
+  name: "The Shogunate of Inazuma",
+  createdAt: new Date(),
+  props: {
+    addresses: [
+      "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
+      "Tenryou Commission Office, 1-2-5, Inazuma City, Narukami Island, Inazuma",
+      "The Hiiragi Estate, 5-1-1, Rito, Narukami Island, Inazuma",
+    ],
+    emails: [ "personnel@shogunate.example.go.jp" ],
+    currencies: [ "JPY" ],
+  },
+  recruiters: [ recruiterRaiden, recruiterHiiragi ],
+};
 
 const initialJobs: InferInsertModel<typeof job>[] = [
   {
@@ -90,9 +134,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 8000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterYae.id,
+    employer: initialOrgYaedo.id,
   },
   {
     title: "[WFH] SRE for our ebook store",
@@ -120,9 +163,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 8000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterYae.id,
+    employer: initialOrgYaedo.id,
   },
   {
     title: "[WFH] Marketing lead",
@@ -149,9 +191,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 8000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Yae Publishing House K.K.",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterYae.id,
+    employer: initialOrgYaedo.id,
   },
   {
     title: "Corporate Engineer",
@@ -178,9 +219,8 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     salary: 9000000,
     currency: "JPY",
     salaryPer: "YEAR",
-    company: "Kanjou Commission, The Shogunate of Inazuma",
     expiresAt: dayjs().add(1, "month").toDate(),
-    employerId: recruiterRaiden.id,
+    employer: initialOrgShogunate.id,
   },
 ];
 
@@ -193,9 +233,29 @@ if (alreadySeeded) {
   exit(0);
 }
 
-await insertUsers([
-  ...candidates,
-  ...recruiters,
-]);
+// Allow N+1 problems for the readability
+await db.transaction(async (tx) => {
+  await insertUsers(candidates);
+
+  for (const org of [ initialOrgYaedo, initialOrgShogunate ]) {
+    const [{ orgPropsId }] = await tx.insert(orgProps).values(org.props).returning({ orgPropsId: orgProps.id });
+
+    await tx.insert(organization).values({
+      ...org,
+      propsId: orgPropsId,
+    });
+  }
+
+  await insertUsers([
+    ...initialOrgYaedo.recruiters.map((recruiter) => ({
+      ...recruiter,
+      recruitsFor: [ initialOrgYaedo.id ],
+    })),
+    ...initialOrgShogunate.recruiters.map((recruiter) => ({
+      ...recruiter,
+      recruitsFor: [ initialOrgShogunate.id ],
+    })),
+  ]);
+});
 
 await db.insert(job).values(initialJobs);

@@ -4,15 +4,52 @@ import { eq } from "drizzle-orm";
 import { requireAuthAs } from "$lib/auth/server.ts";
 import { db } from "$lib/db/db.js";
 import { job } from "$lib/db/schema/job.ts";
+import { organization } from "$lib/db/schema/better-auth.ts";
 import { jobSchema } from "$lib/validation/job.validation.ts";
+import type { JobCardInfo } from "$lib/components/JobCard.svelte";
 import type { PageServerLoad, RequestEvent } from "./$types";
 
 export const load: PageServerLoad = async ({ parent }) => {
   const { user } = await parent();
 
+  if (!user.recruitsFor) {
+    return {
+      type: user.props.type,
+      userBelongsToOrganization: false,
+    };
+  }
+
+  const jobs: JobCardInfo[] = await db.query.job.findMany({
+    columns: {
+      id: true,
+      title: true,
+      description: true,
+      expiresAt: true,
+    },
+    with: {
+      employer: {
+        columns: {
+          id: true,
+          name: true,
+        },
+        with: {
+          recruiters: {
+            columns: {
+              recruitsFor: true,
+            },
+            where: (recruiter, { eq }) => eq(recruiter.id, user.id),
+          },
+        },
+      },
+    },
+    where: (job, { eq }) => eq(job.employer, organization.id),
+    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
+  });
+
   return {
-    jobs: await db.select().from(job).where(eq(job.employerId, user.id)),
+    jobs,
     type: user.props.type,
+    userBelongsToOrganization: true,
   };
 };
 
@@ -35,7 +72,7 @@ export const actions = {
 
     await db.insert(job).values({
       ...form.data,
-      employerId,
+      employer: employerId,
     });
 
     redirect(303, "/employer/jobs");

@@ -44,6 +44,10 @@ export const auth = betterAuth({
         type: "string",
         required: true,
       },
+      recruitsFor: {
+        type: "string",
+        required: false,
+      },
     },
   },
   databaseHooks: {
@@ -77,6 +81,16 @@ export const auth = betterAuth({
       creatorRole: "recruiterAdmin",
       ac: recruiterAc,
       roles: recruiterRoles,
+      schema: {
+        organization: {
+          additionalFields: {
+            propsId: {
+              type: "string",
+              required: true,
+            },
+          },
+        },
+      },
     }),
     adminPlugin({
       defaultRole: "none",

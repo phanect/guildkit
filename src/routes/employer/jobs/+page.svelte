@@ -4,7 +4,7 @@
   import type { PageProps } from "./$types";
 
   const { data }: PageProps = $props();
-  const { jobs = [], type } = data;
+  const { jobs = [], type, userBelongsToOrganization } = data;
   const editable = type === "recruiter";
 </script>
 
@@ -33,11 +33,21 @@
 </style>
 
 <div class="container">
-  <section class="button-section">
-    <Link href="/employer/jobs/new" theme="button" preload={true}>
-      Add job
-    </Link>
-  </section>
+  {#if userBelongsToOrganization === true}
+    <section class="button-section">
+      <Link href="/employer/jobs/new" theme="button" preload={true}>
+        Add job
+      </Link>
+    </section>
+  {:else}
+    <p>
+      You do not belong to any organization.
+      <Link href="/employer/orgs/new" theme="linktext" preload={true}>
+        Create a new organization
+      </Link> or ask your organization owner to add you.
+      <!-- TODO Add button to ask invitation to the org in the organization page -->
+    </p>
+  {/if}
 
   <JobList {jobs} {editable} />
 </div>
