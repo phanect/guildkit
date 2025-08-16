@@ -51,15 +51,13 @@ def "main sync" [--seed] {
 
   if ($isLocal) {
     container compose up -d --wait
-    pnpm drizzle-kit generate
-    pnpm drizzle-kit migrate
+  }
 
-    if ($seed) {
-      pnpm jiti ./scripts/seed.ts
-    }
-  } else {
-    pnpm drizzle-kit generate
-    pnpm drizzle-kit migrate
+  pnpm drizzle-kit generate
+  pnpm drizzle-kit migrate
+
+  if ($isLocal and $seed) {
+    pnpm jiti ./scripts/seed.ts
   }
 }
 
