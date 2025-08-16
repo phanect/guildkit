@@ -9,7 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { currency } from "./currencies.ts";
 import { organization } from "./better-auth.ts";
-import { jobAndUserRelationTable } from "./relations.ts";
+import { jobsAndUsersRelationTable } from "./relations.ts";
 import { timeLogs } from "../schema-utils.ts";
 
 export const salaryPer = pgEnum("SalaryPer", [
@@ -38,7 +38,7 @@ export const jobRelations = relations(job, ({ one, many }) => ({
     fields: [ job.employer ],
     references: [ organization.id ],
   }),
-  candidates: many(jobAndUserRelationTable),
+  candidates: many(jobsAndUsersRelationTable),
 }));
 
 export type Job = InferSelectModel<typeof job>;

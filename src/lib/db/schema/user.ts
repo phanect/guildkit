@@ -6,14 +6,14 @@ import {
 } from "drizzle-orm/pg-core";
 import { user } from "./better-auth.ts";
 import { timeLogs } from "../schema-utils.ts";
-import { jobAndUserRelationTable } from "./relations.ts";
+import { jobsAndUsersRelationTable } from "./relations.ts";
 
 export const userRelations = relations(user, ({ one, many }) => ({
   props: one(userProps, {
     fields: [ user.propsId ],
     references: [ userProps.id ],
   }),
-  appliedJobs: many(jobAndUserRelationTable),
+  appliedJobs: many(jobsAndUsersRelationTable),
 }));
 
 export type User = InferSelectModel<typeof user>;
