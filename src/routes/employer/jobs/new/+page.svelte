@@ -108,7 +108,7 @@
           {/if}
         </div>
         <div class="form-field">
-          <label class="field-label" for="applicationUrl">
+          <label class="field-label" for="salary">
             <span class="label-text">Salary <span class="required">*</span></span>
             <input
               class={$errors.salary ? "input input-error" : "input"}
@@ -126,7 +126,7 @@
       </div>
       <div class="form-row">
         <div class="form-field">
-          <label class="field-label" for="location">
+          <label class="field-label" for="company">
             <span class="label-text">Company name <span class="required">*</span></span>
             <input
               class={$errors.company ? "input input-error" : "input"}
@@ -142,7 +142,7 @@
           {/if}
         </div>
         <div class="form-field">
-          <label class="field-label" for="applicationUrl">
+          <label class="field-label" for="expiresAt">
             <span class="label-text">Deadline <span class="required">*</span></span>
             <input
               class={$errors.expiresAt ? "input input-error" : "input"}
