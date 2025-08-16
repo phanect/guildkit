@@ -9,7 +9,6 @@
     "db": "psql --username=guildkit --dbname=guildkit --host=localhost --port=5432",
     "resetdb": "nu ./scripts/scripts.nu resetdb",
     "build": "pnpm sync && vite build",
-    "release": "pnpm sync && drizzle-kit migrate",
     "lint": "pnpm sync && svelte-check --tsconfig ./tsconfig.json && eslint && markuplint \"**/*.html\"",
     "fix": "pnpm sync && eslint --fix",
     "clean": "git clean -dX --exclude=\"!.env\" --force",
