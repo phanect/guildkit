@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "../../app.scss";
+  import "$lib/styles/global.scss";
   import type { LayoutProps } from "./$types";
 
   const { children }: LayoutProps = $props();
