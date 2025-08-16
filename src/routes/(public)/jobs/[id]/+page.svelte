@@ -1,6 +1,5 @@
 <script lang="ts">
   import Link from "$lib/components/generic/Link.svelte";
-  import { getRemainingTime } from "$lib/helpers/getRemainingTime.ts";
   import { parseString } from "$lib/helpers/parseString.ts";
   import type { PageProps } from "./$types";
 
@@ -14,7 +13,7 @@
     <img src="/vendor/octicons/mention.svg" alt="At Symbol Icon" width="18" />
     {job.company}
   </p>
-  <div class="conditions">
+  <div>
     <span class="condition condition-location">
       <img src="/vendor/octicons/location.svg" alt="Location Icon" width="16" />
       {job.location}
@@ -24,10 +23,11 @@
       <!-- TODO Use user's locale in `toLocaleString()` -->
       {job.salary.toLocaleString("en-US")} {job.currency}/{job.salaryPer}
     </span>
-    <span class="condition condition-expires">
-      <img src="/vendor/octicons/clock.svg" alt="Money Icon" width="16" />
-      {getRemainingTime(job.expiresAt)}
-    </span>
+  </div>
+  <div class="last-updated">
+    <img src="/vendor/octicons/clock.svg" alt="" width="16" />
+    <!-- TODO Use user's locale in `toLocaleString()` -->
+    Last updated at {(job.updatedAt ?? job.createdAt).toLocaleDateString("en-US")}
   </div>
 
   <section class="section">
@@ -58,6 +58,11 @@
 <style lang="scss">
   @use "$lib/styles/mixins.scss";
 
+  @mixin text-with-icon {
+    display: inline-flex;
+    gap: 0.375rem;
+  }
+
   .root {
     @include mixins.page-root;
   }
@@ -81,15 +86,8 @@
     }
   }
 
-  .conditions {
-    margin: {
-      bottom: 1.5rem;
-    }
-  }
-
   .condition {
-    display: inline-flex;
-    gap: 0.375rem;
+    @include text-with-icon;
 
     margin-right: 0.5rem;
     padding: {
@@ -113,8 +111,16 @@
     background-color: #bbf7d0;
   }
 
-  .condition-expires {
-    background-color: #fecaca;
+  .last-updated {
+    @include text-with-icon;
+
+    width: 100%;
+    justify-content: end;
+    margin: {
+      bottom: 1.5rem;
+    }
+
+    font-size: 0.875rem;
   }
 
   .section {
