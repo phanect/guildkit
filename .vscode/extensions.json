@@ -5,7 +5,6 @@
     "EditorConfig.EditorConfig",
 
     "svelte.svelte-vscode",
-    "csstools.postcss",
     "redhat.vscode-yaml",
     "tamasfe.even-better-toml",
     "TheNuProjectContributors.vscode-nushell-lang"
