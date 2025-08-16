@@ -51,12 +51,14 @@ def "main sync" [--seed] {
 
   if ($isLocal) {
     container compose up -d --wait
+  } else if ($env.NODE_ENV == "demo-preview") {
+    pnpm neon branches reset $"preview/($env.VERCEL_GIT_COMMIT_REF)" --parent --project-id=($env.NEON_PROJECT_ID)
   }
 
   pnpm drizzle-kit generate
   pnpm drizzle-kit migrate
 
-  if ($isLocal and $seed) {
+  if (($isLocal or $env.NODE_ENV == "demo-preview") and $seed) {
     pnpm jiti ./scripts/seed.ts
   }
 }
