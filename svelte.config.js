@@ -10,7 +10,7 @@ const config = {
   preprocess: sequence([
     vitePreprocess(),
     sveltePreprocess({
-      postcss: true,
+      scss: true,
     }),
     preprocessMeltUI(),
   ]),
