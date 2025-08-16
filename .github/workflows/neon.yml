@@ -30,5 +30,5 @@ jobs:
         uses: neondatabase/delete-branch-action@c2005bb7d7caeba12ba3ec63857e9c9f9a4d695a # v3
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
-          branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
+          branch: preview/${{ needs.setup.outputs.branch }}
           api_key: ${{ secrets.NEON_API_KEY }}
