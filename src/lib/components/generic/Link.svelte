@@ -4,7 +4,7 @@
   type Props = {
     children: Snippet;
     href: string;
-    theme?: "button" | "linktext";
+    theme?: "button-deep" | "button-pale" | "linktext";
     preload?: boolean;
   };
 
