@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zod as adaptSuperForms } from "sveltekit-superforms/adapters";
+import { zod4 as adaptSuperForms } from "sveltekit-superforms/adapters";
 import { salaryPer } from "$lib/db/schema/job.ts";
 import { currency } from "$lib/db/schema/currencies.ts";
 
