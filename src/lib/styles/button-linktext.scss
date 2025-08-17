@@ -1,7 +1,6 @@
-.button {
+@mixin button {
   display: block;
 
-  background-color: #e0e0e0;
   transition: background-color 0.25s;
 
   width: fit-content;
@@ -11,6 +10,26 @@
   padding-bottom: 0.5em;
   padding-left: 0.75em;
   padding-right: 0.75em;
+}
+
+.button-deep {
+  @include button;
+
+  color: #ffffff;
+
+  background-color: #3a3a3a;
+
+  &:hover {
+    background-color: #5c5c5c;
+  }
+}
+
+.button-pale {
+  @include button;
+
+  color: #000000;
+
+  background-color: #e0e0e0;
 
   &:hover {
     background-color: #c0c0c0;
