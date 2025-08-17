@@ -31,11 +31,11 @@
   </p>
 
   <div class="options">
-    <Button onclick={ () => signUpWith("github", "candidate") } width="16em">
+    <Button theme="button-deep" onclick={ () => signUpWith("github", "candidate") } width="16em">
       Create account as a <strong>candidate</strong>
     </Button>
 
-    <Button onclick={ () => signUpWith("github", "recruiter") } width="16em">
+    <Button theme="button-deep" onclick={ () => signUpWith("github", "recruiter") } width="16em">
       Create account as a <strong>recruiter</strong>
     </Button>
 

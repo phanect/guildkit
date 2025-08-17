@@ -73,9 +73,9 @@
     {/if}
 
     {#if userType === "guest"}
-      <Link href="/auth" theme="button">Log in <span class="text-separator"></span> Sign up</Link>
+      <Link href="/auth" theme="button-deep">Log in <span class="text-separator"></span> Sign up</Link>
     {:else}
-      <Button onclick={ async () => signOut() }>Log out</Button>
+      <Button theme="button-pale" onclick={ async () => signOut() }>Log out</Button>
     {/if}
   </div>
 </nav>

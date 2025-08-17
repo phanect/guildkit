@@ -119,12 +119,12 @@
 
       {#if editable}
         <div class="actions-buttons">
-          <Link href={`/employer/jobs/edit/${ job.id }`} preload={true} theme="button">
+          <Link href={`/employer/jobs/edit/${ job.id }`} preload={true} theme="button-pale">
             Edit
           </Link>
           <form action="/employer/jobs?/delete" use:enhance>
             <input type="hidden" name="id" value={ job.id} />
-            <Button>
+            <Button theme="button-pale">
               Delete
             </Button>
           </form>

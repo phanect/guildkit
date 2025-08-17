@@ -22,11 +22,11 @@
   <h1 class="h1">Sign in or Sign up</h1>
 
   <div class="buttons">
-    <Button onclick={() => signInWith("google")} width="16em">
+    <Button theme="button-deep" onclick={() => signInWith("google")} width="16em">
       Signin with Google
     </Button>
 
-    <Button onclick={() => signInWith("github")} width="16em">
+    <Button theme="button-deep" onclick={() => signInWith("github")} width="16em">
       Signin with GitHub
     </Button>
   </div>
