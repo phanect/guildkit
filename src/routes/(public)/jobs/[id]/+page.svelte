@@ -10,7 +10,7 @@
 <div class="root">
   <h1 class="title">{job.title}</h1>
   <p class="employer">
-    <img src="/vendor/octicons/mention.svg" alt="At Symbol Icon" width="18" />
+    <img src="/vendor/octicons/organization.svg" alt="At Symbol Icon" width="18" />
     {job.company}
   </p>
   <div>
