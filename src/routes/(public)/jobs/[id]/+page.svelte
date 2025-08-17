@@ -77,13 +77,15 @@
   }
 
   .employer {
-    font-style: italic;
     display: inline-flex;
     gap: 0.5rem;
-    color: #9ca3af;
     margin: {
       bottom: 0.75rem;
     }
+
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #020202;
   }
 
   .condition {
