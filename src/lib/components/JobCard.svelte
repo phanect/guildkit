@@ -117,7 +117,7 @@
           <Link href={`/employer/jobs/edit/${ job.id }`} preload={true} theme="button-pale">
             Edit
           </Link>
-          <form action="/employer/jobs?/delete" use:enhance>
+          <form method="POST" action="/employer/jobs?/delete" use:enhance>
             <input type="hidden" name="id" value={ job.id} />
             <Button theme="button-pale">
               Delete
