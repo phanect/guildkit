@@ -33,8 +33,11 @@ export const actions = {
       return fail(400, { form });
     }
 
+    const { expiresAt, ...newJob } = form.data;
+
     await db.insert(job).values({
-      ...form.data,
+      ...newJob,
+      expiresAt: new Date(expiresAt),
       employerId,
     });
 
