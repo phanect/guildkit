@@ -10,18 +10,18 @@
 <div class="root">
   <h1 class="title">{job.title}</h1>
   <p class="employer">
-    <img src="/vendor/octicons/organization.svg" alt="At Symbol Icon" width="18" />
+    <img src="/vendor/octicons/organization.svg" alt="Employer" title="Employer" width="18" />
     {job.company}
   </p>
   <div>
     <span class="condition condition-location">
-      <img src="/vendor/octicons/location.svg" alt="Location Icon" width="16" />
-      {job.location}
+      <img src="/vendor/octicons/location.svg" alt="" width="16" />
+      Work location: {job.location}
     </span>
     <span class="condition condition-salary">
-      <img src="/vendor/tabler/coins.svg" alt="Salary" width="16" />
+      <img src="/vendor/tabler/coins.svg" alt="" width="16" />
       <!-- TODO Use user's locale in `toLocaleString()` -->
-      {job.salary.toLocaleString("en-US")} {job.currency}/{job.salaryPer}
+      Salary: {job.salary.toLocaleString("en-US")} {job.currency}/{job.salaryPer}
     </span>
   </div>
   <div class="last-updated">
