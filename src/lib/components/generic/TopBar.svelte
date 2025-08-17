@@ -18,8 +18,8 @@
     justify-content: center;
     align-items: center;
 
-    background-color: red;
-    color: white;
+    background-color: rgb(255, 225, 225);
+    color: red;
 
     width: 100%;
     min-height: 2.5rem;
