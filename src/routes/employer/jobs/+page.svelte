@@ -34,7 +34,7 @@
 
 <div class="container">
   <section class="button-section">
-    <Link href="/employer/jobs/new" theme="button" preload={true}>
+    <Link href="/employer/jobs/new" theme="button-deep" preload={true}>
       Add job
     </Link>
   </section>
