@@ -112,8 +112,9 @@
             <span class="label-text">Salary <span class="required">*</span></span>
             <input
               class={$errors.salary ? "input input-error" : "input"}
-              type="text"
+              type="number"
               placeholder="800000"
+              step="100"
               name="salary"
               id="salary"
               bind:value={$form.salary}
