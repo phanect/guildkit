@@ -4,7 +4,7 @@ import { salaryPer } from "$lib/db/schema/job.ts";
 import { currency } from "$lib/db/schema/currencies.ts";
 
 export const jobSchema = adaptSuperForms(z.object({
-  title: z.string().min(4),
+  title: z.string().min(2),
   description: z.string().min(4),
   requirements: z.string().min(4),
   applicationUrl: z.string().url(),
