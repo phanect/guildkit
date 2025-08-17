@@ -45,6 +45,13 @@
       width: 100%;
     }
   }
+
+  @media (max-width: 640px) {
+    .sidebar {
+      // TODO Consider how to show this sidebar in mobile view
+      display: none;
+    }
+  }
 </style>
 
 <aside class="sidebar">
