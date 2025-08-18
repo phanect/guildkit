@@ -32,4 +32,8 @@
   {#if jobs.length % 2 === 1}
     <JobCardEmpty />
   {/if}
+
+  {#if jobs.length <= 0}
+    There are no open positions at the moment.
+  {/if}
 </section>
