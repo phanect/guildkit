@@ -20,6 +20,7 @@ export const load: PageServerLoad = async ({ params: { id }}) => {
     with: {
       employer: {
         columns: {
+          slug: true,
           name: true,
         },
       },

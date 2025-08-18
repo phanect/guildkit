@@ -9,10 +9,10 @@
 
 <div class="root">
   <h1 class="title">{job.title}</h1>
-  <p class="employer">
+  <a href={`/orgs/${ job.employer.slug }`} class="employer">
     <img src="/vendor/octicons/organization.svg" alt="Employer" title="Employer" width="18" />
     {job.employer.name}
-  </p>
+  </a>
   <div>
     <span class="condition condition-location">
       <img src="/vendor/octicons/location.svg" alt="" width="16" />
