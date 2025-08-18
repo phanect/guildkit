@@ -81,7 +81,7 @@ export const auth = betterAuth({
         organization: {
           additionalFields: {
             propsId: {
-              type: "string",
+              type: "number",
               required: true,
             },
           },

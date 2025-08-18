@@ -1,8 +1,8 @@
 import { relations, type InferSelectModel } from "drizzle-orm";
-import { pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, integer } from "drizzle-orm/pg-core";
 import { currency } from "./currencies.ts";
 import { organization } from "./better-auth.ts";
-import { timeLogs } from "../schema-utils.ts";
+import { timeLogs, randomId } from "../schema-utils.ts";
 import { job } from "./job.ts";
 
 export const organizationRelations = relations(organization, ({ one, many }) => ({
@@ -14,7 +14,7 @@ export const organizationRelations = relations(organization, ({ one, many }) => 
 }));
 
 export const orgProps = pgTable("orgProps", {
-  id: uuid().primaryKey().notNull().defaultRandom(),
+  id: integer().primaryKey().notNull().$defaultFn(() => randomId()),
   about: text(),
   url: text().notNull().unique(),
   emails: text().array(),
