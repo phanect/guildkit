@@ -30,7 +30,7 @@ export const requireAuthAs = async (
   if (expectedType === "any" || expectedType === user.props.type) {
     return { user, session };
   } else {
-    return error(401, `This page is for the ${ expectedType }s.`);
+    return error(401, { message: `This page is for the ${ expectedType }s.` });
   }
 };
 
