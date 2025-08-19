@@ -1,11 +1,11 @@
-import { fail, redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { requireAuthAs } from "$lib/auth/server.ts";
 import { updateUserProps } from "$lib/db/helpers.ts";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, request }) => {
   if (params.type !== "candidate" && params.type !== "recruiter") {
-    return fail(404);
+    return error(404);
   }
 
   const { user } = await requireAuthAs("any", { request });
