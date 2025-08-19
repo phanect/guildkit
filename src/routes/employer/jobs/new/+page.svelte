@@ -24,142 +24,142 @@
 <Toast />
 <section class="root">
   <h1 class="page-title">Create a new job</h1>
-    <form method="post" action="/employer/jobs?/create" use:enhance>
-      <div class="form-field">
-        <label class="field-label" for="title">
-          <span class="label-text">Title <span class="required">*</span></span>
-          <input
-            class={$errors.title ? "input input-error" : "input"}
-            type="text"
-            placeholder="Job Title"
-            name="title"
-            id="title"
-            bind:value={$form.title}
-          />
-        </label>
-        {#if $errors.title}
-          <small class="error-text">{$errors.title}</small>
-        {/if}
-      </div>
-      <div class="form-field">
-        <label class="field-label" for="description">
-          <span class="label-text">Description <span class="required">*</span></span>
-          <textarea
-            class={$errors.description ? "input input-error" : "input"}
-            placeholder="Job Description"
-            name="description"
-            id="description"
-            bind:value={$form.description}
-          ></textarea>
-        </label>
-        {#if $errors.description}
-          <small class="error-text">{$errors.description}</small>
-        {/if}
-      </div>
-      <div class="form-field">
-        <label class="field-label" for="requirements">
-          <span class="label-text">Requirements <span class="required">*</span></span>
-          <span class="help-text">(Separate using ";" for better formatting)</span>
-          <textarea
-            class={$errors.requirements ? "input input-error" : "input"}
-            placeholder="Requirement 1; Requirement 2; Requirement 3; etc"
-            name="requirements"
-            id="requirements"
-            bind:value={$form.requirements}
-          ></textarea>
-        </label>
-        {#if $errors.requirements}
-          <small class="error-text">{$errors.requirements}</small>
-        {/if}
-      </div>
+  <form method="post" action="/employer/jobs?/create" use:enhance>
+    <div class="form-field">
+      <label class="field-label" for="title">
+        <span class="label-text">Title <span class="required">*</span></span>
+        <input
+          class={$errors.title ? "input input-error" : "input"}
+          type="text"
+          placeholder="Job Title"
+          name="title"
+          id="title"
+          bind:value={$form.title}
+        />
+      </label>
+      {#if $errors.title}
+        <small class="error-text">{$errors.title}</small>
+      {/if}
+    </div>
+    <div class="form-field">
+      <label class="field-label" for="description">
+        <span class="label-text">Description <span class="required">*</span></span>
+        <textarea
+          class={$errors.description ? "input input-error" : "input"}
+          placeholder="Job Description"
+          name="description"
+          id="description"
+          bind:value={$form.description}
+        ></textarea>
+      </label>
+      {#if $errors.description}
+        <small class="error-text">{$errors.description}</small>
+      {/if}
+    </div>
+    <div class="form-field">
+      <label class="field-label" for="requirements">
+        <span class="label-text">Requirements <span class="required">*</span></span>
+        <span class="help-text">(Separate using ";" for better formatting)</span>
+        <textarea
+          class={$errors.requirements ? "input input-error" : "input"}
+          placeholder="Requirement 1; Requirement 2; Requirement 3; etc"
+          name="requirements"
+          id="requirements"
+          bind:value={$form.requirements}
+        ></textarea>
+      </label>
+      {#if $errors.requirements}
+        <small class="error-text">{$errors.requirements}</small>
+      {/if}
+    </div>
 
+    <div class="form-field">
+      <label class="field-label" for="applicationUrl">
+        <span class="label-text">Application URL <span class="required">*</span></span>
+        <span class="help-text">(Separate using ";" for better formatting)</span>
+        <input
+          class={$errors.applicationUrl ? "input input-error" : "input"}
+          type="url"
+          placeholder="https://yourcompany.com/careers/1"
+          name="applicationUrl"
+          id="applicationUrl"
+          bind:value={$form.applicationUrl}
+        />
+      </label>
+      {#if $errors.applicationUrl}
+        <small class="error-text">{$errors.applicationUrl}</small>
+      {/if}
+    </div>
+    <div class="form-row">
       <div class="form-field">
-        <label class="field-label" for="applicationUrl">
-          <span class="label-text">Application URL <span class="required">*</span></span>
-          <span class="help-text">(Separate using ";" for better formatting)</span>
+        <label class="field-label" for="location">
+          <span class="label-text">Location <span class="required">*</span></span>
           <input
-            class={$errors.applicationUrl ? "input input-error" : "input"}
-            type="url"
-            placeholder="https://yourcompany.com/careers/1"
-            name="applicationUrl"
-            id="applicationUrl"
-            bind:value={$form.applicationUrl}
+            class={$errors.location ? "input input-error" : "input"}
+            type="text"
+            placeholder="Remote"
+            name="location"
+            id="location"
+            bind:value={$form.location}
           />
         </label>
-        {#if $errors.applicationUrl}
-          <small class="error-text">{$errors.applicationUrl}</small>
+        {#if $errors.location}
+          <small class="error-text">{$errors.location}</small>
         {/if}
       </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label class="field-label" for="location">
-            <span class="label-text">Location <span class="required">*</span></span>
-            <input
-              class={$errors.location ? "input input-error" : "input"}
-              type="text"
-              placeholder="Remote"
-              name="location"
-              id="location"
-              bind:value={$form.location}
-            />
-          </label>
-          {#if $errors.location}
-            <small class="error-text">{$errors.location}</small>
-          {/if}
-        </div>
-        <div class="form-field">
-          <label class="field-label" for="salary">
-            <span class="label-text">Salary <span class="required">*</span></span>
-            <input
-              class={$errors.salary ? "input input-error" : "input"}
-              type="number"
-              placeholder="800000"
-              step="100"
-              name="salary"
-              id="salary"
-              bind:value={$form.salary}
-            />
-          </label>
-          {#if $errors.salary}
-            <small class="error-text">{$errors.salary}</small>
-          {/if}
-        </div>
+      <div class="form-field">
+        <label class="field-label" for="salary">
+          <span class="label-text">Salary <span class="required">*</span></span>
+          <input
+            class={$errors.salary ? "input input-error" : "input"}
+            type="number"
+            placeholder="800000"
+            step="100"
+            name="salary"
+            id="salary"
+            bind:value={$form.salary}
+          />
+        </label>
+        {#if $errors.salary}
+          <small class="error-text">{$errors.salary}</small>
+        {/if}
       </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label class="field-label" for="company">
-            <span class="label-text">Company name <span class="required">*</span></span>
-            <input
-              class={$errors.company ? "input input-error" : "input"}
-              type="text"
-              placeholder="Company Ltd"
-              name="company"
-              id="company"
-              bind:value={$form.company}
-            />
-          </label>
-          {#if $errors.company}
-            <small class="error-text">{$errors.company}</small>
-          {/if}
-        </div>
-        <div class="form-field">
-          <label class="field-label" for="expiresAt">
-            <span class="label-text">Deadline <span class="required">*</span></span>
-            <input
-              class={$errors.expiresAt ? "input input-error" : "input"}
-              type="date"
-              name="expiresAt"
-              id="expiresAt"
-              bind:value={$form.expiresAt}
-            />
-          </label>
-          {#if $errors.expiresAt}
-            <small class="error-text">{$errors.expiresAt}</small>
-          {/if}
-        </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="field-label" for="company">
+          <span class="label-text">Company name <span class="required">*</span></span>
+          <input
+            class={$errors.company ? "input input-error" : "input"}
+            type="text"
+            placeholder="Company Ltd"
+            name="company"
+            id="company"
+            bind:value={$form.company}
+          />
+        </label>
+        {#if $errors.company}
+          <small class="error-text">{$errors.company}</small>
+        {/if}
       </div>
-      <Button theme="button-deep" width="100%">Create Job</Button>
-    </form>
+      <div class="form-field">
+        <label class="field-label" for="expiresAt">
+          <span class="label-text">Deadline <span class="required">*</span></span>
+          <input
+            class={$errors.expiresAt ? "input input-error" : "input"}
+            type="date"
+            name="expiresAt"
+            id="expiresAt"
+            bind:value={$form.expiresAt}
+          />
+        </label>
+        {#if $errors.expiresAt}
+          <small class="error-text">{$errors.expiresAt}</small>
+        {/if}
+      </div>
+    </div>
+    <Button theme="button-deep" width="100%">Create Job</Button>
+  </form>
 </section>
 
 <style lang="scss">
