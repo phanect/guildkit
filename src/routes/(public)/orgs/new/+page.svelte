@@ -2,6 +2,7 @@
   import { superForm } from "sveltekit-superforms/client";
   import { organizationSchema } from "$lib/validation/organization.validation.ts";
   import Button from "$lib/components/generic/Button.svelte";
+  import Field from "$lib/components/generic/Field.svelte";
 
   const { data } = $props();
 
@@ -17,41 +18,28 @@
 <section class="root">
   <h1 class="page-title">Create a new organization</h1>
   <form method="post" action="/employer/orgs?/create" use:enhance>
-    <div class="form-field">
-      <label class="field-label" for="name">
-        <span class="label-text">Organization Name <span class="required">*</span></span>
-        <input
-          class={$errors.name ? "input input-error" : "input"}
-          type="text"
-          placeholder="Your Company Name"
-          name="name"
-          id="name"
-          bind:value={$form.name}
-        />
-      </label>
-      {#if $errors.name}
-        <small class="error-text">{$errors.name}</small>
-      {/if}
-    </div>
+    <Field
+      type="text"
+      label="Organization Name"
+      bind:value={$form.name}
+      placeholder="Your Company Name"
+      errormsgs={$errors.name}
+      name="name"
+      required
+    />
 
     <div class="form-row">
-      <div class="form-field">
-        <label class="field-label" for="slug">
-          <span class="label-text">Organization Slug <span class="required">*</span></span>
-          <span class="help-text">(Used in URLs, lowercase letters, numbers, and hyphens only)</span>
-          <input
-            class={$errors.slug ? "input input-error" : "input"}
-            type="text"
-            placeholder="your-company-name"
-            name="slug"
-            id="slug"
-            bind:value={$form.slug}
-          />
-        </label>
-        {#if $errors.slug}
-          <small class="error-text">{$errors.slug}</small>
-        {/if}
-      </div>
+      <Field
+        type="text"
+        label="Organization Slug"
+        description="Used in URLs. Lowercase letters, numbers, and hyphens only"
+        bind:value={$form.slug}
+        placeholder="your-company-name"
+        errormsgs={$errors.slug}
+        name="slug"
+        required
+      />
+
       <div class="form-field">
         <label class="field-label" for="logo">
           <span class="label-text">Logo URL</span>
@@ -87,21 +75,14 @@
       {/if}
     </div>
 
-    <div class="form-field">
-      <label class="field-label" for="about">
-        <span class="label-text">About</span>
-        <textarea
-          class={$errors.about ? "input input-error" : "input"}
-          placeholder="Tell us about your organization..."
-          name="about"
-          id="about"
-          bind:value={$form.about}
-        ></textarea>
-      </label>
-      {#if $errors.about}
-        <small class="error-text">{$errors.about}</small>
-      {/if}
-    </div>
+    <Field
+      type="textarea"
+      label="About"
+      bind:value={$form.about}
+      placeholder="Tell us about your organization..."
+      errormsgs={$errors.about}
+      name="about"
+    />
 
     <div class="form-field">
       <label class="field-label" for="emails">
