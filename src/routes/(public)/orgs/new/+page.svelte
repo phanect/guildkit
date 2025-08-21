@@ -40,40 +40,25 @@
         required
       />
 
-      <div class="form-field">
-        <label class="field-label" for="logo">
-          <span class="label-text">Logo URL</span>
-          <input
-            class={$errors.logo ? "input input-error" : "input"}
-            type="url"
-            placeholder="https://yourcompany.com/logo.png"
-            name="logo"
-            id="logo"
-            bind:value={$form.logo}
-          />
-        </label>
-        {#if $errors.logo}
-          <small class="error-text">{$errors.logo}</small>
-        {/if}
-      </div>
+      <Field
+        type="url"
+        label="Logo URL"
+        bind:value={$form.logo}
+        placeholder="https://yourcompany.com/logo.png"
+        errormsgs={$errors.logo}
+        name="logo"
+      />
     </div>
 
-    <div class="form-field">
-      <label class="field-label" for="url">
-        <span class="label-text">Website URL <span class="required">*</span></span>
-        <input
-          class={$errors.url ? "input input-error" : "input"}
-          type="url"
-          placeholder="https://yourcompany.com"
-          name="url"
-          id="url"
-          bind:value={$form.url}
-        />
-      </label>
-      {#if $errors.url}
-        <small class="error-text">{$errors.url}</small>
-      {/if}
-    </div>
+    <Field
+      type="url"
+      label="Website URL"
+      bind:value={$form.url}
+      placeholder="https://yourcompany.com"
+      errormsgs={$errors.url}
+      name="url"
+      required
+    />
 
     <Field
       type="textarea"
@@ -84,58 +69,38 @@
       name="about"
     />
 
-    <div class="form-field">
-      <label class="field-label" for="emails">
-        <span class="label-text">Contact Emails <span class="required">*</span></span>
-        <span class="help-text">(Separate multiple emails with semicolons ";")</span>
-        <input
-          class={$errors.emails ? "input input-error" : "input"}
-          type="text"
-          placeholder="contact@yourcompany.com; hr@yourcompany.com"
-          name="emails"
-          id="emails"
-          bind:value={$form.emails}
-        />
-      </label>
-      {#if $errors.emails}
-        <small class="error-text">{$errors.emails}</small>
-      {/if}
-    </div>
+    <Field
+      type="text"
+      label="Contact Emails"
+      description="Separate multiple emails with semicolons ;"
+      bind:value={$form.emails}
+      placeholder="contact@yourcompany.com; hr@yourcompany.com"
+      errormsgs={$errors.emails}
+      name="emails"
+      required
+    />
 
-    <div class="form-field">
-      <label class="field-label" for="addresses">
-        <span class="label-text">Addresses <span class="required">*</span></span>
-        <span class="help-text">(Separate multiple addresses with semicolons ";")</span>
-        <textarea
-          class={$errors.addresses ? "input input-error" : "input"}
-          placeholder="123 Main St, City, Country; 456 Branch Ave, Another City, Country"
-          name="addresses"
-          id="addresses"
-          bind:value={$form.addresses}
-        ></textarea>
-      </label>
-      {#if $errors.addresses}
-        <small class="error-text">{$errors.addresses}</small>
-      {/if}
-    </div>
+    <Field
+      type="textarea"
+      label="Addresses"
+      description="Separate multiple addresses with semicolons ;"
+      bind:value={$form.addresses}
+      placeholder="123 Main St, City, Country; 456 Branch Ave, Another City, Country"
+      errormsgs={$errors.addresses}
+      name="addresses"
+      required
+    />
 
-    <div class="form-field">
-      <label class="field-label" for="currencies">
-        <span class="label-text">Supported Currencies <span class="required">*</span></span>
-        <span class="help-text">(Separate multiple currencies with semicolons ";" - e.g., USD; EUR; JPY)</span>
-        <input
-          class={$errors.currencies ? "input input-error" : "input"}
-          type="text"
-          placeholder="USD; EUR; JPY"
-          name="currencies"
-          id="currencies"
-          bind:value={$form.currencies}
-        />
-      </label>
-      {#if $errors.currencies}
-        <small class="error-text">{$errors.currencies}</small>
-      {/if}
-    </div>
+    <Field
+      type="text"
+      label="Supported Currencies"
+      description="Separate multiple currencies with semicolons ; - e.g., USD; EUR; JPY"
+      bind:value={$form.currencies}
+      placeholder="USD; EUR; JPY"
+      errormsgs={$errors.currencies}
+      name="currencies"
+      required
+    />
 
     <Button theme="button-deep" width="100%">Create Organization</Button>
   </form>
@@ -156,69 +121,10 @@
     margin-bottom: 1.25rem;
   }
 
-  .form-field {
-    margin-bottom: 1.5rem;
-  }
-
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
-  }
-
-  .field-label {
-    display: block;
-    width: 100%;
-  }
-
-  .label-text {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .required {
-    color: #f87171;
-  }
-
-  .help-text {
-    font-size: 0.875rem;
-    color: #6b7280;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .input {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
-    font-size: 1rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
-    &:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    &.input-error {
-      border-color: #dc2626;
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
-    }
-  }
-
-  textarea.input {
-    min-height: 100px;
-    resize: vertical;
-  }
-
-  .error-text {
-    color: #dc2626;
-    font-size: 0.875rem;
-    display: block;
-    margin-top: 0.25rem;
   }
 </style>
