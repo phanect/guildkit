@@ -1,20 +1,26 @@
 name: GitHub Actions
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: "12 4 * * 1"
+    - cron: "12 4 * * *" # everyday at 4:12 AM UTC
 
 permissions: {}
 
 jobs:
-  periodic:
+  resetdb-demo:
     runs-on: ubuntu-latest
     env:
-      GIT_AUTHOR_NAME: Jumpei Ogawa (bot)
-      GIT_AUTHOR_EMAIL: bot@phanective.org
-      GIT_COMMITTER_NAME: Jumpei Ogawa (bot)
-      GIT_COMMITTER_EMAIL: bot@phanective.org
+      DATABASE_URL: ${{ secrets.DEMO_MAIN_DATABASE_URL }}
       NODE_ENV: "ci-periodic"
+      BETTER_AUTH_URL: "http://localhost:3000"
+      BETTER_AUTH_SECRET: dummy
+      GOOGLE_CLIENT_ID: dummy
+      GITHUB_CLIENT_ID: dummy
+      GOOGLE_CLIENT_SECRET: dummy
+      GITHUB_CLIENT_SECRET: dummy
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
@@ -26,4 +32,4 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm periodic
+      - run: pnpm resetdb-demo
