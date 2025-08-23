@@ -30,7 +30,7 @@
     "@better-auth/cli": "^1.3.7",
     "@phanect/configs": "latest",
     "@phanect/lint": "latest",
-    "@phanect/lint-svelte": "latest",
+    "@phanect/lint-react": "latest",
     "@phanect/utils": "^1.5.0",
     "@types/node": "^24.0.10",
     "@types/pg": "^8.15.4",

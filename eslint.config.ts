@@ -1,20 +1,22 @@
+import { defineConfig } from "eslint/config";
 import { core } from "@phanect/lint";
-import { svelte } from "@phanect/lint-svelte";
-import svelteConfig from "./svelte.config.js";
-import type { Linter } from "eslint";
+import { nextjs } from "@phanect/lint-react";
 
-const configs: Linter.Config[] = [
+const configs = defineConfig([
   {
     ignores: [
+      "./.next/**",
       "./build/**",
+      "./out/**",
       "./tmp/**",
       "./src/lib/db/schema/better-auth.ts",
       "./src/lib/db/schema/currencies.ts",
       "./src/lib/db/schema/index.ts",
+      "next-env.d.ts",
     ],
   },
   ...core,
-  ...svelte,
+  ...nextjs,
 
   {
     // Do not add `files: [ "*" ],` here.
@@ -23,10 +25,9 @@ const configs: Linter.Config[] = [
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
-        svelteConfig,
       },
     },
   },
-];
+]);
 
 export default configs;
