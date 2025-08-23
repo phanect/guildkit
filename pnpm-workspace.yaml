@@ -5,5 +5,5 @@ onlyBuiltDependencies:
   - better-sqlite3
   - esbuild
   - prisma
-  - svelte-preprocess
+  - sharp
   - unrs-resolver

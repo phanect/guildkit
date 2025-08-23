@@ -3,7 +3,6 @@
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
 
-    "svelte.svelte-vscode",
     "redhat.vscode-yaml",
     "tamasfe.even-better-toml",
     "TheNuProjectContributors.vscode-nushell-lang"

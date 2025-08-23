@@ -34,8 +34,6 @@ def "main resetdb" [] {
 }
 
 def "main sync" [--seed] {
-  pnpm svelte-kit sync
-
   # Generate DB Schemas: Currency codes
   pnpm jiti ($scriptDirPath | path join "scripts-sync-currency.ts")
 
