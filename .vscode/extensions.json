@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "yusukehirao.vscode-markuplint",
     "EditorConfig.EditorConfig",
 
     "svelte.svelte-vscode",
