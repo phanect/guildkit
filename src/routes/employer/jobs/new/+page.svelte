@@ -2,26 +2,15 @@
   import { superForm } from "sveltekit-superforms/client";
   import { jobSchema } from "$lib/validation/job.validation.ts";
   import Button from "$lib/components/generic/Button.svelte";
-  import Toast, { addToast } from "$lib/components/generic/Toast.svelte";
   import type { PageProps } from "./$types";
 
   const { data }: PageProps = $props();
 
   const { form, errors, enhance } = superForm(data.form, {
     validators: jobSchema,
-    onError: (error) => {
-      addToast({
-        data: {
-          title: "Error",
-          description: error.result.error.message,
-          color: "variant-filled-error",
-        },
-      });
-    },
   });
 </script>
 
-<Toast />
 <section class="root">
   <h1 class="page-title">Create a new job</h1>
   <form method="post" action="/employer/jobs?/create" use:enhance>
