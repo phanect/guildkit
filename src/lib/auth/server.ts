@@ -6,7 +6,7 @@ import { userProps } from "$lib/db/schema/user.ts";
 import type { User, Session } from "./types.ts";
 
 export const requireAuthAs = async (
-  expectedType: User["props"]["type"] | "any",
+  expectedType: NonNullable<User["props"]["type"]> | "any",
 ): Promise<{ user: User; session: Session; }> => {
   const { user, session } = await getSession({
     headers: request.headers,
