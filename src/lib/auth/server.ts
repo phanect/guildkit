@@ -5,9 +5,16 @@ import { db } from "$lib/db/db.ts";
 import { userProps } from "$lib/db/schema/user.ts";
 import type { User, Session } from "./types.ts";
 
-export const requireAuthAs = async (
-  expectedType: NonNullable<User["props"]["type"]> | "any",
-): Promise<{ user: User; session: Session; }> => {
+type Recruiter = Omit<User, "recruitsFor" | "props"> & {
+  recruitsFor: NonNullable<User["recruitsFor"]>;
+  props: User["props"] & {
+    type: "recruiter";
+  };
+};
+
+export const requireAuthAs = async <ExpectedType extends NonNullable<User["props"]["type"]> | "any">(
+  expectedType: ExpectedType,
+) => {
   const { user, session } = await getSession({
     headers: request.headers,
   }) ?? {};
@@ -20,8 +27,15 @@ export const requireAuthAs = async (
     return redirect(302, "/auth/signup/candidate");
   }
 
+  if (expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
+    throw new Error("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
+  }
+
   if (expectedType === "any" || expectedType === user.props.type) {
-    return { user, session };
+    return {
+      user: user as ExpectedType extends "recruiter" ? Recruiter : User,
+      session,
+    };
   } else {
     return error(401, { message: `This page is for the ${ expectedType }s.` });
   }
