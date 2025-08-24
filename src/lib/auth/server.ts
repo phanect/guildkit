@@ -7,10 +7,7 @@ import type { User, Session } from "./types.ts";
 
 export const requireAuthAs = async (
   expectedType: User["props"]["type"] | "any",
-  { request }: { request: Request; },
 ): Promise<{ user: User; session: Session; }> => {
-  const reqURL = new URL(request.url);
-
   const { user, session } = await getSession({
     headers: request.headers,
   }) ?? {};
@@ -20,11 +17,7 @@ export const requireAuthAs = async (
   }
 
   if (!user.props.type) {
-    if (reqURL.pathname.startsWith("/auth/signup/")) {
-      return { user, session };
-    } else {
-      return redirect(302, "/auth/signup/candidate");
-    }
+    return redirect(302, "/auth/signup/candidate");
   }
 
   if (expectedType === "any" || expectedType === user.props.type) {
