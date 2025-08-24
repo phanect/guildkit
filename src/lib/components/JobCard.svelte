@@ -61,14 +61,6 @@
     height: 3em; // = (text height 2em) + (space between lines 0.5em) + (accomodation 0.5em)
   }
 
-  .divider {
-    height: 1px;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    background-color: #e5e7eb;
-    border: 0;
-  }
-
   .actions {
     display: flex;
     justify-content: space-between;
@@ -87,12 +79,6 @@
     align-items: center;
     column-gap: 0.5rem;
   }
-
-  .actions-buttons {
-    display: flex;
-    align-items: end;
-    gap: 0.5rem;
-  }
 </style>
 
 <div class="card">
@@ -105,7 +91,7 @@
     </div>
   </a>
 
-  <hr class="divider" />
+  <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
   <div class="actions">
     <div class="company">
@@ -118,7 +104,7 @@
       </div>
 
       {#if editable}
-        <div class="actions-buttons">
+        <div class="flex items-end gap-2">
           <Link href={`/employer/jobs/edit/${ job.id }`} preload={true} theme="button-pale">
             Edit
           </Link>
