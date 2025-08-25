@@ -1,11 +1,13 @@
+"use client";
+
 import { createAuthClient } from "better-auth/svelte";
 import { adminClient, organizationClient, inferAdditionalFields } from "better-auth/client/plugins";
-import { invalidateAll } from "$app/navigation";
-import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "$lib/auth/roles.ts";
-import type { auth } from "$lib/auth.ts";
-import type { User } from "./types.ts";
+import { useRouter } from "next/navigation";
+import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "@/lib/auth/roles.ts";
+import type { auth } from "@/lib/auth.ts";
+import type { User } from "@/lib/auth/types.ts";
 
-const { signIn, signOut: baseSignOut } = createAuthClient({
+const { signIn, signOut } = createAuthClient({
   plugins: [
     adminClient({
       ac: adminAc,
@@ -37,8 +39,14 @@ export const signUpWith = async (
   requestSignUp: true,
 });
 
-export const signOut = async () => baseSignOut({
-  fetchOptions: {
-    onSuccess: async () => invalidateAll(),
-  },
-});
+export const useSignOut = () => {
+  const router = useRouter();
+
+  return {
+    signOut: async () => signOut({
+      fetchOptions: {
+        onSuccess: () => router.refresh(),
+      },
+    }),
+  };
+};
