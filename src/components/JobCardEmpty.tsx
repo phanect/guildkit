@@ -1,9 +1,1 @@
-<style lang="scss">
-  .card {
-    width: 100%;
-    max-width: 32.5rem;
-    padding: 1rem;
-  }
-</style>
-
-<div class="card"></div>
+export const JobCardEmpty = () => <div className="w-full max-w-[32.5rem] p-4"></div>;
