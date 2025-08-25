@@ -1,46 +1,41 @@
-<script lang="ts">
-  import { signUpWith } from "$lib/auth/client.ts";
-  import Button from "$lib/components/generic/Button.svelte";
-  import CenterBox from "$lib/components/generic/CenterBox.svelte";
-  import Link from "$lib/components/generic/Link.svelte";
-</script>
+"use client";
 
-<style lang="scss">
-  .h1 {
-    font-size: 1.75rem;
-  }
+import { signUpWith } from "@/lib/auth/client.ts";
+import { CenterBox } from "@/components/generic/CenterBox.tsx";
+import { Button, Link } from "@/components/generic/ButtonLink.tsx";
+import type { ReactElement } from "react";
 
-  .description {
-    margin-bottom: 1.25rem;
-  }
+export default function SignUpPage(): ReactElement {
+  return (
+    <CenterBox>
+      <h1 className="text-3xl font-bold mb-4">Create new user?</h1>
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-</style>
+      <p className="mb-5 text-center">
+        Your account is not associated with GuildKit account.<br />
+        Create new user or login with another account.
+      </p>
 
-<CenterBox>
-  <h1 class="h1">Create new user?</h1>
+      <div className="flex flex-col items-center gap-2">
+        <Button
+          theme="button-deep"
+          className="w-64"
+          onClick={() => void signUpWith("github", "candidate")}
+        >
+          Create account as a <strong>candidate</strong>
+        </Button>
 
-  <p class="description">
-    Your account is not associated with GuildKit account.<br />
-    Create new user or login with another account.
-  </p>
+        <Button
+          theme="button-deep"
+          className="w-64"
+          onClick={() => void signUpWith("github", "recruiter")}
+        >
+          Create account as a <strong>recruiter</strong>
+        </Button>
 
-  <div class="options">
-    <Button theme="button-deep" onclick={ () => signUpWith("github", "candidate") } width="16em">
-      Create account as a <strong>candidate</strong>
-    </Button>
-
-    <Button theme="button-deep" onclick={ () => signUpWith("github", "recruiter") } width="16em">
-      Create account as a <strong>recruiter</strong>
-    </Button>
-
-    <Link href="/auth">
-      Login with another account
-    </Link>
-  </div>
-</CenterBox>
+        <Link href="/auth">
+          Login with another account
+        </Link>
+      </div>
+    </CenterBox>
+  );
+}
