@@ -1,38 +1,17 @@
-<script lang="ts">
-  import JobCard, { type JobCardInfo } from "$lib/components/JobCard.svelte";
-  import JobCardEmpty from "./JobCardEmpty.svelte";
+import { JobCard, type JobCardInfo } from "@/components/JobCard.tsx";
+import { JobCardEmpty } from "@/components/JobCardEmpty.tsx";
 
-  type Props = {
-    jobs: JobCardInfo[];
-    editable?: boolean;
-  };
+type Props = {
+  jobs: JobCardInfo[];
+  editable?: boolean;
+};
 
-  const { jobs, editable = false }: Props = $props();
-</script>
+export const JobList = ({ jobs, editable = false }: Props) => (
+  <section className="flex justify-center flex-wrap gap-x-10 gap-y-10 max-w-full w-fit">
+    { jobs.map((job) => <JobCard job={job} editable={editable} key={job.id} />) }
 
-<style lang="scss">
-  .joblist {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    column-gap: 2.5em;
-    row-gap: 2.5rem;
+    { jobs.length % 2 === 1 && <JobCardEmpty /> }
 
-    max-width: 100%;
-    width: fit-content;
-  }
-</style>
-
-<section class="joblist">
-  {#each jobs as job (job.id)}
-    <JobCard { job } { editable } />
-  {/each}
-
-  {#if jobs.length % 2 === 1}
-    <JobCardEmpty />
-  {/if}
-
-  {#if jobs.length <= 0}
-    There are no open positions at the moment.
-  {/if}
-</section>
+    { jobs.length <= 0 && <p>There are no open positions at the moment.</p>}
+  </section>
+);
