@@ -1,8 +1,14 @@
-<script lang="ts">
-  import "$lib/styles/global.scss";
-  import type { LayoutProps } from "./$types";
+import "@/lib/styles/global.postcss";
+import type { ReactElement, ReactNode } from "react";
 
-  const { children }: LayoutProps = $props();
-</script>
+type LayoutProps = {
+  children: ReactNode;
+};
 
-{@render children()}
+export default function AuthLayout({ children }: LayoutProps): ReactElement {
+  return (
+    <>
+      {children}
+    </>
+  );
+}
