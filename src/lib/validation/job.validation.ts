@@ -12,6 +12,6 @@ export const jobSchema = adaptSuperForms(z.object({
   salary: z.number().positive(),
   currency: z.enum(currency.enumValues),
   salaryPer: z.enum(salaryPer.enumValues),
-  company: z.string().min(5),
+  recruiterId: z.string(),
   expiresAt: z.string().date(),
 }));
