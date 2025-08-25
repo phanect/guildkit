@@ -1,19 +1,26 @@
-<script lang="ts">
-  import Nav from "$lib/components/Nav.svelte";
-  import "$lib/styles/global.scss";
-  import type { LayoutProps } from "./$types";
+import { headers } from "next/headers";
+import { Nav } from "@/components/Nav.tsx";
+import "@/lib/styles/globals.css";
+import { getSession } from "@/lib/auth/server.ts";
+import type { ReactElement, ReactNode } from "react";
 
-  const { data, children }: LayoutProps = $props();
-</script>
+type Props = {
+  children: ReactNode;
+};
 
-<style lang="scss">
-  @use "$lib/styles/mixins.scss";
-  .main {
-    @include mixins.layout-root;
-  }
-</style>
+export default async function PublicLayout({ children }: Props): Promise<ReactElement> {
+  const { user } = await getSession({
+    headers: await headers(),
+  }) ?? {};
 
-<Nav for={data.userType} />
-<main class="main">
-  {@render children()}
-</main>
+  const userType = user?.props.type ?? "guest" as const;
+
+  return (
+    <>
+      <Nav for={userType} />
+      <main className="flex flex-col items-center gap-4 w-full">
+        {children}
+      </main>
+    </>
+  );
+}
