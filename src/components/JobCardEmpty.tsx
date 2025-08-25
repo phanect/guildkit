@@ -1,9 +1,3 @@
-<style lang="scss">
-  .card {
-    width: 100%;
-    max-width: 32.5rem;
-    padding: 1rem;
-  }
-</style>
+import "./JobCardEmpty.module.scss";
 
-<div class="card"></div>
+export const JobCardEmpty = () => <div className="card"></div>;

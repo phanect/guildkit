@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect, unauthorized } from "next/navigation";
+import { and, eq } from "drizzle-orm";
 import { requireAuthAs } from "@/lib/auth/server.ts";
 import { db } from "@/lib/db/db.ts";
 import { job as jobTable } from "@/lib/db/schema/job.ts";
@@ -31,6 +32,45 @@ export const createJob = async (_initialState: CreateJobState, formData: FormDat
     }).returning({ id: jobTable.id });
 
     redirect(`/jobs/${ createdJob.id }`);
+  } catch {
+    unauthorized();
+  }
+};
+
+type DeleteJobState = {
+  error?: string;
+};
+
+export const deleteJob = async (_initialState: DeleteJobState, formData: FormData): Promise<DeleteJobState> => {
+  try {
+    const { user: recruiter } = await requireAuthAs("recruiter");
+
+    const id = formData.get("id");
+
+    if (!id) {
+      console.error("`id` of the job to delete was not given.");
+      return {
+        error: "Something technically wrong. Sorry, this is probably a bug of this website. If you report this issue, tell us the following error code: GK-L587W",
+      };
+    }
+
+    if (id instanceof File) {
+      console.error("`id` must not be a File.");
+      return {
+        error: "Something technically wrong. Sorry, this is probably a bug of this website. If you report this issue, tell us the following error code: GK-B324R",
+      };
+    }
+
+    await db
+      .delete(jobTable)
+      .where(
+        and(
+          eq(jobTable.id, id),
+          eq(jobTable.employer, recruiter.recruitsFor),
+        )
+      );
+
+    redirect("/employer/jobs");
   } catch {
     unauthorized();
   }
