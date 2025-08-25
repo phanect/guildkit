@@ -1,43 +1,52 @@
-<script lang="ts">
-  import Link from "$lib/components/generic/Link.svelte";
-  import JobList from "$lib/components/JobList.svelte";
-  import type { PageProps } from "./$types";
+import { Link } from "@/components/generic/ButtonLink.tsx";
+import { JobList } from "@/components/JobList.tsx";
+import { requireAuthAs } from "@/lib/auth/server.ts";
+import { db } from "@/lib/db/db.ts";
+import { organization } from "@/lib/db/schema/better-auth.ts";
+import type { JobCardInfo } from "@/components/JobCard.tsx";
 
-  const { data }: PageProps = $props();
-  const { jobs = [], type } = data;
-  const editable = type === "recruiter";
-</script>
+export default async function EmployerJobsPage() {
+  const { user } = await requireAuthAs("recruiter");
 
-<style lang="scss">
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 2.5em;
+  const jobs: JobCardInfo[] = await db.query.job.findMany({
+    columns: {
+      id: true,
+      title: true,
+      description: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+    with: {
+      employer: {
+        columns: {
+          id: true,
+          name: true,
+        },
+        with: {
+          recruiters: {
+            columns: {
+              recruitsFor: true,
+            },
+            where: (recruiter, { eq }) => eq(recruiter.id, user.id),
+          },
+        },
+      },
+    },
+    where: (job, { eq }) => eq(job.employer, organization.id),
+    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
+  });
 
-    width: 100%;
-  }
+  const editable = user.props.type === "recruiter";
 
-  .button-section {
-    display: flex;
-    justify-content: start;
+  return (
+    <div className="flex flex-col items-center gap-y-10 w-full">
+      <section className="flex justify-start bg-gray-100 shadow-lg rounded-lg w-[42.5rem] max-w-full p-4">
+        <Link href="/employer/jobs/new" theme="button-deep" prefetch>
+          Add job
+        </Link>
+      </section>
 
-    background-color: #f0f0f0;
-    box-shadow: 2px 2px 5px 5px #d0d0d0;
-    border-radius: 0.5rem;
-
-    width: 42.5rem;
-    max-width: 100%;
-    padding: 1rem;
-}
-</style>
-
-<div class="container">
-  <section class="button-section">
-    <Link href="/employer/jobs/new" theme="button-deep" preload={true}>
-      Add job
-    </Link>
-  </section>
-
-  <JobList {jobs} {editable} />
-</div>
+      <JobList jobs={jobs} editable={editable} />
+    </div>
+  );
+};
