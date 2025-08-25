@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth.ts";
 import { db } from "@/lib/db/db.ts";
 import { userProps } from "@/lib/db/schema/user.ts";
 import type { User } from "@/lib/auth/types.ts";
+import { RecruiterWithoutOrgError } from "../utils/errors.ts";
 
 type Recruiter = Omit<User, "recruitsFor" | "props"> & {
   recruitsFor: NonNullable<User["recruitsFor"]>;
@@ -29,7 +30,7 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
   }
 
   if (expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
-    throw new Error("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
+    throw new RecruiterWithoutOrgError("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
   }
 
   if (expectedType === "any" || expectedType === user.props.type) {
