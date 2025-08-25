@@ -1,33 +1,29 @@
-<script lang="ts">
-  import Nav from "$lib/components/Nav.svelte";
-  import Sidebar from "$lib/components/Sidebar.svelte";
-  import "$lib/styles/global.scss";
-  import type { LayoutProps } from "./$types";
+import { Nav } from "@/components/Nav.tsx";
+import { Sidebar } from "@/components/Sidebar.tsx";
+import { requireAuthAs } from "@/lib/auth/server.ts";
+import "@/lib/styles/global.css";
+import type { ReactElement, ReactNode } from "react";
 
-  const { children, data }: LayoutProps = $props();
+type Props = {
+  children: ReactNode;
+};
 
-  if (!data.user) {
+export default async function EmployerLayout({ children }: Props): Promise<ReactElement> {
+  const { user } = await requireAuthAs("recruiter");
+
+  if (!user) {
     throw new Error("Could not receive user. Sorry, this is probably a bug in GuildKit.");
   }
-</script>
 
-<style lang="scss">
-  @use "$lib/styles/mixins.scss";
-
-  .wrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  .main {
-    @include mixins.layout-root;
-  }
-</style>
-
-<Nav for={data.user.props.type ?? "guest"} />
-<div class="wrapper">
-  <Sidebar />
-  <main class="main">
-    {@render children()}
-  </main>
-</div>
+  return (
+    <>
+      <Nav for={user.props.type ?? "guest"} />
+      <div className="flex justify-center w-full">
+        <Sidebar />
+        <main className="flex flex-col items-center gap-4 w-full">
+          {children}
+        </main>
+      </div>
+    </>
+  );
+}
