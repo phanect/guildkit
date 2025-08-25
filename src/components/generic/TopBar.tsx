@@ -1,28 +1,12 @@
-<script lang="ts">
-  import type { Snippet } from "svelte";
+import styles from "./TopBar.module.scss";
+import type { ReactElement, ReactNode } from "react";
 
-  type Props = {
-    children: Snippet;
-  };
+type Props = {
+  children: ReactNode;
+};
 
-  const { children }: Props = $props();
-</script>
-
-<div class="top-bar">
-  {@render children()}
-</div>
-
-<style lang="scss">
-  .top-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: rgb(255, 225, 225);
-    color: red;
-
-    width: 100%;
-    min-height: 2.5rem;
-    padding: 0.75rem;
-  }
-</style>
+export const TopBar = ({ children }: Props): ReactElement => (
+  <div className={styles.topBar}>
+    {children}
+  </div>
+);
