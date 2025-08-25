@@ -1,9 +1,10 @@
-import { error, redirect } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
-import { auth } from "$lib/auth.ts";
-import { db } from "$lib/db/db.ts";
-import { userProps } from "$lib/db/schema/user.ts";
-import type { User, Session } from "./types.ts";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { auth } from "@/lib/auth.ts";
+import { db } from "@/lib/db/db.ts";
+import { userProps } from "@/lib/db/schema/user.ts";
+import type { User } from "@/lib/auth/types.ts";
 
 type Recruiter = Omit<User, "recruitsFor" | "props"> & {
   recruitsFor: NonNullable<User["recruitsFor"]>;
@@ -16,15 +17,15 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
   expectedType: ExpectedType,
 ) => {
   const { user, session } = await getSession({
-    headers: request.headers,
+    headers: await headers(),
   }) ?? {};
 
   if (!user || !session) {
-    return redirect(303, "/auth");
+    return redirect("/auth");
   }
 
   if (!user.props.type) {
-    return redirect(302, "/auth/signup/candidate");
+    return redirect("/auth/signup/candidate");
   }
 
   if (expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
@@ -37,7 +38,7 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
       session,
     };
   } else {
-    return error(401, { message: `This page is for the ${ expectedType }s.` });
+    unauthorized();
   }
 };
 
