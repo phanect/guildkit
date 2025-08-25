@@ -14,3 +14,5 @@ export const jobSchema = z.object({
   recruiterId: z.string(),
   expiresAt: z.string().date(),
 });
+
+export type Job = z.infer<typeof jobSchema>;
