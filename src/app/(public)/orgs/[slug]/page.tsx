@@ -1,134 +1,93 @@
-<script lang="ts">
-  import JobList from "$lib/components/JobList.svelte";
-  import type { PageProps } from "./$types";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import { db } from "@/lib/db/db.ts";
+import { JobList } from "@/components/JobList.tsx";
+import type { ReactElement } from "react";
 
-  const { data }: PageProps = $props();
-  const { org, jobs } = data;
+type Props = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
-  if (!org) {
-    throw new Error("Could not find this organization.");
-  }
-</script>
+export default async function OrganizationPage({ params }: Props): Promise<ReactElement> {
+  const { slug } = await params;
 
-<div class="profile">
-  <h1 class="name">{org.name}</h1>
-  <a href={org.props.url} class="url" target="_blank" rel="noopener noreferrer">
-    <img src="/vendor/octicons/globe.svg" alt="" width="16" decoding="async" />
-    {org.props.url}
-  </a>
+  const orgWithJobs = await db.query.organization.findFirst({
+    columns: {
+      id: true,
+      name: true,
+    },
+    with: {
+      props: {
+        columns: {
+          url: true,
+          about: true,
+        },
+      },
+      jobs: {
+        limit: 6,
+        columns: {
+          id: true,
+          title: true,
+          description: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+    },
+    where: (organization, { eq }) => eq(organization.slug, slug),
+  });
 
-  {#if org.props.about}
-    <section class="about">
-      <h2 class="section-title about-title">About Us</h2>
-      <p class="about-description">{org.props.about}</p>
-    </section>
-  {/if}
-
-  <h2 class="section-title jobs-title">Open Positions</h2>
-</div>
-
-<section class="jobs">
-
-  <JobList {jobs} />
-</section>
-
-<style lang="scss">
-  @use "$lib/styles/mixins.scss";
-
-  .profile {
-    @include mixins.page-root;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  .name {
-    font-size: 3.5rem;
-    font-weight: 700;
-    text-align: left;
-
-    margin: {
-      top: 4rem;
-      bottom: 1rem;
-    };
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-    @media (max-width: 768px) {
-      font-size: 2.5rem;
-    }
+  if (!orgWithJobs) {
+    notFound();
   }
 
-  .url {
-    @include mixins.text-with-icon;
+  const { jobs, ...org } = orgWithJobs;
 
-    align-self: right;
-    font-size: 1rem;
-    color: #787878;
+  const jobsWithEmployer = jobs.map((job) => ({
+    ...job,
+    employer: {
+      name: org.name,
+    },
+  }));
 
-    &:hover {
-      color: rgb(97, 97, 97);
-      text-decoration: underline;
-    }
-  }
+  return (
+    <>
+      <div className="w-full max-w-5xl px-9 flex flex-col">
+        <h1 className="text-5xl md:text-6xl font-bold text-left mt-16 mb-4 drop-shadow-lg">
+          {org.name}
+        </h1>
 
-  .about {
-    margin: {
-      top: 2.5rem;
-      bottom: 2rem;
-    }
-  }
+        <a
+          href={org.props.url}
+          className="inline-flex gap-1.5 self-end text-base text-gray-500 hover:text-gray-600 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image src="/vendor/octicons/globe.svg" alt="" width={16} height={16} className="flex-shrink-0" />
+          {org.props.url}
+        </a>
 
-  .section-title {
-    display: flex;
-    justify-content: flex-start;
-    column-gap: 0.5em;
-    align-items: center;
+        {org.props.about && (
+          <section className="mt-10 mb-8 px-4 md:px-0">
+            <h2 className="flex justify-start gap-2 items-center text-4xl text-gray-800 mb-8 relative before:content-[''] before:block before:bg-gray-500 before:rounded-sm before:w-1 before:h-5">
+              About Us
+            </h2>
+            <p className="text-lg leading-relaxed text-gray-600 text-left max-w-3xl mx-auto">
+              {org.props.about}
+            </p>
+          </section>
+        )}
 
-    font-size: 2.5rem;
-    color: #333;
+        <h2 className="flex justify-start gap-2 items-center text-4xl text-gray-800 mb-5 relative before:content-[''] before:block before:bg-gray-500 before:rounded-sm before:w-1 before:h-5">
+          Open Positions
+        </h2>
+      </div>
 
-    &::before {
-      content: "";
-      display: block;
-      background-color: #888888;
-      border-radius: 2px;
-      width: 4px;
-      height: 1.25em;
-    }
-  }
-
-  .about-title {
-    margin: {
-      bottom: 2rem;
-    }
-  }
-  .about-description {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #666;
-    text-align: left;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .jobs {
-    width: 100%;
-    max-width: 72rem;
-
-    margin: {
-      bottom: 2rem;
-    }
-  }
-  .jobs-title {
-    margin: {
-      bottom: 1.25rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .about,
-    .jobs {
-      padding: 0 1rem;
-    }
-  }
-</style>
+      <section className="w-full max-w-6xl mb-8 px-4 md:px-0">
+        <JobList jobs={jobsWithEmployer} />
+      </section>
+    </>
+  );
+}
