@@ -1,19 +1,22 @@
-import { getSession } from "$lib/auth/server.ts";
-import { redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth/server.ts";
+import { Client } from "./page.client.tsx";
 
-export const load: PageServerLoad = async ({ request }) => {
+export default async function AuthPage() {
   const { user } = await getSession({
-    headers: request.headers,
+    headers: await headers(),
   }) ?? {};
 
   if (user) {
     if (user.props.type === "candidate") {
-      return redirect(307, "/");
+      redirect("/");
     } else if (user.props.type === "recruiter") {
-      return redirect(307, "/employer");
+      redirect("/employer");
     } else if (user.props.type === "administrative") {
-      return redirect(307, "/"); // TODO redirect to the better path
+      redirect("/"); // TODO redirect to the better path
     }
   }
-};
+
+  return <Client />;
+}
