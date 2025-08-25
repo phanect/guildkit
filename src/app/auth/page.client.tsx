@@ -1,33 +1,22 @@
-<script lang="ts">
-  import { signInWith } from "$lib/auth/client.ts";
-  import Button from "$lib/components/generic/Button.svelte";
-  import CenterBox from "$lib/components/generic/CenterBox.svelte";
-</script>
+"use client";
 
-<style lang="scss">
-  .h1 {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
-  }
+import { signInWith } from "@/lib/auth/client.ts";
+import { Button } from "@/components/generic/ButtonLink.tsx";
+import { CenterBox } from "@/components/generic/CenterBox.tsx";
+import type { ReactElement } from "react";
 
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-</style>
+export const Client = (): ReactElement => (
+  <CenterBox>
+    <h1 className="text-3xl mb-6">Sign in or Sign up</h1>
 
-<CenterBox>
-  <h1 class="h1">Sign in or Sign up</h1>
+    <div className="flex flex-col items-center gap-2">
+      <Button theme="button-deep" className="w-64" onClick={() => void signInWith("google")}>
+        Signin with Google
+      </Button>
 
-  <div class="buttons">
-    <Button theme="button-deep" onclick={() => signInWith("google")} width="16em">
-      Signin with Google
-    </Button>
-
-    <Button theme="button-deep" onclick={() => signInWith("github")} width="16em">
-      Signin with GitHub
-    </Button>
-  </div>
-</CenterBox>
+      <Button theme="button-deep" className="w-64" onClick={() => void signInWith("github")}>
+        Signin with GitHub
+      </Button>
+    </div>
+  </CenterBox>
+);
