@@ -1,0 +1,37 @@
+"use server";
+
+import { redirect, unauthorized } from "next/navigation";
+import { requireAuthAs } from "@/lib/auth/server.ts";
+import { db } from "@/lib/db/db.ts";
+import { job as jobTable } from "@/lib/db/schema/job.ts";
+import { jobSchema, type Job } from "@/lib/validation/job.validation.ts";
+
+type CreateJobState = {
+  errors?: Partial<Record<keyof Job, string[] | undefined>>;
+};
+
+export const createJob = async (_initialState: CreateJobState, formData: FormData): Promise<CreateJobState> => {
+  try {
+    const { user: recruiter } = await requireAuthAs("recruiter");
+
+    const jobValidation = jobSchema.safeParse(formData);
+
+    if (!jobValidation.success) {
+      return {
+        errors: jobValidation.error.flatten().fieldErrors,
+      };
+    }
+
+    const { expiresAt, ...validatedNewJob } = jobValidation.data;
+
+    const [ createdJob ] = await db.insert(jobTable).values({
+      ...validatedNewJob,
+      expiresAt: new Date(expiresAt),
+      employer: recruiter.recruitsFor,
+    }).returning({ id: jobTable.id });
+
+    redirect(`/jobs/${ createdJob.id }`);
+  } catch {
+    unauthorized();
+  }
+};
