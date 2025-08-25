@@ -1,13 +1,12 @@
 import { createAuthClient } from "better-auth/svelte";
 import { adminClient, organizationClient, inferAdditionalFields } from "better-auth/client/plugins";
-import { invalidateAll } from "$app/navigation";
-import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "$lib/auth/roles.ts";
-import { requireAuthAs } from "$lib/auth/server.ts";
-import { updateUserProps } from "$lib/db/helpers.ts";
-import type { auth } from "$lib/auth.ts";
-import type { User } from "./types.ts";
+import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "@/lib/auth/roles.ts";
+import { requireAuthAs } from "@/lib/auth/server.ts";
+import { updateUserProps } from "@/lib/db/helpers.ts";
+import type { auth } from "@/lib/auth.ts";
+import type { User } from "@/lib/auth/types.ts";
 
-export const { signIn, signOut: baseSignOut, organization, admin } = createAuthClient({
+export const { signIn, signOut, organization, admin } = createAuthClient({
   plugins: [
     adminClient({
       ac: adminAc,
@@ -50,11 +49,5 @@ export const signUpWith = async (
         });
       }
     },
-  },
-});
-
-export const signOut = async () => baseSignOut({
-  fetchOptions: {
-    onSuccess: async () => invalidateAll(),
   },
 });
