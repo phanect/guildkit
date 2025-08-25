@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { zod as adaptSuperForms } from "sveltekit-superforms/adapters";
-import { salaryPer } from "$lib/db/schema/job.ts";
-import { currency } from "$lib/db/schema/currencies.ts";
+import { salaryPer } from "@/lib/db/schema/job.ts";
+import { currency } from "@/lib/db/schema/currencies.ts";
 
-export const jobSchema = adaptSuperForms(z.object({
+export const jobSchema = z.object({
   title: z.string().min(2),
   description: z.string().min(4),
   requirements: z.string().min(4),
@@ -14,4 +13,4 @@ export const jobSchema = adaptSuperForms(z.object({
   salaryPer: z.enum(salaryPer.enumValues),
   recruiterId: z.string(),
   expiresAt: z.string().date(),
-}));
+});
