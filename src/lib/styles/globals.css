@@ -6,18 +6,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  a, button {
-    text-decoration: none;
-
-    cursor: pointer;
-
-    color: #000000;
-
-    &:hover {
-      color: #111111;
-    }
-  }
-
   h1, h2, h3, h4, h5, h6, p {
     overflow-wrap: break-word;
     text-wrap: pretty;
