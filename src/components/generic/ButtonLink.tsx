@@ -30,6 +30,7 @@ export const Link = ({
 }: LinkProps): ReactElement => (
   <NextLink
     className={`${ getThemeClasses(theme) } ${ className }`}
+    rel="noopener"
     {...props}
   >
     {children}
