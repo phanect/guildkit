@@ -5,7 +5,7 @@ type Theme = "button-deep" | "button-pale" | "linktext";
 
 const getThemeClasses = (theme: Theme): string => {
   const common = "cursor-pointer text-black hover:text-gray-100 no-underline";
-  const buttonCommon = "block w-fit rounded-xl py-2 px-3 transition-colors duration-250";
+  const buttonCommon = "block w-fit rounded-xl py-2 px-3 transition-colors duration-250 disabled:opacity-50 disabled:cursor-not-allowed";
 
   switch (theme) {
     case "linktext":
