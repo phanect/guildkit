@@ -63,7 +63,6 @@ export default async function OrganizationPage({ params }: Props): Promise<React
           href={org.props.url}
           className="inline-flex gap-1.5 self-end text-base text-gray-500 hover:text-gray-600 hover:underline"
           target="_blank"
-          rel="noopener noreferrer"
         >
           <Image src="/vendor/octicons/globe.svg" alt="" width={16} height={16} className="flex-shrink-0" />
           {org.props.url}
