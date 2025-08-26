@@ -27,14 +27,14 @@ export const JobCard = ({ job, editable = false }: JobCardProps) => {
 
   return (
     <div className={styles.card}>
-      <a className={styles.cardLink} href={`/jobs/${ job.id }`}>
+      <Link className={styles.cardLink} href={`/jobs/${ job.id }`}>
         <h3 className={styles.cardTitle}>
           {job.title}
         </h3>
         <div className={styles.cardDesc}>
           {job.description}
         </div>
-      </a>
+      </Link>
 
       <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 

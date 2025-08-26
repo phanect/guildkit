@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { db } from "@/lib/db/db.ts";
 import { JobList } from "@/components/JobList.tsx";
+import { Link } from "@/components/generic/ButtonLink.tsx";
 import type { ReactElement } from "react";
 
 type Props = {
@@ -59,7 +60,7 @@ export default async function OrganizationPage({ params }: Props): Promise<React
           {org.name}
         </h1>
 
-        <a
+        <Link
           href={org.props.url}
           className="inline-flex gap-1.5 self-end text-base text-gray-500 hover:text-gray-600 hover:underline"
           target="_blank"
@@ -67,7 +68,7 @@ export default async function OrganizationPage({ params }: Props): Promise<React
         >
           <Image src="/vendor/octicons/globe.svg" alt="" width={16} height={16} className="flex-shrink-0" />
           {org.props.url}
-        </a>
+        </Link>
 
         {org.props.about && (
           <section className="mt-10 mb-8 px-4 md:px-0">
