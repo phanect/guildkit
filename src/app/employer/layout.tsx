@@ -1,7 +1,6 @@
 import { Nav } from "@/components/Nav.tsx";
 import { Sidebar } from "@/components/Sidebar.tsx";
 import { requireAuthAs } from "@/lib/auth/server.ts";
-import "@/lib/styles/global.css";
 import type { ReactElement, ReactNode } from "react";
 
 type Props = {

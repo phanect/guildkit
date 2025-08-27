@@ -1,6 +1,5 @@
 import { headers } from "next/headers";
 import { Nav } from "@/components/Nav.tsx";
-import "@/lib/styles/globals.css";
 import { getSession } from "@/lib/auth/server.ts";
 import type { ReactElement, ReactNode } from "react";
 
