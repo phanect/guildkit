@@ -62,17 +62,17 @@ export default async function JobPage({ params }: Props): Promise<ReactElement> 
       </Link>
       <div className="mb-6">
         <span className="inline-flex items-center gap-1.5 mr-2 py-2 px-4 text-sm font-medium text-gray-800 bg-gray-200 rounded-full">
-          <Image src="/vendor/octicons/location.svg" alt="" width={16} />
+          <Image src="/vendor/octicons/location.svg" alt="" width={16} height={16} />
           Work location: {job.location}
         </span>
         <span className="inline-flex items-center gap-1.5 mr-2 py-2 px-4 text-sm font-medium text-gray-800 bg-green-200 rounded-full">
-          <Image src="/vendor/tabler/coins.svg" alt="" width={16} />
+          <Image src="/vendor/tabler/coins.svg" alt="" width={16} height={16} />
           {/* TODO Use user's locale in `toLocaleString()` */}
           Salary: {job.salary.toLocaleString("en-US")} {job.currency}/{job.salaryPer}
         </span>
       </div>
       <div className="inline-flex items-center gap-1.5 justify-end w-full mb-6 text-sm">
-        <Image src="/vendor/octicons/clock.svg" alt="" width={16} />
+        <Image src="/vendor/octicons/clock.svg" alt="" width={16} height={16} />
         {/* TODO Use user's locale in `toLocaleString()` */}
         Last updated at {(job.updatedAt ?? job.createdAt).toLocaleDateString("en-US")}
       </div>
