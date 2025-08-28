@@ -49,7 +49,7 @@ export default async function JobPage({ params }: Props): Promise<ReactElement> 
       <h1 className="text-3xl font-black text-gray-900 mb-2">{job.title}</h1>
       <Link
         href={`/orgs/${ job.employer.slug }`}
-        className="inline-flex items-center gap-2 mb-3 text-lg font-bold"
+        className="inline-flex items-center gap-2 mb-3 text-lg text-gray-900 font-bold"
       >
         <Image
           src="/vendor/octicons/organization.svg"
