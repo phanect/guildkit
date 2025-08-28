@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/generic/ButtonLink.tsx";
+import { Button, Link } from "@/components/generic/ButtonLink.tsx";
 import { TopBar } from "@/components/generic/TopBar.tsx";
 import { signOut } from "@/lib/auth/client.ts";
 import type { UserType } from "@/lib/db/schema/user.ts";
@@ -20,7 +20,7 @@ export const Nav = ({ for: userType }: Props): ReactElement => (
     {/* ▲▲ Pre-alpha caution ▲▲ */}
 
     <nav className="flex items-center justify-between flex-wrap py-6 px-20">
-      <a href="/" className="flex items-center gap-3">
+      <Link href="/" className="flex items-center gap-3">
         <Image
           src="https://tmp.guildkit.net/canvaai/guildkit_icon_tmp.png"
           width={64}
@@ -29,12 +29,12 @@ export const Nav = ({ for: userType }: Props): ReactElement => (
           decoding="async"
         />
         <span className="text-xl font-semibold">GuildKit</span>
-      </a>
+      </Link>
       <div className="flex items-center gap-4">
         {(userType === "recruiter" || userType === "administrative") && (
-          <a href="/employer/jobs" className="mr-8 font-bold no-underline">
+          <Link href="/employer/jobs" theme="none" className="mr-8 font-bold">
             Dashboard
-          </a>
+          </Link>
         )}
 
         {userType === "guest" ? (
