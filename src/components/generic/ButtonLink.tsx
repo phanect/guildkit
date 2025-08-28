@@ -1,13 +1,15 @@
 import NextLink from "next/link";
 import type { ComponentProps, ReactElement } from "react";
 
-type Theme = "button-deep" | "button-pale" | "linktext";
+type Theme = "none" | "button-deep" | "button-pale" | "linktext";
 
 const getThemeClasses = (theme: Theme): string => {
   const common = "cursor-pointer text-black hover:text-gray-100 no-underline";
   const buttonCommon = "block w-fit rounded-xl py-2 px-3 transition-colors duration-250 disabled:opacity-50 disabled:cursor-not-allowed";
 
   switch (theme) {
+    case "none":
+      return common;
     case "linktext":
       return `${ common } underline`;
     case "button-deep":
