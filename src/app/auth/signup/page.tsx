@@ -1,13 +1,12 @@
 "use client";
 
 import { signUpWith } from "@/lib/auth/client.ts";
-import { CenterBox } from "@/components/generic/CenterBox.tsx";
 import { Button, Link } from "@/components/generic/ButtonLink.tsx";
 import type { ReactElement } from "react";
 
 export default function SignUpPage(): ReactElement {
   return (
-    <CenterBox>
+    <>
       <h1 className="text-3xl font-bold mb-4">Create new user?</h1>
 
       <p className="mb-5 text-center">
@@ -36,6 +35,6 @@ export default function SignUpPage(): ReactElement {
           Login with another account
         </Link>
       </div>
-    </CenterBox>
+    </>
   );
 }
