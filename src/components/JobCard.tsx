@@ -27,10 +27,10 @@ export const JobCard = ({ job, editable = false }: JobCardProps) => {
   return (
     <div className="flex flex-col gap-3 bg-white shadow-around shadow-gray-200 hover:shadow-gray-300 transition-shadow duration-300 rounded-lg w-full max-w-[32.5rem] p-4">
       <Link theme="none" href={`/jobs/${ job.id }`}>
-        <h3 className="text-xl font-bold text-gray-900 overflow-hidden leading-6 h-12">
+        <h3 className="text-xl font-bold text-gray-900 line-clamp-2 mb-2 leading-6 h-12">
           {job.title}
         </h3>
-        <div className="text-sm text-gray-600 overflow-hidden text-ellipsis h-12">
+        <div className="text-sm text-gray-600 line-clamp-2 h-10">
           {job.description}
         </div>
       </Link>
