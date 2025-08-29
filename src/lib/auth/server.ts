@@ -13,10 +13,16 @@ type Recruiter = Omit<User, "recruitsFor" | "props"> & {
     type: "recruiter";
   };
 };
+type RequireAuthAsOptions = {
+  allowUsersWithoutType?: boolean;
+};
 
 export const requireAuthAs = async <ExpectedType extends NonNullable<User["props"]["type"]> | "any">(
   expectedType: ExpectedType,
+  options: RequireAuthAsOptions = {},
 ) => {
+  const { allowUsersWithoutType = false } = options;
+
   const { user, session } = await getSession({
     headers: await headers(),
   }) ?? {};
@@ -25,8 +31,8 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
     return redirect("/auth");
   }
 
-  if (!user.props.type) {
-    return redirect("/auth/signup/candidate");
+  if (!user.props.type && !allowUsersWithoutType) {
+    return redirect("/auth/signup");
   }
 
   if (expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
