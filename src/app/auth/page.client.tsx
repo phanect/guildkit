@@ -2,11 +2,10 @@
 
 import { signInWith } from "@/lib/auth/client.ts";
 import { Button } from "@/components/generic/ButtonLink.tsx";
-import { CenterBox } from "@/components/generic/CenterBox.tsx";
 import type { ReactElement } from "react";
 
 export const Client = (): ReactElement => (
-  <CenterBox>
+  <>
     <h1 className="text-3xl mb-6">Sign in or Sign up</h1>
 
     <div className="flex flex-col items-center gap-2">
@@ -18,5 +17,5 @@ export const Client = (): ReactElement => (
         Signin with GitHub
       </Button>
     </div>
-  </CenterBox>
+  </>
 );

@@ -1,3 +1,5 @@
+import { CenterBox } from "@/components/generic/CenterBox.tsx";
+import { Nav } from "@/components/Nav.tsx";
 import type { ReactElement, ReactNode } from "react";
 
 type Props = {
@@ -7,7 +9,10 @@ type Props = {
 export default function AuthLayout({ children }: Props): ReactElement {
   return (
     <>
-      {children}
+      <Nav for="guest" />
+      <CenterBox className="w-full">
+        {children}
+      </CenterBox>
     </>
   );
 }
