@@ -23,7 +23,6 @@ const { signIn, signOut } = createAuthClient({
 
 export const signInWith = async (provider: "google" | "github") => signIn.social({
   provider,
-  callbackURL: "/",
   errorCallbackURL: "/auth/error",
   requestSignUp: false,
 });
@@ -33,8 +32,8 @@ export const signUpWith = async (
   userType: User["props"]["type"],
 ) => signIn.social({
   provider,
-  callbackURL: "/",
-  newUserCallbackURL: `/auth/signup/postprocess/${ userType }`,
+  callbackURL: userType === "recruiter" ? "/employer/jobs" : "/",
+  newUserCallbackURL: `/auth/signup/finalize/${ userType }`,
   errorCallbackURL: "/auth/error",
   requestSignUp: true,
 });
