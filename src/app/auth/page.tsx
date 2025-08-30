@@ -12,7 +12,7 @@ export default async function AuthPage() {
     if (user.props.type === "candidate") {
       redirect("/");
     } else if (user.props.type === "recruiter") {
-      redirect("/employer");
+      redirect("/employer/jobs");
     } else if (user.props.type === "administrative") {
       redirect("/"); // TODO redirect to the better path
     }
