@@ -23,7 +23,7 @@ export default async function EmployerJobsPage() {
         },
         with: {
           recruiters: {
-            where: (recruiter, { eq }) => eq(recruiter.id, user.id),
+            where: ({ recruiterId }, { eq }) => eq(recruiterId, user.id),
           },
         },
       },
