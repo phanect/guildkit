@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -12,7 +13,29 @@ export const jobsAndUsersRelationTable = pgTable("jobsAndCandidatesRelation", {
   candidateId: text().notNull().references(() => user.id),
 }, (t) => [ primaryKey({ columns: [ t.appliedJobId, t.candidateId ]}) ]);
 
+export const jobsAndUsersRelations = relations(jobsAndUsersRelationTable, ({ one }) => ({
+  job: one(job, {
+    fields: [jobsAndUsersRelationTable.appliedJobId],
+    references: [job.id],
+  }),
+  candidate: one(user, {
+    fields: [jobsAndUsersRelationTable.candidateId],
+    references: [user.id],
+  }),
+}));
+
 export const organizationsAndRecruitersRelationTable = pgTable("organizationAndRecruiterRelation", {
   organizationId: text().notNull().references(() => organization.id),
   recruiterId: text().notNull().references(() => user.id),
 }, (t) => [ primaryKey({ columns: [ t.organizationId, t.recruiterId ]}) ]);
+
+export const organizationsAndRecruitersRelations = relations(organizationsAndRecruitersRelationTable, ({ one }) => ({
+  recruitsFor: one(organization, {
+    fields: [organizationsAndRecruitersRelationTable.organizationId],
+    references: [organization.id],
+  }),
+  recruiter: one(user, {
+    fields: [organizationsAndRecruitersRelationTable.recruiterId],
+    references: [user.id],
+  }),
+}));
