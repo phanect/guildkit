@@ -5,7 +5,7 @@ import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "$lib/auth/role
 import type { auth } from "$lib/auth.ts";
 import type { User } from "./types.ts";
 
-export const { signIn, signOut: baseSignOut, organization, admin } = createAuthClient({
+const { signIn, signOut: baseSignOut } = createAuthClient({
   plugins: [
     adminClient({
       ac: adminAc,
