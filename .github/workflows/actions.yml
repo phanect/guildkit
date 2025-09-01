@@ -23,6 +23,7 @@ jobs:
         node-version:
           - 20
           - 22
+          - 24
     env:
       SERVER_ENV: development
       DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
