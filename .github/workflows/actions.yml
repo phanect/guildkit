@@ -24,7 +24,7 @@ jobs:
           - 20
           - 22
     env:
-      NODE_ENV: development
+      SERVER_ENV: development
       DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
       BETTER_AUTH_URL: "http://localhost:3000"
       # On the build process, the credentials can be dummy
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      NODE_ENV: development
+      SERVER_ENV: development
       DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
       BETTER_AUTH_URL: "http://localhost:3000"
       # On the build process, the credentials can be dummy
@@ -88,6 +88,7 @@ jobs:
     timeout-minutes: 5
     env:
       NODE_ENV: production
+      SERVER_ENV: production
       # On the build process, the credentials for OAuth can be dummy
       GOOGLE_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy
