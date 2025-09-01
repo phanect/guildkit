@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: ${{ secrets.DEMO_MAIN_DATABASE_URL }}
-      NODE_ENV: "ci-periodic"
+      SERVER_ENV: "ci-periodic"
       BETTER_AUTH_URL: "http://localhost:3000"
       BETTER_AUTH_SECRET: dummy
       GOOGLE_CLIENT_ID: dummy
