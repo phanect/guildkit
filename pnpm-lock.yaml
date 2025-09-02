@@ -10,7 +10,7 @@ importers:
     dependencies:
       better-auth:
         specifier: ^1.3.7
-        version: 1.3.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@3.25.76)
+        version: 1.3.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.5)
       drizzle-orm:
         specifier: ^0.44.5
         version: 0.44.5(@prisma/client@5.22.0(prisma@5.22.0))(@types/better-sqlite3@7.6.13)(@types/pg@8.15.5)(better-sqlite3@11.10.0)(kysely@0.28.5)(pg@8.16.3)(prisma@5.22.0)
@@ -29,7 +29,7 @@ importers:
     devDependencies:
       '@better-auth/cli':
         specifier: ^1.3.7
-        version: 1.3.7(@types/pg@8.15.5)(@types/react@19.1.12)(kysely@0.28.5)(pg@8.16.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@3.25.76)
+        version: 1.3.7(@types/pg@8.15.5)(@types/react@19.1.12)(kysely@0.28.5)(pg@8.16.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.5)
       '@next/eslint-plugin-next':
         specifier: ^15.5.2
         version: 15.5.2
@@ -97,8 +97,8 @@ importers:
         specifier: ^5.0.0
         version: 5.9.2
       zod:
-        specifier: ^3.25.75
-        version: 3.25.76
+        specifier: ^4.1.5
+        version: 4.1.5
 
 packages:
 
@@ -3611,8 +3611,8 @@ packages:
     resolution: {integrity: sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==}
     engines: {node: '>=18'}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+  zod@4.1.5:
+    resolution: {integrity: sha512-rcUUZqlLJgBC33IT3PNMgsCq6TzLQEG/Ei/KTCU0PedSWRMAXoOUN+4t/0H+Q8bdnLPdqUYnvboJT0bn/229qg==}
 
 snapshots:
 
@@ -3850,7 +3850,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@better-auth/cli@1.3.7(@types/pg@8.15.5)(@types/react@19.1.12)(kysely@0.28.5)(pg@8.16.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@3.25.76)':
+  '@better-auth/cli@1.3.7(@types/pg@8.15.5)(@types/react@19.1.12)(kysely@0.28.5)(pg@8.16.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.5)':
     dependencies:
       '@babel/core': 7.28.3
       '@babel/preset-react': 7.27.1(@babel/core@7.28.3)
@@ -3860,7 +3860,7 @@ snapshots:
       '@prisma/client': 5.22.0(prisma@5.22.0)
       '@types/better-sqlite3': 7.6.13
       '@types/prompts': 2.4.9
-      better-auth: 1.3.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@3.25.76)
+      better-auth: 1.3.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.5)
       better-sqlite3: 11.10.0
       c12: 2.0.4
       chalk: 5.6.0
@@ -3875,7 +3875,7 @@ snapshots:
       semver: 7.7.2
       tinyexec: 0.3.2
       yocto-spinner: 0.1.2
-      zod: 3.25.76
+      zod: 4.1.5
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4990,7 +4990,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-auth@1.3.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@3.25.76):
+  better-auth@1.3.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.5):
     dependencies:
       '@better-auth/utils': 0.2.6
       '@better-fetch/fetch': 1.1.18
@@ -5003,7 +5003,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.5
       nanostores: 0.11.4
-      zod: 3.25.76
+      zod: 4.1.5
     optionalDependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -7267,4 +7267,4 @@ snapshots:
 
   yoctocolors@2.1.2: {}
 
-  zod@3.25.76: {}
+  zod@4.1.5: {}
