@@ -39,17 +39,28 @@ export const Link = ({
   </NextLink>
 );
 
-type ButtonProps = ComponentProps<"button"> & {
+type ButtonProps = Omit<ComponentProps<"button">, "type" | "onClick"> & {
   theme: Theme;
-};
+} & (
+  {
+    // disallow onClick if type === "submit" | "reset"
+    type: "submit" | "reset";
+    onClick?: undefined;
+  } | {
+    type?: Exclude<ComponentProps<"button">["type"], "submit" | "reset">;
+    onClick?: ComponentProps<"button">["onClick"];
+  }
+);
 
 export const Button = ({
+  type = "button",
   theme,
   className,
   children,
   ...props
 }: ButtonProps): ReactElement => (
   <button
+    type={type}
     className={`${ getThemeClasses(theme) } ${ className }`}
     {...props}
   >
