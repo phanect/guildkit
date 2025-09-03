@@ -27,6 +27,11 @@ const configs = defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    // TODO merge this rule to @phanect/lint
+    rules: {
+      // Conflicts to `@stylistic/indent`
+      "@stylistic/indent-binary-ops": "off",
+    },
   },
 ]);
 
