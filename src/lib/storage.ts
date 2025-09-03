@@ -52,6 +52,13 @@ const storage = new S3Client({
 
 await createBucketIfNotExists(storage, env.STORAGE_BUCKET);
 
+export const putObject = async (destPath: string, file: File) =>
+  storage.send(new PutObjectCommand({
+    Bucket: env.STORAGE_BUCKET,
+    Key: destPath,
+    Body: Buffer.from(await file.arrayBuffer()),
+  }));
+
 export const endPointURL = env.STORAGE_ENDPOINT
   ? `${ env.STORAGE_ENDPOINT }/${ env.STORAGE_BUCKET }`
   : `https://s3.${ env.STORAGE_REGION }.amazonaws.com/${ env.STORAGE_BUCKET }`;

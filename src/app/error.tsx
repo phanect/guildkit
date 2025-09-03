@@ -19,7 +19,7 @@ export default function Error({ error }: {
           error.name === RecruiterWithoutOrgError.name ? (
             <p>
               You do not belong to any organization.<br />
-              <Link href="/employer/orgs/new" theme="linktext" prefetch>
+              <Link href="/orgs/new" theme="linktext" prefetch>
                 Create a new organization
               </Link> or ask your organization owner to add you.
               {/* TODO Add button to ask invitation to the org in the organization page */}

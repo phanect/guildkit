@@ -15,13 +15,17 @@ type Recruiter = Omit<User, "recruitsFor" | "props"> & {
 };
 type RequireAuthAsOptions = {
   allowUsersWithoutType?: boolean;
+  allowOrphanRecruiter?: boolean;
 };
 
 export const requireAuthAs = async <ExpectedType extends NonNullable<User["props"]["type"]> | "any">(
   expectedType: ExpectedType,
   options: RequireAuthAsOptions = {},
 ) => {
-  const { allowUsersWithoutType = false } = options;
+  const {
+    allowUsersWithoutType = false,
+    allowOrphanRecruiter = false,
+  } = options;
 
   const { user, session } = await getSession({
     headers: await headers(),
@@ -35,7 +39,7 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
     return redirect("/auth/signup");
   }
 
-  if (expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
+  if (!allowOrphanRecruiter && expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
     throw new RecruiterWithoutOrgError("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
   }
 
