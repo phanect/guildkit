@@ -19,16 +19,7 @@ export default async function EmployerJobsPage() {
     with: {
       employer: {
         columns: {
-          id: true,
           name: true,
-        },
-        with: {
-          recruiters: {
-            columns: {
-              recruitsFor: true,
-            },
-            where: (recruiter, { eq }) => eq(recruiter.id, user.id),
-          },
         },
       },
     },
