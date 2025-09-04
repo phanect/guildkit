@@ -2,6 +2,8 @@ import { env } from "node:process";
 import { betterAuth } from "better-auth";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { z } from "zod";
+import { currencies } from "@/intermediate/currencies.ts";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
 import { db } from "./db/db.ts";
 import * as schema from "./db/schema/index.ts";
@@ -84,9 +86,29 @@ export const auth = betterAuth({
       schema: {
         organization: {
           additionalFields: {
-            propsId: {
-              type: "number",
+            url: {
+              type: "string",
               required: true,
+              unique: true,
+            },
+            addresses: {
+              type: "string[]",
+              required: true,
+            },
+            currencies: {
+              type: "string[]",
+              required: true,
+              validator: {
+                input: z.array(z.enum(currencies.map((currency) => currency.code))),
+              },
+            },
+            emails: {
+              type: "string[]",
+              required: false,
+            },
+            about: {
+              type: "string",
+              required: false,
             },
           },
         },
