@@ -1,5 +1,7 @@
+"use client";
+
 import NextLink from "next/link";
-import type { ComponentProps, ReactElement } from "react";
+import { useState, type ComponentProps, type ReactElement } from "react";
 
 type Theme = "none" | "button-deep" | "button-pale" | "linktext";
 
@@ -56,14 +58,32 @@ export const Button = ({
   type = "button",
   theme,
   className,
+  onClick: onClickMain,
   children,
   ...props
-}: ButtonProps): ReactElement => (
-  <button
-    type={type}
-    className={`${ getThemeClasses(theme) } ${ className }`}
-    {...props}
-  >
-    {children}
-  </button>
-);
+}: ButtonProps): ReactElement => {
+  const [ isProcessing, setProcessingStatus ] = useState(false);
+  const onClick: ComponentProps<"button">["onClick"] | undefined = onClickMain
+    ? (...args) => {
+      setProcessingStatus(true);
+
+      try {
+        onClickMain(...args);
+      } finally {
+        setProcessingStatus(false);
+      }
+    }
+    : undefined;
+
+  return (
+    <button
+      type={type}
+      className={`${ getThemeClasses(theme) } ${ className }`}
+      onClick={onClick}
+      disabled={isProcessing}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
