@@ -113,6 +113,23 @@ export const auth = betterAuth({
           },
         },
       },
+      allowUserToCreateOrganization: async (baUser) => {
+        const user = await db.query.user.findFirst({
+          columns: {
+            propsId: true,
+          },
+          where: (user, { eq }) => eq(user.id, baUser.id),
+          with: {
+            props: {
+              columns: {
+                type: true,
+              },
+            },
+          },
+        });
+
+        return user?.props.type === "recruiter";
+      },
     }),
     adminPlugin({
       defaultRole: "none",
