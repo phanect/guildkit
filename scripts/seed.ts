@@ -2,7 +2,6 @@ import { exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../src/lib/db/db.ts";
 import { job } from "../src/lib/db/schema/job.ts";
-import { orgProps } from "../src/lib/db/schema/organization.ts";
 import { organization } from "../src/lib/db/schema/better-auth.ts";
 import { insertUsers, type UserWithProps } from "../src/lib/db/helpers.ts";
 import type { InferInsertModel } from "drizzle-orm";
@@ -81,8 +80,7 @@ const recruiterZhongli = {
   },
 } as const satisfies UserWithProps;
 
-type InitialOrg = Omit<InferInsertModel<typeof organization>, "propsId"> & {
-  props: InferInsertModel<typeof orgProps>;
+type InitialOrg = InferInsertModel<typeof organization> & {
   recruiters: UserWithProps[];
 };
 
@@ -90,14 +88,12 @@ const initialOrgYaedo: InitialOrg = {
   id: "yph",
   slug: "yaedo",
   name: "Yae Publishing House, K.K.",
+  about: "Yae Publishing House is a leading light novel publisher from Inazuma. We also provide digital platforms to deliver the light novels and the other books to the global audience all over the Teyvat.",
+  url: "https://yaedo.example.co.jp",
+  addresses: [ "2-14-3, Hanamizaka, Inazuma City, Narukami Island, Inazuma" ],
+  emails: [ "hr@yaedo.example.co.jp" ],
+  currencies: [ "JPY" ],
   createdAt: new Date(),
-  props: {
-    about: "Yae Publishing House is a leading light novel publisher from Inazuma. We also provide digital platforms to deliver the light novels and the other books to the global audience all over the Teyvat.",
-    url: "https://yaedo.example.co.jp",
-    addresses: [ "2-14-3, Hanamizaka, Inazuma City, Narukami Island, Inazuma" ],
-    emails: [ "hr@yaedo.example.co.jp" ],
-    currencies: [ "JPY" ],
-  },
   recruiters: [ recruiterYae ],
 };
 
@@ -105,18 +101,16 @@ const initialOrgShogunate: InitialOrg = {
   id: "kanjou",
   slug: "kanjou",
   name: "Kanjou Commission, The Shogunate of Inazuma",
+  about: "Kanjou Commission is a part of the Tri-Commission, The Shogunate of Inazuma. We are responsible for the Shogunate's financial and international affairs.",
+  url: "https://shogunate.example.go.jp",
+  addresses: [
+    "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
+    "Tenryou Commission Office, 1-2-5, Inazuma City, Narukami Island, Inazuma",
+    "The Hiiragi Estate, 5-1-1, Rito, Narukami Island, Inazuma",
+  ],
+  emails: [ "personnel@kanjou.example.go.jp" ],
+  currencies: [ "JPY" ],
   createdAt: new Date(),
-  props: {
-    about: "Kanjou Commission is a part of the Tri-Commission, The Shogunate of Inazuma. We are responsible for the Shogunate's financial and international affairs.",
-    url: "https://shogunate.example.go.jp",
-    addresses: [
-      "The Inazuma Castle, 1-1-1, Inazuma City, Narukami Island, Inazuma",
-      "Tenryou Commission Office, 1-2-5, Inazuma City, Narukami Island, Inazuma",
-      "The Hiiragi Estate, 5-1-1, Rito, Narukami Island, Inazuma",
-    ],
-    emails: [ "personnel@kanjou.example.go.jp" ],
-    currencies: [ "JPY" ],
-  },
   recruiters: [ recruiterRaiden, recruiterHiiragi ],
 };
 
@@ -124,17 +118,15 @@ const initialOrgWangsheng: InitialOrg = {
   id: "wangsheng",
   slug: "wangsheng",
   name: "Wangsheng Funeral Parlor",
+  url: "https://wangsheng.example.com",
+  addresses: [
+    "123456 Feiyun Slope, Liyue Harbor, Liyue",
+  ],
+  emails: [ "hutao@wangsheng.example.com" ],
+  currencies: [ "CNY" ],
   createdAt: new Date(),
-  props: {
-    // Without `about`
-    url: "https://wangsheng.example.com",
-    addresses: [
-      "123456 Feiyun Slope, Liyue Harbor, Liyue",
-    ],
-    emails: [ "zhongli@wangsheng.example.com" ],
-    currencies: [ "JPY" ],
-  },
   recruiters: [ recruiterZhongli ],
+  // Lazy Hu Tao didn't write `about` ― to test layout when about is not written.
 };
 
 const initialJobs: InferInsertModel<typeof job>[] = [
@@ -301,11 +293,8 @@ await db.transaction(async (tx) => {
   await insertUsers(candidates);
 
   for (const org of [ initialOrgYaedo, initialOrgShogunate, initialOrgWangsheng ]) {
-    const [{ orgPropsId }] = await tx.insert(orgProps).values(org.props).returning({ orgPropsId: orgProps.id });
-
     await tx.insert(organization).values({
       ...org,
-      propsId: orgPropsId,
     });
   }
 
