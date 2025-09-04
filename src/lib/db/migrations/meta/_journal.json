@@ -15,6 +15,13 @@
       "when": 1758675930863,
       "tag": "0001_talented_wendigo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1758680884010,
+      "tag": "0002_material_maestro",
+      "breakpoints": true
     }
   ]
 }
