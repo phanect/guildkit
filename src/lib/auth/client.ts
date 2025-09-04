@@ -1,7 +1,7 @@
 "use client";
 
 import { createAuthClient } from "better-auth/react";
-import { adminClient, organizationClient, inferAdditionalFields } from "better-auth/client/plugins";
+import { adminClient, organizationClient, inferAdditionalFields, inferOrgAdditionalFields } from "better-auth/client/plugins";
 import { useRouter } from "next/navigation";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "@/lib/auth/roles.ts";
 import type { auth } from "@/lib/auth.ts";
@@ -16,6 +16,7 @@ const { signIn, signOut } = createAuthClient({
     organizationClient({
       ac: recruiterAc,
       roles: recruiterRoles,
+      schema: inferOrgAdditionalFields<typeof auth>(),
     }),
     inferAdditionalFields<typeof auth>(),
   ],

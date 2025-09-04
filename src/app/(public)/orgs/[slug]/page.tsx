@@ -18,14 +18,10 @@ export default async function OrganizationPage({ params }: Props): Promise<React
     columns: {
       id: true,
       name: true,
+      url: true,
+      about: true,
     },
     with: {
-      props: {
-        columns: {
-          url: true,
-          about: true,
-        },
-      },
       jobs: {
         limit: 6,
         columns: {
@@ -61,21 +57,21 @@ export default async function OrganizationPage({ params }: Props): Promise<React
         </h1>
 
         <Link
-          href={org.props.url}
+          href={org.url}
           className="inline-flex gap-1.5 self-end"
           target="_blank"
         >
           <Image src="/vendor/octicons/globe.svg" alt="" width={16} height={16} className="flex-shrink-0" />
-          {org.props.url}
+          {org.url}
         </Link>
 
-        {org.props.about && (
+        {org.about && (
           <section className="mt-10 mb-8 px-4 md:px-0">
             <h2 className="flex justify-start gap-2 items-center text-4xl text-gray-800 mb-8 relative before:content-[''] before:block before:bg-gray-500 before:rounded-sm before:w-1 before:h-5">
               About Us
             </h2>
             <p className="text-lg leading-relaxed text-gray-600 text-left max-w-3xl mx-auto">
-              {org.props.about}
+              {org.about}
             </p>
           </section>
         )}
