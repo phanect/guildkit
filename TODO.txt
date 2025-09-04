@@ -1,0 +1,3 @@
+supported currencies はプルダウン化する
+
+emails など ArrayFields の値がうまくサーバーサイドに渡せているか?
