@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState, type ReactElement } from "react";
-import { ArrayField } from "@/components/generic/ArrayField.tsx";
 import { Field } from "@/components/generic/Field.tsx";
+import { ArrayField } from "@/components/generic/ArrayField.tsx";
+import { TagField } from "@/components/generic/TagField.tsx";
 import { Button } from "@/components/generic/ButtonLink.tsx";
 import { organization } from "@/lib/auth/client.ts";
 import {
@@ -15,6 +16,7 @@ import {
   orgSlugSchema,
   orgUrlSchema,
 } from "@/lib/validation/organization.validation.ts";
+import { currencies } from "@/intermediate/currencies.ts";
 
 export default function NewOrgPageClient(): ReactElement {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -57,6 +59,11 @@ export default function NewOrgPageClient(): ReactElement {
       );
     }
   };
+
+  const currencyTags = currencies.map((currency) => ({
+    id: currency,
+    text: "Yen (JAPAN)",
+  }));
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-8">
@@ -152,10 +159,9 @@ export default function NewOrgPageClient(): ReactElement {
         className="mb-6"
       />
 
-      <ArrayField
-        type="select"
+      <TagField
         label="Supported Currencies"
-        itemName="supported currency"
+        tags={currencyTags}
         name="currencies"
         validator={orgCurrencySchema}
         required
