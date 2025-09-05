@@ -152,7 +152,8 @@ export default function NewOrgPageClient(): ReactElement {
         className="mb-6"
       />
 
-      <ArrayField
+      {/* TODO */}
+      {/* <ArrayField
         type="select"
         label="Supported Currencies"
         itemName="supported currency"
@@ -160,7 +161,7 @@ export default function NewOrgPageClient(): ReactElement {
         validator={orgCurrencySchema}
         required
         className="mb-6"
-      />
+      /> */}
 
       <Button
         theme="button-deep"
