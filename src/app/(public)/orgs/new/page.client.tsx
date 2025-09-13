@@ -4,8 +4,10 @@ import { useRef, useState, type ReactElement } from "react";
 import { TextField } from "@/components/generic/fields/TextField.tsx";
 import { ArrayField } from "@/components/generic/fields/ArrayField.tsx";
 import { TagField } from "@/components/generic/fields/TagField.tsx";
+import { UploadField } from "@/components/generic/fields/UploadField.tsx";
 import { Button } from "@/components/generic/ButtonLink.tsx";
 import { organization } from "@/lib/auth/client.ts";
+import { fPutObject } from "@/lib/storage.ts";
 import {
   orgAboutSchema,
   orgAddressSchema,
@@ -16,7 +18,6 @@ import {
   orgUrlSchema,
 } from "@/lib/validation/organization.validation.ts";
 import { currencies } from "@/intermediate/currencies.ts";
-import { UploadField } from "@/components/generic/fields/UploadField.tsx";
 import { maxLogoSizeMiB } from "@/lib/configs.ts";
 import type { Tag } from "react-tag-input";
 
@@ -42,6 +43,10 @@ export default function NewOrgPageClient(): ReactElement {
       // TODO error processing
       throw new Error();
     }
+
+    await fPutObject("my-test-file.svg", "/tmp/test-file.svg", {
+      "Content-Type": "text/plain", // TODO image/...
+    });
 
     const { error } = await organization.create({
       name: nameRef.current.value,
