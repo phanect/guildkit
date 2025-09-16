@@ -1,0 +1,1 @@
+emails など ArrayFields の値がうまくサーバーサイドに渡せているか?
