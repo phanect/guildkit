@@ -1,8 +1,9 @@
+import { randomUUID } from "node:crypto";
 import { relations, type InferSelectModel, type InferEnum } from "drizzle-orm";
 import {
   pgTable,
-  uuid,
   pgEnum,
+  text,
 } from "drizzle-orm/pg-core";
 import { user } from "./better-auth.ts";
 import { timeLogs } from "../schema-utils.ts";
@@ -28,7 +29,7 @@ export const userType = pgEnum("UserType", [
 export type UserType = InferEnum<typeof userType>;
 
 export const userProps = pgTable("userProps", {
-  id: uuid().primaryKey().notNull().defaultRandom(),
+  id: text().primaryKey().notNull().$defaultFn(() => randomUUID()),
   type: userType(),
   ...timeLogs,
 });
