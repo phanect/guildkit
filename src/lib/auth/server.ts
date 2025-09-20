@@ -50,7 +50,12 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
 };
 
 export const getSession = async (...args: Parameters<typeof auth.api.getSession>) => {
-  const { user, session } = await auth.api.getSession(...args) ?? {};
+  const [ context, ...restArgs ] = args;
+  const { user, session } = await auth.api.getSession({
+    ...context,
+    asResponse: false,
+    returnHeaders: false,
+  }, ...restArgs) ?? {};
 
   if (!user) {
     return;
