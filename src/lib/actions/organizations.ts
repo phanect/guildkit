@@ -30,9 +30,9 @@ export const createOrganization = async (_initialState: ActionState<Organization
       logo: formData.get("logo"),
       about: formData.get("about"),
       url: formData.get("url"),
-      emails: formData.get("emails"),
-      addresses: formData.get("addresses"),
-      currencies: formData.get("currencies"),
+      emails: formData.getAll("emails"),
+      addresses: formData.getAll("addresses"),
+      currencies: formData.getAll("currencies"),
     });
 
     if (!success) {

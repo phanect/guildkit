@@ -18,7 +18,8 @@ export const orgLogoSchema = z.file()
     "image/webp",
     "image/gif",
     "image/svg+xml",
-  ], "Unsupported file format. Supported file types: PNG, JPEG, WebP, GIF, and SVG.").optional();
+  ], "Unsupported file format. Supported file types: PNG, JPEG, WebP, GIF, and SVG.")
+  .optional();
 export const orgAboutSchema = z.string().trim().optional();
 export const orgUrlSchema = z.url("Please enter a valid URL.");
 export const orgEmailSchema = z.email({ error: "Please enter a valid email here. Some legacy emails by Japanese mobile careers may not acceptable." });

@@ -61,7 +61,6 @@ export const TagField = ({
 
       <TagInput
         id={name}
-        name={name}
         tags={tags}
         suggestions={selectableTags}
         separators={[ SEPARATORS.ENTER, SEPARATORS.COMMA ]}
@@ -85,6 +84,8 @@ export const TagField = ({
         }}
         {...formProps}
       />
+
+      {tags.map((tag) => (<input type="hidden" name={name} value={tag.id} key={tag.id} />))}
 
       {errorMessages?.[0] && (
         <ErrorMessage>{errorMessages[0]}</ErrorMessage>

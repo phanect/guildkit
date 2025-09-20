@@ -2,6 +2,7 @@
 
 import {
   useState,
+  useRef,
   type DragEventHandler,
   type MouseEventHandler,
   type ReactElement,
@@ -24,7 +25,6 @@ type Props = CommonFieldProps & {
   validator?: ZodType;
   accept?: string;
   maxSizeMiB?: number;
-  ref?: RefObject<HTMLInputElement | null>;
 };
 
 export const ImageField = ({
@@ -37,10 +37,10 @@ export const ImageField = ({
   maxSizeMiB = 5,
   errorMessages: serverSideErrorMessages,
   className,
-  ref,
   ...formProps
 }: Props): ReactElement => {
-  const [ errorMessage, setErrorMessage ] = useState<string>(serverSideErrorMessages?.[0] ?? "");
+  const ref = useRef<HTMLInputElement>(null);
+  const [ errorMessage, setErrorMessage ] = useState<string | undefined>(undefined);
   const [ preview, setPreview ] = useState<string | undefined>(undefined);
   const [ isDragOver, setIsDragOver ] = useState(false);
 
@@ -101,7 +101,7 @@ export const ImageField = ({
 
   const clearImage = (errorMessage?: string) => {
     setPreview(undefined);
-    setErrorMessage(errorMessage ?? "");
+    setErrorMessage(errorMessage);
 
     if (ref?.current) {
       ref.current.files = null;
@@ -112,7 +112,7 @@ export const ImageField = ({
     const { valid, message } = isFileValid(evt.target.files);
 
     if (valid) {
-      setErrorMessage("");
+      setErrorMessage(undefined);
       syncPreview();
     } else {
       clearImage(message);
@@ -140,7 +140,7 @@ export const ImageField = ({
     const { valid, message } = isFileValid(evt.dataTransfer.files);
     if (valid) {
       ref.current.files = evt.dataTransfer.files;
-      setErrorMessage("");
+      setErrorMessage(undefined);
     } else {
       clearImage(message);
     }
@@ -165,7 +165,7 @@ export const ImageField = ({
       <div
         className={`
           ${ commonClasses }
-          ${ errorMessage ? errorClasses : validClasses }
+          ${ (errorMessage || serverSideErrorMessages) ? errorClasses : validClasses }
           ${ isDragOver ? "border-blue-500 bg-blue-50" : "" }
           min-h-32 flex flex-col items-center justify-center
           cursor-pointer relative
@@ -221,9 +221,21 @@ export const ImageField = ({
         )}
       </div>
 
-      <ErrorMessage>
-        {errorMessage}
-      </ErrorMessage>
+      {
+        serverSideErrorMessages ? (
+          <ErrorMessage>
+            {serverSideErrorMessages.map((msg) => (
+              <>
+                {msg}<br />
+              </>
+            ))}
+          </ErrorMessage>
+        ) : errorMessage ? (
+          <ErrorMessage>
+            {errorMessage}
+          </ErrorMessage>
+        ) : <></>
+      }
     </div>
   );
 };

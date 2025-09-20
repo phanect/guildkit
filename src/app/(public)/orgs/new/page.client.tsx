@@ -1,6 +1,12 @@
 "use client";
 
-import { useActionState, useRef, type ReactElement } from "react";
+import Form from "next/form";
+import {
+  startTransition,
+  useActionState,
+  type FormEvent,
+  type ReactElement,
+} from "react";
 import { TextField } from "@/components/generic/fields/TextField.tsx";
 import { ArrayField } from "@/components/generic/fields/ArrayField.tsx";
 import { TagField } from "@/components/generic/fields/TagField.tsx";
@@ -21,12 +27,6 @@ import { maxLogoSizeMiB } from "@/lib/configs.ts";
 import type { Tag } from "react-tag-input";
 
 export default function NewOrgPageClient(): ReactElement {
-  const nameRef = useRef<HTMLInputElement>(null);
-  const slugRef = useRef<HTMLInputElement>(null);
-  const logoRef = useRef<HTMLInputElement>(null);
-  const urlRef = useRef<HTMLInputElement>(null);
-  const aboutRef = useRef<HTMLTextAreaElement>(null);
-
   const [ state, formAction, pending ] = useActionState(createOrganization, {});
   const { formErrors, fieldErrors } = state.errors ?? {};
 
@@ -36,8 +36,17 @@ export default function NewOrgPageClient(): ReactElement {
     className: "",
   }));
 
+  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    startTransition(() => formAction(new FormData(evt.currentTarget)));
+  };
+
   return (
-    <form action={formAction} className="max-w-4xl mx-auto px-4 py-8">
+    <Form
+      action={formAction}
+      onSubmit={onSubmit}
+      className="max-w-4xl mx-auto px-4 py-8"
+    >
       <h1 className="text-2xl font-bold flex justify-center mb-5">
         Create a new organization
       </h1>
@@ -58,7 +67,6 @@ export default function NewOrgPageClient(): ReactElement {
         errorMessages={fieldErrors?.name}
         required
         className="mb-6"
-        ref={nameRef}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -73,7 +81,6 @@ export default function NewOrgPageClient(): ReactElement {
             errorMessages={fieldErrors?.slug}
             required
             className="mb-6"
-            ref={slugRef}
           />
 
           <TextField
@@ -86,7 +93,6 @@ export default function NewOrgPageClient(): ReactElement {
             errorMessages={fieldErrors?.url}
             required
             className="mb-6"
-            ref={urlRef}
           />
         </div>
 
@@ -98,7 +104,6 @@ export default function NewOrgPageClient(): ReactElement {
           validator={orgLogoSchema}
           errorMessages={fieldErrors?.logo}
           className="mb-6"
-          ref={logoRef}
         />
       </div>
 
@@ -110,7 +115,6 @@ export default function NewOrgPageClient(): ReactElement {
         validator={orgAboutSchema}
         errorMessages={fieldErrors?.about}
         className="mb-6"
-        ref={aboutRef}
       />
 
       <ArrayField
@@ -155,6 +159,6 @@ export default function NewOrgPageClient(): ReactElement {
       >
         {pending ? "Creating..." : "Create Organization" }
       </Button>
-    </form>
+    </Form>
   );
 }

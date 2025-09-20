@@ -26,7 +26,7 @@ export const ArrayField = ({
   className,
 }: Props): ReactElement => {
   const [ fieldContents, setFieldContents ] = useState<string[]>(required ? [ "" ] : []);
-  const [ errorMessages, setErrorMessages ] = useState<string[]>(serverSideErrorMessages ?? []);
+  const [ errorMessages, setErrorMessages ] = useState<string[]>([]);
 
   const isValidContent = (val: unknown, i: number) => {
     if (!validator) {
@@ -79,7 +79,7 @@ export const ArrayField = ({
             <div className="flex items-center gap-2">
               <input
                 type={type}
-                id={name}
+                id={`${ name }_${ i }`}
                 name={name}
                 placeholder={placeholder}
                 className={`flex-1 px-3 py-3 border rounded-md text-base transition-colors duration-150 ease-in-out focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-100 ${
@@ -114,6 +114,12 @@ export const ArrayField = ({
               </ErrorMessage>
             )}
           </div>
+        ))}
+
+        {serverSideErrorMessages && 0 < serverSideErrorMessages.length && serverSideErrorMessages.map((msg, i) => (
+          <ErrorMessage key={i}>
+            {msg}
+          </ErrorMessage>
         ))}
 
         <Button
