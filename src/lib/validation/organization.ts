@@ -4,7 +4,7 @@ import { maxLogoSizeMiB } from "@/lib/configs.ts";
 import { mibToByte } from "@/lib/utils/utils.ts";
 
 export const orgNameSchema = z.string().trim().min(2, "Organization name must be at least 2 characters.");
-export const orgSlugSchema = z.string()
+export const orgSlugSchema = z.string() // TODO Check if already exists
   .trim()
   .min(2, "Slug must be at least 2 characters.")
   .regex(/^[a-z0-9-]+$/, "Slug can only contain lowercase letters, numbers, and hyphens.");
