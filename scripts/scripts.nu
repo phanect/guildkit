@@ -38,7 +38,7 @@ def "main sync" [--seed] {
   pnpm jiti ($scriptDirPath | path join "scripts-sync-currency.ts")
 
   # Generate DB Schemas: BetterAuth
-  ## Requires to proerly load auth.ts which imports the generated BetterAuth schema.
+  ## Requires to properly load auth.ts which imports the generated BetterAuth schema.
   cp ($scriptDirPath | path join "fixtures/barrel-dummy.ts") ($projectRootPath | path join "src/lib/db/schema/index.ts")
   pnpx @better-auth/cli generate --yes --output="./src/lib/db/schema/better-auth.ts" # relative path from project root
 
