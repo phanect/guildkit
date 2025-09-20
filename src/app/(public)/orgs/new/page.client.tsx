@@ -108,6 +108,7 @@ export default function NewOrgPageClient(): ReactElement {
         placeholder="Tell us about your organization..."
         name="about"
         validator={orgAboutSchema}
+        errorMessages={fieldErrors?.about}
         className="mb-6"
         ref={aboutRef}
       />
@@ -118,8 +119,9 @@ export default function NewOrgPageClient(): ReactElement {
         itemName="email"
         description="In addition to the recruiters' emails, you can also send notifications to these emails"
         placeholder="account-team@example.com"
-        name="email"
+        name="emails"
         validator={orgEmailSchema}
+        errorMessages={fieldErrors?.emails}
         className="mb-6"
       />
 
@@ -131,6 +133,7 @@ export default function NewOrgPageClient(): ReactElement {
         name="addresses"
         autoComplete="street-address"
         validator={orgAddressSchema}
+        errorMessages={fieldErrors?.addresses}
         required
         className="mb-6"
       />
@@ -139,6 +142,7 @@ export default function NewOrgPageClient(): ReactElement {
         label="Supported Currencies"
         tags={currencyTags}
         name="currencies"
+        errorMessages={fieldErrors?.currencies}
         required
         className="mb-6"
       />

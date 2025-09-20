@@ -50,10 +50,6 @@ export const TagField = ({
     setTags(newTags);
   };
 
-  const handleTagClick = (index: number) => {
-    console.log("The tag at index " + index + " was clicked");
-  };
-
   return (
     <div className={className}>
       <FieldHeadings
@@ -72,7 +68,6 @@ export const TagField = ({
         handleDelete={handleDelete}
         handleAddition={handleAddition}
         handleDrag={handleDrag}
-        handleTagClick={handleTagClick}
         onTagUpdate={onTagUpdate}
         autoFocus={autoFocus}
         inputProps={{ autoComplete: "off" }}
