@@ -3,13 +3,21 @@
 import { useActionState, type ReactElement } from "react";
 import { createJob } from "@/lib/actions/jobs.ts";
 import { Button } from "@/components/generic/ButtonLink.tsx";
+import { useActiveOrganization } from "@/lib/auth/client.ts";
 
 export default function NewJobPage(): ReactElement {
   const [ state, formAction, isCreatingJob ] = useActionState(createJob, {});
+  const { data: activeOrg } = useActiveOrganization();
+
+  if (!activeOrg) {
+    // This error should not happen because active organization is set
+    // in `databaseHooks.session.create` of betterAuth instanciation in src/lib/auth.ts
+    throw new Error("You don't belong to any organization. Error code: GK-P683B");
+  }
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold flex justify-center mb-5">Create a new job</h1>
+      <h1 className="text-2xl font-bold flex justify-center mb-5">Create a new job for {activeOrg.name}</h1>
       <form action={formAction}>
         <div className="mb-6">
           <label className="block w-full" htmlFor="title">
