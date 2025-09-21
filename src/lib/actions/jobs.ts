@@ -13,8 +13,7 @@ type CreateJobState = {
 
 export const createJob = async (_initialState: CreateJobState, formData: FormData): Promise<CreateJobState> => {
   try {
-    const { user: recruiter } = await requireAuthAs("recruiter");
-
+    const { session } = await requireAuthAs("recruiter");
     const jobValidation = jobSchema.safeParse(formData);
 
     if (!jobValidation.success) {
@@ -28,7 +27,7 @@ export const createJob = async (_initialState: CreateJobState, formData: FormDat
     const [ createdJob ] = await db.insert(jobTable).values({
       ...validatedNewJob,
       expiresAt: new Date(expiresAt),
-      employer: recruiter.recruitsFor,
+      employer: session.activeOrganizationId,
     }).returning({ id: jobTable.id });
 
     redirect(`/jobs/${ createdJob.id }`);
@@ -43,8 +42,7 @@ type DeleteJobState = {
 
 export const deleteJob = async (_initialState: DeleteJobState, formData: FormData): Promise<DeleteJobState> => {
   try {
-    const { user: recruiter } = await requireAuthAs("recruiter");
-
+    const { session } = await requireAuthAs("recruiter");
     const id = formData.get("id");
 
     if (!id) {
@@ -66,7 +64,7 @@ export const deleteJob = async (_initialState: DeleteJobState, formData: FormDat
       .where(
         and(
           eq(jobTable.id, id),
-          eq(jobTable.employer, recruiter.recruitsFor),
+          eq(jobTable.employer, session.activeOrganizationId),
         )
       );
 
