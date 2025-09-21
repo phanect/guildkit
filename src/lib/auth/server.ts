@@ -7,8 +7,7 @@ import { userProps } from "@/lib/db/schema/user.ts";
 import type { User } from "@/lib/auth/types.ts";
 import { RecruiterWithoutOrgError } from "../utils/errors.ts";
 
-type Recruiter = Omit<User, "recruitsFor" | "props"> & {
-  recruitsFor: NonNullable<User["recruitsFor"]>;
+type Recruiter = Omit<User, "props"> & {
   props: User["props"] & {
     type: "recruiter";
   };
@@ -22,6 +21,18 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
   expectedType: ExpectedType,
   options: RequireAuthAsOptions = {},
 ) => {
+  const isOrphanRecruiter = async (user: User): Promise<boolean> => {
+    if (user.props.type !== "recruiter") {
+      return false;
+    }
+
+    const orgs = await auth.api.listOrganizations({
+      headers: await headers(),
+    });
+
+    return orgs.length <= 0;
+  };
+
   const {
     allowUsersWithoutType = false,
     allowOrphanRecruiter = false,
@@ -39,7 +50,7 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
     return redirect("/auth/signup");
   }
 
-  if (!allowOrphanRecruiter && expectedType === "recruiter" && user.props.type === "recruiter" && !user.recruitsFor) {
+  if (expectedType === "recruiter" && !allowOrphanRecruiter && await isOrphanRecruiter(user)) {
     throw new RecruiterWithoutOrgError("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
   }
 

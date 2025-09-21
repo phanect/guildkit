@@ -46,10 +46,6 @@ export const auth = betterAuth({
         type: "string",
         required: true,
       },
-      recruitsFor: {
-        type: "string",
-        required: false,
-      },
     },
   },
   databaseHooks: {
