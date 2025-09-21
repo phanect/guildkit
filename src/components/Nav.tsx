@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button, Link } from "@/components/generic/ButtonLink.tsx";
 import { TopBar } from "@/components/generic/TopBar.tsx";
-import { useSignOut } from "@/lib/auth/client.ts";
+import { useActiveOrganization, useSignOut } from "@/lib/auth/client.ts";
 import type { UserType } from "@/lib/db/schema/user.ts";
 import type { ReactElement } from "react";
 
@@ -13,6 +13,7 @@ type Props = {
 
 export const Nav = ({ for: userType }: Props): ReactElement => {
   const { signOut } = useSignOut();
+  const { data: activeOrg } = useActiveOrganization();
 
   return (
     <>
@@ -35,9 +36,21 @@ export const Nav = ({ for: userType }: Props): ReactElement => {
         </Link>
         <div className="flex items-center gap-4">
           {(userType === "recruiter" || userType === "administrative") && (
-            <Link href="/employer/jobs" theme="none" className="mr-8 font-bold">
-              Dashboard
-            </Link>
+            activeOrg ? (
+              <>
+                <Link href="/employer/jobs" theme="none" className="mr-8 font-bold">
+                  Dashboard
+                </Link>
+                <Link href={`/orgs/${ activeOrg.slug }`}>
+                  {activeOrg.name}
+                </Link>
+              </>
+            ) : (
+              <p>
+                <Link href="/orgs/new" theme="linktext">Create your company</Link><br />
+                or ask your boss to invite
+              </p>
+            )
           )}
 
           {userType === "guest" ? (
