@@ -1,5 +1,6 @@
 import { Link } from "@/components/generic/ButtonLink.tsx";
 import { CenterBox } from "@/components/generic/CenterBox.tsx";
+import { SessionContext } from "@/components/context/SessionContext.ts";
 import { Nav } from "@/components/Nav.tsx";
 import { Sidebar } from "@/components/Sidebar.tsx";
 import { requireAuthAs } from "@/lib/auth/server.ts";
@@ -13,7 +14,7 @@ type Props = {
 export default async function EmployerLayout({ children }: Props): Promise<ReactElement> {
   try {
     // TODO Do not run `requireAuthAs()` twice in pages (e.g. src/app/employer/jobs/page.tsx) and here
-    const { user } = await requireAuthAs("recruiter");
+    const { user, session } = await requireAuthAs("recruiter");
 
     return (
       <>
@@ -21,7 +22,9 @@ export default async function EmployerLayout({ children }: Props): Promise<React
         <div className="flex justify-center w-full">
           <Sidebar />
           <main className="flex flex-col items-center gap-4 w-full">
-            {children}
+            <SessionContext value={{ user, session }}>
+              {children}
+            </SessionContext>
           </main>
         </div>
       </>
