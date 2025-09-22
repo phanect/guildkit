@@ -2,11 +2,10 @@ import { Link } from "@/components/generic/ButtonLink.tsx";
 import { JobList } from "@/components/JobList.tsx";
 import { requireAuthAs } from "@/lib/auth/server.ts";
 import { db } from "@/lib/db/db.ts";
-import { organization } from "@/lib/db/schema/better-auth.ts";
 import type { JobCardInfo } from "@/components/JobCard.tsx";
 
 export default async function EmployerJobsPage() {
-  const { user } = await requireAuthAs("recruiter");
+  const { user, session } = await requireAuthAs("recruiter");
 
   const jobs: JobCardInfo[] = await db.query.job.findMany({
     columns: {
@@ -23,7 +22,7 @@ export default async function EmployerJobsPage() {
         },
       },
     },
-    where: (job, { eq }) => eq(job.employer, organization.id),
+    where: (job, { eq }) => eq(job.employer, session.activeOrganizationId),
     orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
   });
 
