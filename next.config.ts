@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
       new URL("https://tmp.guildkit.net/**"),
     ],
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "15mb",
+    },
+  },
 };
 
 export default nextConfig;
