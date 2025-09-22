@@ -34,8 +34,6 @@ export const createOrganization = async (_initialState: ActionState<Organization
       body: newOrgData,
       headers: await headers(),
     });
-
-    redirect("/employer/jobs", RedirectType.replace);
   } catch (err) {
     if (err instanceof APIError) {
       if (err.body?.code === "SLUG_IS_TAKEN") {
@@ -68,5 +66,9 @@ export const createOrganization = async (_initialState: ActionState<Organization
         fieldErrors: {},
       },
     };
+  } finally {
+    // You cannot redirect in the `try` & `catch` blocks
+    // See: https://nextjs.org/docs/app/guides/redirecting#redirect-function
+    redirect("/employer/jobs", RedirectType.replace);
   }
 };
