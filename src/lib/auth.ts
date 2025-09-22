@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { z } from "zod";
+import { eq } from "drizzle-orm";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
 import { db } from "./db/db.ts";
 import * as schema from "./db/schema/index.ts";
@@ -65,6 +66,38 @@ export const auth = betterAuth({
               data: {
                 ...user,
                 propsId,
+              },
+            };
+          }
+        },
+      },
+    },
+    session: {
+      create: {
+        // Set first organization as active organization on login
+        before: async (session) => {
+          if (session.activeOrganizationId) {
+            return {
+              data: session,
+            };
+          } else {
+            const { organizationId } = await db.query.member.findFirst({
+              columns: {
+                organizationId: true,
+              },
+              where: eq(schema.member.userId, session.userId),
+            }) ?? {};
+
+            if (!organizationId) {
+              return {
+                data: session,
+              };
+            }
+
+            return {
+              data: {
+                ...session,
+                activeOrganizationId: organizationId,
               },
             };
           }

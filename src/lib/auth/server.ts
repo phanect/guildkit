@@ -4,7 +4,7 @@ import { redirect, unauthorized } from "next/navigation";
 import { auth } from "@/lib/auth.ts";
 import { db } from "@/lib/db/db.ts";
 import { userProps } from "@/lib/db/schema/user.ts";
-import type { User } from "@/lib/auth/types.ts";
+import type { User, Organization } from "@/lib/auth/types.ts";
 import { RecruiterWithoutOrgError } from "../utils/errors.ts";
 
 type Recruiter = Omit<User, "props"> & {
@@ -21,16 +21,16 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
   expectedType: ExpectedType,
   options: RequireAuthAsOptions = {},
 ) => {
-  const isOrphanRecruiter = async (user: User): Promise<boolean> => {
+  const getFirstOrganization = async (user: User): Promise<Organization | undefined> => {
     if (user.props.type !== "recruiter") {
-      return false;
+      return undefined;
     }
 
-    const orgs = await auth.api.listOrganizations({
+    const [ firstOrg ] = await auth.api.listOrganizations({
       headers: await headers(),
     });
 
-    return orgs.length <= 0;
+    return firstOrg;
   };
 
   const {
@@ -42,6 +42,9 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
     headers: await headers(),
   }) ?? {};
 
+  //
+  // Error handling
+  //
   if (!user || !session) {
     return redirect("/auth");
   }
@@ -50,18 +53,41 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
     return redirect("/auth/signup");
   }
 
-  if (expectedType === "recruiter" && !allowOrphanRecruiter && await isOrphanRecruiter(user)) {
+  if (expectedType !== "any" && expectedType !== user.props.type) {
+    return unauthorized();
+  }
+
+  const firstOrg = await getFirstOrganization(user);
+  const isOrphanRecruiter = !firstOrg;
+
+  if (expectedType === "recruiter" && !allowOrphanRecruiter && isOrphanRecruiter) {
     throw new RecruiterWithoutOrgError("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
   }
 
-  if (expectedType === "any" || expectedType === user.props.type) {
-    return {
-      user: user as ExpectedType extends "recruiter" ? Recruiter : User,
-      session,
-    };
-  } else {
-    unauthorized();
+  //
+  // set active organization if user is a recruiter
+  //
+  if (
+    expectedType === "recruiter" && user.props.type === "recruiter"
+    && !session.activeOrganizationId && firstOrg
+  ) {
+    await auth.api.setActiveOrganization({
+      body: {
+        organizationId: firstOrg.id,
+      },
+    });
   }
+
+  //
+  // Return user & session
+  //
+  return {
+    user: user as ExpectedType extends "recruiter" ? Recruiter : User,
+    session: session as ExpectedType extends "recruiter"
+      ? Omit<typeof session, "activeOrganizationId"> & {
+        activeOrganizationId: NonNullable<typeof session["activeOrganizationId"]>;
+      } : typeof session,
+  };
 };
 
 export const getSession = async (...args: Parameters<typeof auth.api.getSession>) => {
