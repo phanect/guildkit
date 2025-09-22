@@ -51,6 +51,26 @@ export const useSignOut = () => {
   };
 };
 
+export const getActiveOrg = async () => {
+  const { data: activeOrg } = await organization.getFullOrganization();
+
+  if (activeOrg) {
+    return activeOrg;
+  } else {
+    const firstOrg = (await organization.list()).data?.[0];
+
+    if (!firstOrg) {
+      throw new Error("You do not belong to any organizations.");
+    }
+
+    await organization.setActive({
+      organizationId: firstOrg.id,
+    });
+
+    return firstOrg;
+  }
+};
+
 export {
   organization,
   useActiveOrganization,
