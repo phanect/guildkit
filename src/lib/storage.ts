@@ -2,6 +2,7 @@ import { env } from "node:process";
 import {
   S3Client,
   CreateBucketCommand,
+  PutObjectCommand,
   BucketAlreadyExists,
   BucketAlreadyOwnedByYou,
   waitUntilBucketExists,
@@ -61,5 +62,21 @@ const s3Config: S3ClientConfig = {
 const storage = new S3Client(s3Config);
 
 await createBucketIfNotExists(storage, bucket);
+
+/**
+ *
+ * @param destPath - path to put given file
+ * @param file - file object to put
+ * @returns Path for logo including bucket name
+ */
+export const putObject = async (destPath: string, file: File) => {
+  await storage.send(new PutObjectCommand({
+    Bucket: bucket,
+    Key: destPath,
+    Body: Buffer.from(await file.arrayBuffer()),
+  }));
+
+  return `/${ bucket }/${ destPath }`;
+};
 
 export const logoDirName = "org-logos";

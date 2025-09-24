@@ -41,6 +41,7 @@ type AwsS3OrCustomConfig = BaseStorageConfig & {
 
 export type GuildKitConfig = {
   storage: CloudflareR2Config | MinioConfig | DevStorageConfig | AwsS3OrCustomConfig;
+  maxLogoSizeMiB: number;
 };
 
 const config: GuildKitConfig = {
@@ -49,6 +50,7 @@ const config: GuildKitConfig = {
   } : {
     platform: "cloudflare",
   },
+  maxLogoSizeMiB: 8,
 };
 
 export default config;
