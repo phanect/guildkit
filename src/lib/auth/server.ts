@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth.ts";
 import { db } from "@/lib/db/db.ts";
 import { userProps } from "@/lib/db/schema/user.ts";
 import type { User, Organization } from "@/lib/auth/types.ts";
-import { RecruiterWithoutOrgError } from "../utils/errors.ts";
+import { GuildKitError } from "../utils/errors.ts";
 
 type Recruiter = Omit<User, "props"> & {
   props: User["props"] & {
@@ -61,7 +61,9 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
   const isOrphanRecruiter = !firstOrg;
 
   if (expectedType === "recruiter" && !allowOrphanRecruiter && isOrphanRecruiter) {
-    throw new RecruiterWithoutOrgError("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.");
+    throw new GuildKitError("You are recruiter who does not belong to any organization. Ask your organization owner to invite, or create a new organization.", {
+      code: "RECRUITER_WITHOUT_ORGS",
+    });
   }
 
   //
