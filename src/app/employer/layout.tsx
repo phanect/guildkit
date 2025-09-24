@@ -12,6 +12,7 @@ type Props = {
 
 export default async function EmployerLayout({ children }: Props): Promise<ReactElement> {
   try {
+    // TODO Do not run `requireAuthAs()` twice in pages (e.g. src/app/employer/jobs/page.tsx) and here
     const { user } = await requireAuthAs("recruiter");
 
     return (
