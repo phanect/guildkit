@@ -6,6 +6,7 @@ import type { JobCardInfo } from "@/components/JobCard.tsx";
 import { GuildKitError } from "@/lib/utils/errors.ts";
 
 export default async function EmployerJobsPage() {
+  // TODO Do not run `requireAuthAs()` twice in src/app/employer/layout.tsx and here
   try {
     const { user, session } = await requireAuthAs("recruiter");
 
