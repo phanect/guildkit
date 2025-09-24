@@ -11,6 +11,7 @@ export default function Error({ error }: {
       <Nav for="guest" />
       <CenterBox>
         <h1>{ error.message }</h1>
+        <p>Sorry, this is probably a bug in this website.</p>
       </CenterBox>
     </>
   );
