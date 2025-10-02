@@ -14,6 +14,27 @@ on:
 permissions: {}
 
 jobs:
+  build-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
+        with:
+          install: true
+          cache: true
+
+      - run: mise lint
+      - run: mise build
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+          include-hidden-files: true
+
   test:
     name: test on Node.js v${{ matrix.node-version }}
     runs-on: ubuntu-latest
@@ -26,6 +47,7 @@ jobs:
           - 24
     env:
       SERVER_ENV: development
+      MISE_NODE_VERSION: ${{ matrix.node-version }} # Override Node.js version over mise.toml
       DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
       BETTER_AUTH_URL: "http://localhost:3000"
       # On the build process, the credentials can be dummy
@@ -39,51 +61,17 @@ jobs:
         run: sudo apt remove -y podman
 
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
-      - name: Use Node.js v${{ matrix.node-version }}
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
-          node-version: ${{ matrix.node-version }}
-          check-latest: true
-          cache: pnpm
+          install: true
+          cache: true
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      # TODO - run: pnpm test
-
-  lint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      SERVER_ENV: development
-      DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
-      BETTER_AUTH_URL: "http://localhost:3000"
-      # On the build process, the credentials can be dummy
-      BETTER_AUTH_SECRET: dummy
-      GOOGLE_CLIENT_ID: dummy
-      GOOGLE_CLIENT_SECRET: dummy
-      GITHUB_CLIENT_ID: dummy
-      GITHUB_CLIENT_SECRET: dummy
-    steps:
-      - name: Remove Podman which does not work well on GitHub Actions
-        run: sudo apt remove -y podman
-
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
-      - name: Use Node.js v22
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
-        with:
-          node-version: 22
-          check-latest: true
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
+      - run: mise test
 
   publish:
     needs:
+      - build-lint
       - test
-      - lint
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -100,15 +88,13 @@ jobs:
         run: sudo apt remove -y podman
 
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
-          node-version: 22
-          check-latest: true
+          install: true
+          cache: true
 
-      - run: pnpm install
-      - run: pnpm run build
+      - run: mise build
 
       - name: Set npm auth token
         run: echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" > ~/.npmrc
-      - run: pnpm run release
+      - run: mise release
