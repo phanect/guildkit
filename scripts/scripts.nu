@@ -1,6 +1,5 @@
 const scriptDirPath = path self | path dirname
 const projectRootPath = $scriptDirPath | path join ".." | path expand
-const dotEnvPath = $projectRootPath | path join ".env" | path expand
 
 def type [cmd] {
   return (0 < (which $cmd | length))
@@ -15,10 +14,6 @@ def --wrapped container [ ...args ] {
     print "[ERROR] Neither Docker nor Podman are found. Please install one of them."
     exit 1
   }
-}
-
-if ($dotEnvPath | path exists) {
-  open --raw $dotEnvPath | from toml | load-env
 }
 
 if not ("SERVER_ENV" in $env) {

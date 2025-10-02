@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { eq, type InferInsertModel } from "drizzle-orm";
 import { db } from "./db.ts";
 import { userProps } from "./schema/user.ts";
