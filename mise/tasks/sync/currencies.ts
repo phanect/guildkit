@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { deduplicate, trimLines } from "@phanect/utils";
@@ -32,7 +34,7 @@ const generateCurrencyEnum = async () => {
       .sort((codeA, codeB) => codeA > codeB ? 1 : -1)
   );
 
-  const intermediateDirPath = join(import.meta.dirname, "../src/intermediate");
+  const intermediateDirPath = join(import.meta.dirname, "../../../src/intermediate");
 
   await mkdir(intermediateDirPath, { recursive: true });
   await writeFile(

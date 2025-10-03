@@ -13,9 +13,6 @@ node = { version = "24" }
   [tasks.db]
   run = "psql --username=guildkit --dbname=guildkit --host=localhost --port=5432"
 
-  [tasks.resetdb]
-  run = "nu ./scripts/scripts.nu resetdb"
-
   [tasks.resetdb-demo]
   run = "jiti ./scripts/resetdb-demo.ts && drizzle-kit migrate && jiti ./scripts/seed.ts"
 
@@ -51,7 +48,7 @@ node = { version = "24" }
   ]
 
   [tasks.sync]
-  run = "nu ./scripts/scripts.nu sync"
+  depends = [ "sync:*" ]
 
   # TODO disabled until GA
   #[tasks.release]
