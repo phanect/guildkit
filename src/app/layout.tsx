@@ -13,7 +13,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode;
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="https://tmp.guildkit.net/canvaai/guildkit_icon_tmp.png" />
+        <link rel="icon" href="/logo.png" />
         <meta name="viewport" content="width=device-width" />
       </head>
       <body>
