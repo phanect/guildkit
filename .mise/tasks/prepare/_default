@@ -8,7 +8,7 @@ const tasksDirPath = path self | path dirname | path join ".."
 const projectRootPath = $tasksDirPath | path join "../.." | path expand
 
 if not ("SERVER_ENV" in $env) {
-  print "[ERROR] The environment variable SERVER_ENV is missing. If you are on your local machine, copy mise.local.example.toml to mise.local.toml, or set `SERVER_ENV=development` manually."
+  print "[ERROR] The environment variable SERVER_ENV is missing. If you are on your local machine, copy .env.example to .env, or set `SERVER_ENV=development` manually."
   exit 1
 }
 
