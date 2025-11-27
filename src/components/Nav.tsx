@@ -30,7 +30,7 @@ export const Nav = async ({ for: userType }: Props) => {
       <nav className="flex items-center justify-between flex-wrap py-6 px-20">
         <Link href="/" className="flex items-center gap-3 text-gray-900 text-xl font-semibold">
           <Image
-            src="https://tmp.guildkit.net/canvaai/guildkit_icon_tmp.png"
+            src="/logo.png"
             width={64}
             height={64}
             alt=""

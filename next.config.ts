@@ -4,10 +4,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   images: {
-    remotePatterns: [
-      // TODO Remove this on the release
-      new URL("https://tmp.guildkit.net/**"),
-    ],
   },
 
   experimental: {
