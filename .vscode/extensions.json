@@ -5,6 +5,8 @@
 
     "csstools.postcss",
     "bradlc.vscode-tailwindcss",
+    "Prisma.prisma",
+
     "redhat.vscode-yaml",
     "tamasfe.even-better-toml",
     "TheNuProjectContributors.vscode-nushell-lang"

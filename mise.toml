@@ -29,7 +29,10 @@ node = { version = "24" }
 
   [tasks.fix]
   depends = [ "prepare" ]
-  run = "eslint --fix"
+  run = [
+    "eslint --fix",
+    "prisma format",
+  ]
 
   [tasks.clean]
   depends = [ "clean:*" ]
@@ -42,7 +45,6 @@ node = { version = "24" }
     "corepack up",
     "pnpm install",
     { task = "prepare" },
-    # { task = "seed" },
   ]
   raw = true # Required for the spinner and interactive UIs
 
@@ -55,7 +57,6 @@ postinstall = [
   "corepack enable",
   "pnpm install --frozen-lockfile",
   "mise run prepare",
-  # "mise run seed"
 ]
 
 [env]
