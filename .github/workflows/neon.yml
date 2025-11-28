@@ -5,7 +5,7 @@ on:
     types:
       - closed
 
-permissions: {}
+permissions: {} # Checkout is not required in this workflow
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
