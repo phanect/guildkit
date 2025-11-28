@@ -36,6 +36,10 @@ export const createJob = async (_initialState: ActionState<Job>, formData: FormD
     employer: session.activeOrganizationId,
   }).returning({ id: jobTable.id });
 
+  if (!createdJob) {
+    throw new Error("Failed to create job. Error code: GK-9JFB6");
+  }
+
   redirect(`/jobs/${ createdJob.id }`);
 };
 

@@ -42,7 +42,7 @@ export const Field = <T extends (HTMLInputTypeAttribute | "textarea")>({
     if (success) {
       setErrorMessage("");
     } else {
-      setErrorMessage(error.issues[0].message);
+      setErrorMessage(error.issues[0]?.message ?? "We're sorry, something is technically wrong.");
     }
   };
 

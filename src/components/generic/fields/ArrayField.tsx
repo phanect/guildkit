@@ -42,7 +42,7 @@ export const ArrayField = ({
       }
     } else {
       const newErrorMessages = [ ...errorMessages ]; // clone
-      newErrorMessages[i] = error.issues[0].message;
+      newErrorMessages[i] = error.issues[0]?.message ?? "We're sorry, something is technically wrong.";
       setErrorMessages(newErrorMessages);
     }
   };
