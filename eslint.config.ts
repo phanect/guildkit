@@ -7,6 +7,7 @@ const configs = defineConfig([
     "./src/intermediate/**",
     "./src/lib/db/schema/better-auth.ts",
     "./src/lib/db/schema/index.ts",
+    "./src/lib/prisma/**",
   ]),
 
   ...core,

@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 #MISE description="Prepare after `mise install`. Build intermediate files and initialize local DBs."
-#MISE raw=true # Required for interactive shell by drizzle-kit migrate
+#MISE raw=true # Required for interactive shell by Prisma
 
 use ../_libs *
 
@@ -34,7 +34,10 @@ if ($env.SERVER_ENV == "development") {
   pnpm neon branches reset $"preview/($env.VERCEL_GIT_COMMIT_REF)" --parent --project-id=($env.NEON_PROJECT_ID)
 }
 
-pnpm drizzle-kit generate
-pnpm drizzle-kit migrate
 
-print "\n\n" # `drizzle-kit migrate` does not add trailing line breaks.
+prisma generate
+
+if ($env.SERVER_ENV == "development") {
+  prisma migrate dev
+  prisma db seed
+}

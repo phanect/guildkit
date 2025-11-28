@@ -1,5 +1,3 @@
-#!/usr/bin/env -S pnpm exec jiti
-
 import dayjs from "dayjs";
 import { db } from "../../src/lib/db/db.ts";
 import {
