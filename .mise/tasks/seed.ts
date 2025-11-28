@@ -1,6 +1,5 @@
 #!/usr/bin/env -S pnpm exec jiti
 
-import { env, exit } from "node:process";
 import dayjs from "dayjs";
 import { db } from "../../src/lib/db/db.ts";
 import {
@@ -279,9 +278,9 @@ const initialJobs: InferInsertModel<typeof job>[] = [
   },
 ];
 
-if (env.SERVER_ENV !== "development" && env.SERVER_ENV !== "demo" && env.SERVER_ENV !== "demo-preview") {
+if (process.env.SERVER_ENV !== "development" && process.env.SERVER_ENV !== "demo" && process.env.SERVER_ENV !== "demo-preview") {
   console.info("Seeding are only allowed when SERVER_ENV is development, demo, or demo-preview. Seeding skipped.");
-  exit(0);
+  process.exit(0);
 }
 
 const userExists = Boolean(await db.query.user.findFirst());
@@ -290,7 +289,7 @@ const alreadySeeded = userExists || jobExists;
 
 if (alreadySeeded) {
   console.info("The data already exists in the database. Skip seeding.");
-  exit(0);
+  process.exit(0);
 }
 
 // Allow N+1 problems for the readability
