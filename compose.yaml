@@ -20,23 +20,19 @@ services:
       interval: 1s
       timeout: 1m
 
-  storage:
-    image: minio/minio:latest
-    restart: always
+  localstack:
+    image: localstack/localstack:s3-latest
     environment:
-      MINIO_ROOT_USER: guildkit
-      MINIO_ROOT_PASSWORD: guildkit
+      SERVICES: s3
     ports:
-      - "9000:9000" # API
-      - "9001:9001" # Admin console
-    command: [ "server", "/data", "--console-address", ":9001" ]
+      - 4566:4566
     volumes:
-      - guildkit-storage:/data
+      - guildkit-localstack:/var/lib/localstack
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:4566/_localstack/health" ]
       interval: 1s
       timeout: 1m
 
 volumes:
   guildkit-db: {}
-  guildkit-storage: {}
+  guildkit-localstack: {}
