@@ -1,0 +1,19 @@
+{
+  "servers": {
+    "Next.js": {
+      "command": "pnpm",
+      "args": [ "exec", "next-devtools-mcp" ]
+    },
+    "Prisma": {
+      "command": "pnpm",
+      "args": [ "exec", "prisma", "mcp" ]
+    },
+    "Better Auth": {
+      "url": "https://mcp.chonkie.ai/better-auth/better-auth-builder/mcp"
+    },
+    "ESLint": {
+      "command": "pnpm",
+      "args": [ "exec", "eslint", "--mcp" ]
+    }
+  }
+}
