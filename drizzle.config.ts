@@ -1,4 +1,3 @@
-import { env } from "node:process";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
@@ -8,6 +7,6 @@ export default defineConfig({
   strict: true,
   verbose: true,
   dbCredentials: {
-    url: env.DATABASE_URL!,
+    url: process.env.DATABASE_URL!,
   },
 });
