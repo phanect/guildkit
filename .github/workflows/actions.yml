@@ -29,7 +29,6 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 22
           - 24
     env:
       SERVER_ENV: development
