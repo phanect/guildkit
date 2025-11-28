@@ -80,7 +80,7 @@ export const ImageField = ({
       if (!success) {
         return {
           valid: false,
-          message: error.issues[0].message,
+          message: error.issues[0]?.message ?? "We're sorry, something is technically wrong.",
         };
       }
     }
