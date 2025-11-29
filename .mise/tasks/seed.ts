@@ -278,29 +278,33 @@ const initialJobs: InferInsertModel<typeof job>[] = [
   },
 ];
 
-if (process.env.SERVER_ENV !== "development" && process.env.SERVER_ENV !== "demo" && process.env.SERVER_ENV !== "demo-preview") {
-  console.info("Seeding are only allowed when SERVER_ENV is development, demo, or demo-preview. Seeding skipped.");
-  process.exit(0);
-}
+const main = async () => {
+  if (process.env.SERVER_ENV !== "development" && process.env.SERVER_ENV !== "demo" && process.env.SERVER_ENV !== "demo-preview") {
+    console.info("Seeding are only allowed when SERVER_ENV is development, demo, or demo-preview. Seeding skipped.");
+    return;
+  }
 
-const userExists = Boolean(await db.query.user.findFirst());
-const jobExists = Boolean(await db.query.job.findFirst());
-const alreadySeeded = userExists || jobExists;
+  const userExists = Boolean(await db.query.user.findFirst());
+  const jobExists = Boolean(await db.query.job.findFirst());
+  const alreadySeeded = userExists || jobExists;
 
-if (alreadySeeded) {
-  console.info("The data already exists in the database. Skip seeding.");
-  process.exit(0);
-}
+  if (alreadySeeded) {
+    console.info("The data already exists in the database. Skip seeding.");
+    return;
+  }
 
-// Allow N+1 problems for the readability
-await db.transaction(async (tx) => {
-  await insertUsers(candidates, tx);
+  // Allow N+1 problems for the readability
+  await db.transaction(async (tx) => {
+    await insertUsers(candidates, tx);
 
-  await insertOrganizations([
-    initialOrgYaedo,
-    initialOrgShogunate,
-    initialOrgWangsheng,
-  ], tx);
+    await insertOrganizations([
+      initialOrgYaedo,
+      initialOrgShogunate,
+      initialOrgWangsheng,
+    ], tx);
 
-  await tx.insert(job).values(initialJobs);
-});
+    await tx.insert(job).values(initialJobs);
+  });
+};
+
+await main();
