@@ -39,7 +39,7 @@ export default function NewJobPageClient({ activeOrg }: Props): ReactElement {
       <h1 className="text-2xl font-bold flex justify-center mb-5">Create a new job for {activeOrg.name}</h1>
 
       {formErrors?.map((formError) => (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md" key={formError}>
           <p className="text-red-800">{formError}</p>
         </div>
       ))}
