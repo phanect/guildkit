@@ -6,7 +6,10 @@ import { commonClasses, ErrorMessage, FieldHeadings, validClasses, type CommonFi
 
 type Props = CommonFieldProps & {
   tags: Tag[];
-} & ComponentProps<typeof TagInput>;
+} & Omit<
+  ComponentProps<typeof TagInput>,
+  "autoFocus"
+>;
 
 export const TagField = ({
   tags: selectableTags,
@@ -15,7 +18,6 @@ export const TagField = ({
   required = false,
   name,
   className,
-  autoFocus = false,
   errorMessages,
   ...formProps
 }: Props): ReactElement => {
@@ -68,7 +70,6 @@ export const TagField = ({
         handleAddition={handleAddition}
         handleDrag={handleDrag}
         onTagUpdate={onTagUpdate}
-        autoFocus={autoFocus}
         inputProps={{ autoComplete: "off" }}
         maxTags={4}
         allowUnique
