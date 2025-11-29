@@ -52,7 +52,7 @@ export default function NewOrgPageClient(): ReactElement {
       </h1>
 
       {formErrors?.map((formError) => (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md" key={formError}>
           <p className="text-red-800">{formError}</p>
         </div>
       ))}
