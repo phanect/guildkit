@@ -9,8 +9,8 @@ A CMS for job search services
 
 ### Prerequisites
 
-- Node.js v22 and v24
-- corepack
+- [mise-en-place](https://mise.jdx.dev/installing-mise.html)
+  - mise will install Node.js, corepack, and pnpm.
 - [Podman](https://podman.io)
   - Requires Podman engine only. Podman Desktop is optional.
 
@@ -23,8 +23,8 @@ Then run the following commands:
 ```sh
 cd /path/to/guildkit
 cp ./.env.example ./.env
-pnpm install
-pnpm dev
+mise install
+mise dev
 ```
 
 Now GuildKit will be served via http://localhost:3000.
@@ -37,7 +37,7 @@ Min.io's dashboard is also available via http://localhost:9001.
 - recruiter: The recruitment staff (user) who belongs to the organization(s).
 - employer: Only use this term if you want to express both the organization or its recruitment staff(s).
 
-## Credit
+## Copyright & Credit
 
 Copyright (c) 2025-present Jumpei Ogawa and the contributors
 
