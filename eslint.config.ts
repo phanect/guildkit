@@ -27,6 +27,11 @@ const configs = defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
   },
 ]);
 
