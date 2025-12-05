@@ -5,8 +5,6 @@ import { defineConfig, globalIgnores } from "eslint/config";
 const configs = defineConfig([
   globalIgnores([
     "./src/intermediate/**",
-    "./src/lib/db/schema/better-auth.ts",
-    "./src/lib/db/schema/index.ts",
     "./src/lib/prisma/**",
   ]),
 
