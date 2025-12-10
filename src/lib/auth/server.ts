@@ -80,6 +80,7 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
         body: {
           organizationId: firstOrg.id,
         },
+        headers: await headers(),
       });
     }
 
