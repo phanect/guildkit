@@ -17,7 +17,7 @@ jobs:
       DATABASE_URL: ${{ secrets.DEMO_MAIN_DATABASE_URL }}
       SERVER_ENV: "ci-periodic"
       BETTER_AUTH_URL: "http://localhost:3000"
-      BETTER_AUTH_SECRET: dummy
+      BETTER_AUTH_SECRET: dummy_67Vl2BsxaiKFX41eYaGqvCHHQ4
       GOOGLE_CLIENT_ID: dummy
       GITHUB_CLIENT_ID: dummy
       GOOGLE_CLIENT_SECRET: dummy

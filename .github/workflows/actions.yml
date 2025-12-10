@@ -36,7 +36,7 @@ jobs:
       DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
       BETTER_AUTH_URL: "http://localhost:3000"
       # On the build process, the credentials can be dummy
-      BETTER_AUTH_SECRET: dummy
+      BETTER_AUTH_SECRET: dummy_67Vl2BsxaiKFX41eYaGqvCHHQ4
     steps:
       - name: Remove Podman which does not work well on GitHub Actions
         run: sudo apt-get remove -y podman
@@ -58,7 +58,7 @@ jobs:
       DATABASE_URL: "postgresql://guildkit:guildkit@localhost:5432/guildkit?sslmode=disable"
       BETTER_AUTH_URL: "http://localhost:3000"
       # On the build process, the credentials can be dummy
-      BETTER_AUTH_SECRET: dummy
+      BETTER_AUTH_SECRET: dummy_67Vl2BsxaiKFX41eYaGqvCHHQ4
     steps:
       - name: Remove Podman which does not work well on GitHub Actions
         run: sudo apt-get remove -y podman
