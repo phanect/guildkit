@@ -26,6 +26,7 @@ type Props = CommonFieldProps & {
   validator?: ZodType;
   accept?: string;
   maxSizeMiB?: number;
+  initialImageBase64?: string;
 };
 
 export const ImageField = ({
@@ -33,6 +34,7 @@ export const ImageField = ({
   description,
   required = false,
   name,
+  initialImageBase64,
   validator,
   accept = "image/*",
   maxSizeMiB = publicConfigs.maxLogoSizeMiB,
@@ -42,7 +44,7 @@ export const ImageField = ({
 }: Props): ReactElement => {
   const ref = useRef<HTMLInputElement>(null);
   const [ errorMessage, setErrorMessage ] = useState<string | undefined>(undefined);
-  const [ preview, setPreview ] = useState<string | undefined>(undefined);
+  const [ preview, setPreview ] = useState<string | undefined>(initialImageBase64);
   const [ isDragOver, setIsDragOver ] = useState(false);
 
   const ready = (refCurrent: RefObject<HTMLInputElement | null>["current"] | undefined): refCurrent is RefObject<HTMLInputElement>["current"] => {
