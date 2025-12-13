@@ -17,16 +17,18 @@ import publicConfigs from "@/intermediate/public-configs.json";
 import { createOrganization } from "@/lib/actions/organizations.ts";
 import {
   orgAboutSchema,
-  orgAddressSchema,
-  orgEmailSchema,
   orgLogoSchema,
   orgNameSchema,
   orgSlugSchema,
-  orgUrlSchema,
 } from "@/lib/validations/organization.ts";
-import type { Tag } from "react-tag-input";
+import type { Organization } from "@/lib/auth/types.ts";
 
-export default function NewOrgPageClient(): ReactElement {
+type Props = {
+  org?: Organization;
+  initialLogoBase64?: string | undefined;
+};
+
+export const OrgEditorClient = ({ org, initialLogoBase64 }: Props): ReactElement => {
   const [ state, formAction, pending ] = useActionState(createOrganization, {});
   const { formErrors, fieldErrors } = state.errors ?? {};
 
@@ -48,7 +50,7 @@ export default function NewOrgPageClient(): ReactElement {
       className="max-w-4xl mx-auto px-4 py-8"
     >
       <h1 className="text-2xl font-bold flex justify-center mb-5">
-        Create a new organization
+        { org ? `Organization settings for ${ org.name }` : "Create a new website" }
       </h1>
 
       {formErrors?.map((formError) => (
@@ -62,6 +64,7 @@ export default function NewOrgPageClient(): ReactElement {
         label="Organization Name"
         placeholder="Your Company Name"
         name="name"
+        value={org?.name}
         autoComplete="organization"
         validator={orgNameSchema}
         errorMessages={fieldErrors?.name}
@@ -77,35 +80,36 @@ export default function NewOrgPageClient(): ReactElement {
             description="Used in URLs. Lowercase letters, numbers, and hyphens only"
             placeholder="your-company-name"
             name="slug"
+            value={org?.slug}
             validator={orgSlugSchema}
             errorMessages={fieldErrors?.slug}
             required
             className="mb-6"
           />
-
-          <Field
-            type="url"
-            label="Website URL"
-            placeholder="https://yourcompany.com"
-            name="url"
-            autoComplete="url"
-            validator={orgUrlSchema}
-            errorMessages={fieldErrors?.url}
-            required
-            className="mb-6"
-          />
         </div>
 
-        <ImageField
-          label="Company Logo"
-          description="Logo should be a square."
-          name="logo"
-          maxSizeMiB={publicConfigs.maxLogoSizeMiB}
-          validator={orgLogoSchema}
-          errorMessages={fieldErrors?.logo}
-          className="mb-6"
+        <Field
+          type="url"
+          label="Website URL"
+          placeholder="https://yourcompany.com"
+          name="url"
+          autoComplete="url"
+          validator={orgUrlSchema}
+          errorMessages={fieldErrors?.url}
+          required
         />
       </div>
+
+      <ImageField
+        label="Company Logo"
+        description="Logo should be a square."
+        name="logo"
+        initialImageBase64={initialLogoBase64}
+        maxSizeMiB={publicConfigs.maxLogoSizeMiB}
+        validator={orgLogoSchema}
+        errorMessages={fieldErrors?.logo}
+        className="mb-6"
+      />
 
       <Field
         type="textarea"
@@ -161,4 +165,4 @@ export default function NewOrgPageClient(): ReactElement {
       </Button>
     </Form>
   );
-}
+};
