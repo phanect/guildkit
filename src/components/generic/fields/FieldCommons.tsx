@@ -47,8 +47,8 @@ type ErrorMessageProps = {
   children: ReactNode;
 };
 
-export const ErrorMessage = ({ className, children }: ErrorMessageProps): ReactElement => children ? (
+export const ErrorMessage = ({ className, children }: ErrorMessageProps): ReactElement | null => children ? (
   <small className={`block text-red-600 text-sm mt-1 ${ className }`}>
     {children}
   </small>
-) : (<></>);
+) : null;
