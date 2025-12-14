@@ -1,25 +1,29 @@
 import { JobList } from "@/components/JobList.tsx";
-import { db } from "@/lib/db/db.ts";
+import { prisma } from "@/lib/prisma.ts";
 
 export default async function Index() {
   const today = new Date();
-  const jobs = await db.query.job.findMany({
-    columns: {
+  const jobs = await prisma.job.findMany({
+    select: {
       id: true,
       title: true,
       description: true,
       createdAt: true,
       updatedAt: true,
-    },
-    with: {
       employer: {
-        columns: {
+        select: {
           name: true,
         },
       },
     },
-    where: (job, { gte }) => gte(job.expiresAt, today),
-    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
+    where: {
+      expiresAt: {
+        gte: today,
+      },
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
   });
 
   return (

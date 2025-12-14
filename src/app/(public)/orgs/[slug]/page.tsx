@@ -2,7 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Link } from "@/components/generic/ButtonLink.tsx";
 import { JobList } from "@/components/JobList.tsx";
-import { db } from "@/lib/db/db.ts";
+import { prisma } from "@/lib/prisma.ts";
 import type { ReactElement } from "react";
 
 type Props = {
@@ -14,17 +14,12 @@ type Props = {
 export default async function OrganizationPage({ params }: Props): Promise<ReactElement> {
   const { slug } = await params;
 
-  const orgWithJobs = await db.query.organization.findFirst({
-    columns: {
-      id: true,
-      name: true,
-      url: true,
-      about: true,
-    },
-    with: {
+  const orgWithJobs = await prisma.organization.findFirst({
+    where: { slug },
+    include: {
       jobs: {
-        limit: 6,
-        columns: {
+        take: 6,
+        select: {
           id: true,
           title: true,
           description: true,
@@ -33,7 +28,6 @@ export default async function OrganizationPage({ params }: Props): Promise<React
         },
       },
     },
-    where: (organization, { eq }) => eq(organization.slug, slug),
   });
 
   if (!orgWithJobs) {

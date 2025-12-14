@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
-import { eq, type InferInsertModel } from "drizzle-orm";
-import { db } from "./db.ts";
 import { userProps } from "./schema/user.ts";
 import {
   member,
   organization as organizationTable,
   user as userTable,
 } from "../../intermediate/better-auth-schema.ts"; // Can't use `@/` since this file isn't managed by Next.js
+import type { InferInsertModel } from "drizzle-orm";
+import type { db } from "./db.ts";
 
 type Transaction = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
@@ -34,18 +34,6 @@ export const insertUsers = async (users: UserWithProps | UserWithProps[], tx: Tr
   }
 
   return newUserIds;
-};
-
-export const updateUserProps = (user: InferInsertModel<typeof userTable>) => {
-  type UpdateFn = typeof db.update<typeof userProps>;
-  type SetFn = ReturnType<UpdateFn>["set"];
-  type SetParams = Parameters<SetFn>;
-
-  return {
-    set: async (...values: SetParams) => db.update(userProps)
-      .set(...values)
-      .where(eq(userProps.id, user.propsId)),
-  };
 };
 
 export type OrgWithRecruiters = InferInsertModel<typeof organizationTable> & {
