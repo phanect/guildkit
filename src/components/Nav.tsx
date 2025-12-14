@@ -4,13 +4,14 @@ import { Link } from "@/components/generic/ButtonLink.tsx";
 import { TopBar } from "@/components/generic/TopBar.tsx";
 import { SignOutButton } from "@/components/SignOutButton.tsx";
 import { auth } from "@/lib/auth.ts";
+import type { ReactElement } from "react";
 import type { UserType } from "@/lib/db/schema/user.ts";
 
 type Props = {
   for: UserType | "guest";
 };
 
-export const Nav = async ({ for: userType }: Props) => {
+export const Nav = async ({ for: userType }: Props): Promise<ReactElement> => {
   const isRecruiter = userType === "recruiter" || userType === "administrative";
   const activeOrg = isRecruiter && await auth.api.getFullOrganization({
     query: {
