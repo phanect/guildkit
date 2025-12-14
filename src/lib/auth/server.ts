@@ -1,9 +1,7 @@
-import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
 import { auth } from "@/lib/auth.ts";
-import { db } from "@/lib/db/db.ts";
-import { userProps } from "@/lib/db/schema/user.ts";
+import { prisma } from "../prisma.ts";
 import { GuildKitError } from "../utils/errors.ts";
 import type { Organization, User } from "@/lib/auth/types.ts";
 
@@ -115,14 +113,14 @@ export const getSession = async (...args: Parameters<typeof auth.api.getSession<
     return;
   }
 
-  const props = await db.select().from(userProps)
-    .where(eq(userProps.id, user?.propsId))
-    .limit(1);
+  const props = await prisma.userProps.findUnique({
+    where: { id: user?.propsId },
+  });
 
   return {
     user: {
       ...user,
-      props: props[0],
+      props,
     },
     session,
   };

@@ -1,11 +1,9 @@
 "use server";
 
-import { and, eq } from "drizzle-orm";
 import { redirect, unauthorized } from "next/navigation";
 import { flattenError } from "zod";
 import { requireAuthAs } from "@/lib/auth/server.ts";
-import { db } from "@/lib/db/db.ts";
-import { job as jobTable } from "@/lib/db/schema/job.ts";
+import { prisma } from "@/lib/prisma.ts";
 import { jobSchema, type Job } from "@/lib/validations/job.ts";
 import type { ActionState } from "@/lib/types.ts";
 
@@ -31,12 +29,15 @@ export const createJob = async (_initialState: ActionState<Job>, formData: FormD
     };
   }
 
-  const [ createdJob ] = await db.insert(jobTable).values({
-    ...validatedNewJob,
-    employer: session.activeOrganizationId,
-  }).returning({ id: jobTable.id });
+  const createdJob = await prisma.job.create({
+    data: {
+      ...validatedNewJob,
+      employerId: session.activeOrganizationId,
+    },
+    select: { id: true },
+  });
 
-  if (!createdJob) {
+  if (!createdJob?.id) {
     throw new Error("Failed to create job. Error code: GK-9JFB6");
   }
 
@@ -70,14 +71,12 @@ export const deleteJob = async (_initialState: DeleteJobState, formData: FormDat
     };
   }
 
-  await db
-    .delete(jobTable)
-    .where(
-      and(
-        eq(jobTable.id, id),
-        eq(jobTable.employer, session.activeOrganizationId),
-      )
-    );
+  await prisma.job.deleteMany({
+    where: {
+      id: id,
+      employerId: session.activeOrganizationId,
+    },
+  });
 
   redirect("/employer/jobs");
 };

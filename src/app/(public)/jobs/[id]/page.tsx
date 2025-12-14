@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Link } from "@/components/generic/ButtonLink.tsx";
-import { db } from "@/lib/db/db.ts";
+import { prisma } from "@/lib/prisma.ts";
 import type { ReactElement } from "react";
 
 type Props = {
@@ -13,8 +13,9 @@ type Props = {
 export default async function JobPage({ params }: Props): Promise<ReactElement> {
   const { id: jobId } = await params;
 
-  const job = await db.query.job.findFirst({
-    columns: {
+  const job = await prisma.job.findFirst({
+    where: { id: jobId },
+    select: {
       id: true,
       title: true,
       description: true,
@@ -25,17 +26,13 @@ export default async function JobPage({ params }: Props): Promise<ReactElement> 
       applicationUrl: true,
       createdAt: true,
       updatedAt: true,
-    },
-    with: {
       employer: {
-        columns: {
+        select: {
           slug: true,
           name: true,
         },
       },
     },
-    where: (job, { eq }) => eq(job.id, jobId),
-    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
   });
 
   if (!job) {
