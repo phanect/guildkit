@@ -45,7 +45,9 @@ node = { version = "24" }
     "rm --force ./pnpm-lock.yaml",
     "corepack enable",
     "corepack up",
-    "mise install",
+    "pnpm install",
+    { task = "prepare" },
+    { task = "seed" },
   ]
 
   # TODO disabled until GA

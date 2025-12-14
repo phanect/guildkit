@@ -1,6 +1,7 @@
 #!/usr/bin/env nu
 
 #MISE description="Prepare after `mise install`. Build intermediate files and initialize local DBs."
+#MISE raw=true # Required for interactive shell by drizzle-kit migrate
 
 use ../_libs *
 
