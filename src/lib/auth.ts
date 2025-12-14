@@ -3,12 +3,10 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
-import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "./auth/roles.ts";
-import { db } from "./db/db.ts";
-import { prisma } from "./prisma.ts";
-import { currencies } from "../intermediate/currencies.ts";
+import { currencies } from "@/intermediate/currencies.ts";
+import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "@/lib/auth/roles.ts";
+import { prisma } from "@/lib/prisma.ts";
 
 if (
   !env.GOOGLE_CLIENT_ID
@@ -58,9 +56,11 @@ export const auth = betterAuth({
               data: user,
             };
           } else {
-            const [{ propsId }] = await db
-              .insert(schema.userProps).values({})
-              .returning({ propsId: schema.userProps.id });
+            const { id: propsId } = await prisma.userProps.create({
+              data: {
+                userId: user.id,
+              },
+            });
 
             return {
               data: {
@@ -81,11 +81,13 @@ export const auth = betterAuth({
               data: session,
             };
           } else {
-            const { organizationId } = await db.query.member.findFirst({
-              columns: {
+            const { organizationId } = await prisma.member.findFirst({
+              select: {
                 organizationId: true,
               },
-              where: eq(schema.member.userId, session.userId),
+              where: {
+                userId: session.userId,
+              },
             }) ?? {};
 
             if (!organizationId) {
@@ -143,17 +145,16 @@ export const auth = betterAuth({
         },
       },
       allowUserToCreateOrganization: async (baUser) => {
-        const user = await db.query.user.findFirst({
-          columns: {
-            propsId: true,
-          },
-          where: (userTable, { eq }) => eq(userTable.id, baUser.id),
-          with: {
+        const user = await prisma.user.findFirst({
+          select: {
             props: {
-              columns: {
+              select: {
                 type: true,
               },
             },
+          },
+          where: {
+            id: baUser.id,
           },
         });
 

@@ -1,7 +1,7 @@
 import { Link } from "@/components/generic/ButtonLink.tsx";
 import { JobList } from "@/components/JobList.tsx";
 import { requireAuthAs } from "@/lib/auth/server.ts";
-import { db } from "@/lib/db/db.ts";
+import { prisma } from "@/lib/prisma.ts";
 import { GuildKitError } from "@/lib/utils/errors.ts";
 import type { JobCardInfo } from "@/components/JobCard.tsx";
 
@@ -17,23 +17,25 @@ export default async function EmployerJobsPage() {
     }
   }
 
-  const jobs: JobCardInfo[] = await db.query.job.findMany({
-    columns: {
+  const jobs: JobCardInfo[] = await prisma.job.findMany({
+    select: {
       id: true,
       title: true,
       description: true,
       createdAt: true,
       updatedAt: true,
-    },
-    with: {
       employer: {
-        columns: {
+        select: {
           name: true,
         },
       },
     },
-    where: (job, { eq }) => eq(job.employer, session.activeOrganizationId),
-    orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
+    where: {
+      employerId: session.activeOrganizationId,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
   });
 
   const editable = user.props.type === "recruiter";
