@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { requireAuthAs } from "@/lib/auth/server.ts";
-import { updateUserProps } from "@/lib/db/helpers.ts";
+import { prisma } from "@/lib/prisma.ts";
 import type { ReactElement } from "react";
 
 type Props = {
@@ -39,6 +39,14 @@ export default async function SignUpPage({ params }: Props): Promise<ReactElemen
     redirect(user.type === "recruiter" ? "/employer/jobs" : "/");
   }
 
-  await updateUserProps(user).set({ type: userType });
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      type: userType,
+    },
+  });
+
   redirect(userType === "recruiter" ? "/employer/jobs" : "/");
 }
