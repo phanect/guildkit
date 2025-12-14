@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/generic/ButtonLink.tsx";
 import { useSignOut } from "@/lib/auth/client.ts";
+import type { ReactElement } from "react";
 
-export const SignOutButton = () => {
+export const SignOutButton = (): ReactElement => {
   const { signOut } = useSignOut();
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, type ReactElement } from "react";
 import { Button, Link } from "@/components/generic/ButtonLink.tsx";
 import { deleteJob } from "@/lib/actions/jobs.ts";
 import type { Organization } from "better-auth/plugins";
@@ -15,7 +15,7 @@ type JobCardProps = {
   editable?: boolean;
 };
 
-export const JobCard = ({ job, editable = false }: JobCardProps) => {
+export const JobCard = ({ job, editable = false }: JobCardProps): ReactElement => {
   const [ state, formAction, pending ] = useActionState(deleteJob, {});
 
   useEffect(() => {
