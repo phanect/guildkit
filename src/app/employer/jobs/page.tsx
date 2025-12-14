@@ -11,7 +11,7 @@ export default async function EmployerJobsPage() {
 
   if (err) {
     if (err instanceof GuildKitError && err.code === "RECRUITER_WITHOUT_ORGS") {
-      return (<></>); // The error would be processed in the layout
+      return null; // The error would be processed in the layout
     } else {
       throw err;
     }

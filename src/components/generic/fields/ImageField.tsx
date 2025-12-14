@@ -231,7 +231,7 @@ export const ImageField = ({
           <ErrorMessage>
             {errorMessage}
           </ErrorMessage>
-        ) : <></>
+        ) : null
       }
     </div>
   );
