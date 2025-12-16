@@ -1,0 +1,40 @@
+enum UserType {
+  administrative
+  recruiter
+  candidate
+}
+
+enum SalaryPer {
+  YEAR
+  MONTH
+  DAY
+  HOUR
+}
+
+model Job {
+  id             String       @id @default(uuid())
+  title          String
+  description    String
+  applicationUrl String
+  location       String
+  salary         Int
+  currency       Currency
+  salaryPer      SalaryPer
+  employer       Organization @relation(fields: [employerId], references: [id])
+  employerId     String
+  candidates     User[]
+  expiresAt      DateTime
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([employerId])
+}
+
+model UserProps {
+  id        String    @id @default(uuid())
+  type      UserType?
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
