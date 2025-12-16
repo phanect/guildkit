@@ -1,26 +1,26 @@
 #!/usr/bin/env -S pnpm exec jiti
 
+import { randomUUID } from "node:crypto";
+import { PrismaPg } from "@prisma/adapter-pg";
 import dayjs from "dayjs";
-import { db } from "../../src/lib/db/db.ts";
-import {
-  insertOrganizations,
-  insertUsers,
-  type OrgWithRecruiters,
-  type UserWithProps,
-} from "../../src/lib/db/helpers.ts";
-import { job } from "../../src/lib/db/schema/job.ts";
-import type { InferInsertModel } from "drizzle-orm";
+import { PrismaClient } from "../../src/lib/prisma/client.ts";
+import { Currency, SalaryPer } from "../../src/lib/prisma/enums.ts";
+import type { OrganizationCreateInput, UserCreateInput } from "../../src/lib/prisma/models.ts";
 
-const candidates: UserWithProps[] = [
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  }),
+});
+
+const candidates: UserCreateInput[] = [
   {
     id: "heizou",
     name: "Heizou Shikanoin",
     email: "heizou9876@yaemail.example.net",
     emailVerified: true,
     role: "none",
-    props: {
-      type: "candidate",
-    },
+    type: "candidate",
   },
   {
     id: "shinobu",
@@ -28,9 +28,7 @@ const candidates: UserWithProps[] = [
     email: "kuki@yaemail.example.net",
     emailVerified: true,
     role: "none",
-    props: {
-      type: "candidate",
-    },
+    type: "candidate",
   },
   {
     id: "kazuha",
@@ -38,54 +36,47 @@ const candidates: UserWithProps[] = [
     email: "kazuha.kaedehara@yaemail.example.net",
     emailVerified: true,
     role: "none",
-    props: {
-      type: "candidate",
-    },
+    type: "candidate",
   },
 ];
 
-const recruiterYae = {
+const recruiterYae: UserCreateInput = {
   id: "yae",
   name: "Miko Yae",
   email: "miko.yae@yaedo.example.co.jp",
   emailVerified: true,
   role: "recruiter",
-  props: {
-    type: "recruiter",
-  },
-} as const satisfies UserWithProps;
-const recruiterRaiden = {
+  type: "recruiter",
+};
+
+const recruiterRaiden: UserCreateInput = {
   id: "ei",
   name: "Ei Raiden",
   email: "ei.raiden@shogunate.example.go.jp",
   emailVerified: true,
   role: "recruiter",
-  props: {
-    type: "recruiter",
-  },
-} as const satisfies UserWithProps;
-const recruiterHiiragi = {
+  type: "recruiter",
+};
+
+const recruiterHiiragi: UserCreateInput = {
   id: "chisato",
   name: "Chisato Hiiragi",
   email: "chisato.hiiragi@shogunate.example.go.jp",
   emailVerified: true,
   role: "recruiter",
-  props: {
-    type: "recruiter",
-  },
-} as const satisfies UserWithProps;
-const recruiterZhongli = {
+  type: "recruiter",
+};
+
+const recruiterZhongli: UserCreateInput = {
   id: "zhongli",
   name: "Zhongli",
   email: "zhongli@wangsheng.example.com",
   emailVerified: true,
   role: "recruiter",
-  props: {
-    type: "recruiter",
-  },
-} as const satisfies UserWithProps;
+  type: "recruiter",
+};
 
-const initialOrgYaedo: OrgWithRecruiters = {
+const initialOrgYaedo: OrganizationCreateInput = {
   id: "yph",
   slug: "yaedo",
   name: "Yae Publishing House, K.K.",
@@ -95,10 +86,18 @@ const initialOrgYaedo: OrgWithRecruiters = {
   emails: [ "hr@yaedo.example.co.jp" ],
   currencies: [ "JPY" ],
   createdAt: new Date(),
-  recruiters: [ recruiterYae ],
+  members: {
+    create: {
+      user: {
+        create: recruiterYae,
+      },
+      id: randomUUID(),
+      createdAt: new Date(),
+    },
+  },
 };
 
-const initialOrgShogunate: OrgWithRecruiters = {
+const initialOrgShogunate: OrganizationCreateInput = {
   id: "kanjou",
   slug: "kanjou",
   name: "Kanjou Commission, The Shogunate of Inazuma",
@@ -112,10 +111,27 @@ const initialOrgShogunate: OrgWithRecruiters = {
   emails: [ "personnel@kanjou.example.go.jp" ],
   currencies: [ "JPY" ],
   createdAt: new Date(),
-  recruiters: [ recruiterRaiden, recruiterHiiragi ],
+  members: {
+    create: [
+      {
+        user: {
+          create: recruiterRaiden,
+        },
+        id: randomUUID(),
+        createdAt: new Date(),
+      },
+      {
+        user: {
+          create: recruiterHiiragi,
+        },
+        id: randomUUID(),
+        createdAt: new Date(),
+      },
+    ],
+  },
 };
 
-const initialOrgWangsheng: OrgWithRecruiters = {
+const initialOrgWangsheng: OrganizationCreateInput = {
   id: "wangsheng",
   slug: "wangsheng",
   name: "Wangsheng Funeral Parlor",
@@ -126,11 +142,29 @@ const initialOrgWangsheng: OrgWithRecruiters = {
   emails: [ "hutao@wangsheng.example.com" ],
   currencies: [ "CNY" ],
   createdAt: new Date(),
-  recruiters: [ recruiterZhongli ],
+  members: {
+    create: {
+      user: {
+        create: recruiterZhongli,
+      },
+      id: randomUUID(),
+      createdAt: new Date(),
+    },
+  },
   // Lazy Hu Tao didn't write `about` ― to test layout when about is not written.
 };
 
-const initialJobs: InferInsertModel<typeof job>[] = [
+const initialJobs: {
+  title: string;
+  description: string;
+  applicationUrl: string;
+  location: string;
+  salary: number;
+  currency: typeof Currency[keyof typeof Currency];
+  salaryPer: typeof SalaryPer[keyof typeof SalaryPer];
+  expiresAt: Date;
+  employerId: string;
+}[] = [
   {
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
@@ -156,10 +190,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-1",
     location: "Remote (any location in Inazuma)",
     salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgYaedo.id,
+    employerId: initialOrgYaedo.id,
   },
   {
     title: "[WFH] SRE for our ebook store",
@@ -185,10 +219,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-2",
     location: "Remote (any location in Inazuma)",
     salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgYaedo.id,
+    employerId: initialOrgYaedo.id,
   },
   {
     title: "[WFH] Marketing lead",
@@ -213,10 +247,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-3",
     location: "Remote (any location in Inazuma)",
     salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgYaedo.id,
+    employerId: initialOrgYaedo.id,
   },
   {
     title: "Corporate Engineer",
@@ -241,10 +275,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-4",
     location: "The Hiiragi Estate, 4-1-1, Rito, Narukami Island, Inazuma",
     salary: 9000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgShogunate.id,
+    employerId: initialOrgShogunate.id,
   },
   {
     title: "Web designer",
@@ -271,21 +305,21 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-4",
     location: "123456 Feiyun Slope, Liyue Harbor, Liyue",
     salary: 4500000,
-    currency: "CNY",
-    salaryPer: "YEAR",
+    currency: Currency.CNY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgWangsheng.id,
+    employerId: initialOrgWangsheng.id,
   },
 ];
 
-const main = async () => {
+const seed = async () => {
   if (process.env.SERVER_ENV !== "development" && process.env.SERVER_ENV !== "demo" && process.env.SERVER_ENV !== "demo-preview") {
     console.info("Seeding are only allowed when SERVER_ENV is development, demo, or demo-preview. Seeding skipped.");
     return;
   }
 
-  const userExists = Boolean(await db.query.user.findFirst());
-  const jobExists = Boolean(await db.query.job.findFirst());
+  const userExists = Boolean(await prisma.user.findFirst());
+  const jobExists = Boolean(await prisma.job.findFirst());
   const alreadySeeded = userExists || jobExists;
 
   if (alreadySeeded) {
@@ -293,18 +327,26 @@ const main = async () => {
     return;
   }
 
-  // Allow N+1 problems for the readability
-  await db.transaction(async (tx) => {
-    await insertUsers(candidates, tx);
+  await prisma.$transaction(async () => {
+    await prisma.user.createMany({
+      data: candidates,
+    });
 
-    await insertOrganizations([
-      initialOrgYaedo,
-      initialOrgShogunate,
-      initialOrgWangsheng,
-    ], tx);
+    await prisma.organization.createMany({
+      data: [
+        initialOrgYaedo,
+        initialOrgShogunate,
+        initialOrgWangsheng,
+      ],
+    });
 
-    await tx.insert(job).values(initialJobs);
+    await prisma.job.createMany({
+      data: initialJobs,
+    });
   });
+
+  console.info("Database seeded successfully.");
 };
 
-await main();
+await seed();
+await prisma.$disconnect();
