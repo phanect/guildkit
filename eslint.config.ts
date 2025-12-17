@@ -1,15 +1,14 @@
 import { core } from "@phanect/lint";
 import { nextjs } from "@phanect/lint-react";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 
 const configs = defineConfig([
-  {
-    ignores: [
-      "./src/intermediate/**",
-      "./src/lib/db/schema/better-auth.ts",
-      "./src/lib/db/schema/index.ts",
-    ],
-  },
+  globalIgnores([
+    "./src/intermediate/**",
+    "./src/lib/db/schema/better-auth.ts",
+    "./src/lib/db/schema/index.ts",
+  ]),
+
   ...core,
   ...nextjs,
 
