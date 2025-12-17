@@ -49,6 +49,7 @@ node = { version = "24" }
     { task = "prepare" },
     { task = "seed" },
   ]
+  raw = true # Required for the spinner and interactive UIs
 
   # TODO disabled until GA
   #[tasks.release]
