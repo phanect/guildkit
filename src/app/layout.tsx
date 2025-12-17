@@ -1,3 +1,5 @@
+import { TopBar } from "@/components/generic/TopBar.tsx";
+import { Nav } from "@/components/Nav.tsx";
 import "@/lib/styles/globals.css";
 import config from "../../guildkit.config.ts";
 import type { Metadata } from "next";
@@ -18,7 +20,16 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode;
         <meta name="viewport" content="width=device-width" />
       </head>
       <body>
-        {children}
+        {/* ▼▼ TODO Pre-alpha caution: Delete on the official release ▼▼ */}
+        <TopBar>
+          Caution: GuildKit is still pre-alpha state and there are probably a lot of bugs. Do not enter any private information for your security.
+        </TopBar>
+        {/* ▲▲ Pre-alpha caution ▲▲ */}
+
+        <Nav />
+        <main className="flex flex-col items-center gap-4 w-full">
+          {children}
+        </main>
       </body>
     </html>
   );
