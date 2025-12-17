@@ -4,6 +4,7 @@
 
 /src/intermediate/
 /src/lib/db/schema/index.ts
+/src/lib/prisma/
 
 #
 # System
