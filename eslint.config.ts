@@ -5,14 +5,9 @@ import { defineConfig } from "eslint/config";
 const configs = defineConfig([
   {
     ignores: [
-      "./.next/**",
-      "./build/**",
-      "./out/**",
-      "./tmp/**",
       "./src/intermediate/**",
       "./src/lib/db/schema/better-auth.ts",
       "./src/lib/db/schema/index.ts",
-      "next-env.d.ts",
     ],
   },
   ...core,
