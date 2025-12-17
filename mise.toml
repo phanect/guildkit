@@ -18,7 +18,7 @@ node = { version = "24" }
   [tasks.resetdb-demo]
   depends = [ "resetdb-demo:step1" ]
   run = "drizzle-kit migrate"
-  depends_post = [ "seed" ]
+  # depends_post = [ "seed" ]
 
   [tasks.build]
   depends = [ "prepare" ]
@@ -47,7 +47,7 @@ node = { version = "24" }
     "corepack up",
     "pnpm install",
     { task = "prepare" },
-    { task = "seed" },
+    # { task = "seed" },
   ]
   raw = true # Required for the spinner and interactive UIs
 
@@ -60,7 +60,7 @@ postinstall = [
   "corepack enable",
   "pnpm install --frozen-lockfile",
   "mise run prepare",
-  "mise run seed"
+  # "mise run seed"
 ]
 
 [env]
