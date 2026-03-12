@@ -4,6 +4,7 @@ import { Link } from "@/components/generic/ButtonLink.tsx";
 import { TopBar } from "@/components/generic/TopBar.tsx";
 import { SignOutButton } from "@/components/SignOutButton.tsx";
 import { auth } from "@/lib/auth.ts";
+import config from "../../guildkit.config.ts";
 import type { ReactElement } from "react";
 import type { UserType } from "@/lib/prisma/enums.ts";
 
@@ -37,7 +38,7 @@ export const Nav = async ({ for: userType }: Props): Promise<ReactElement> => {
             alt=""
             decoding="async"
           />
-          <span>GuildKit</span>
+          <span>{ config.siteName }</span>
         </Link>
         <div className="flex items-center gap-4">
           { isRecruiter && (
