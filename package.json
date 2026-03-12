@@ -12,8 +12,11 @@
     "next": "^16.1.6",
     "pg": "^8.14.1",
     "react": "^19.1.1",
+    "react-aria-components": "^1.13.0",
     "react-dom": "^19.1.1",
-    "react-tag-input": "^6.10.6"
+    "react-tag-input": "^6.10.6",
+    "tailwind-merge": "^3.4.0",
+    "tailwind-variants": "^3.2.2"
   },
   "devDependencies": {
     "@better-auth/cli": "1.4.21",
