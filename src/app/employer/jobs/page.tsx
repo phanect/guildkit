@@ -1,4 +1,4 @@
-import { Link } from "@/components/generic/ButtonLink.tsx";
+import { JobEditor } from "@/components/JobEditor.tsx";
 import { JobList } from "@/components/JobList.tsx";
 import { requireAuthAs } from "@/lib/auth/server.ts";
 import { prisma } from "@/lib/prisma.ts";
@@ -43,9 +43,9 @@ export default async function EmployerJobsPage() {
   return (
     <div className="flex flex-col items-center gap-y-10 w-full">
       <section className="flex justify-start bg-gray-100 shadow-lg rounded-lg w-[42.5rem] max-w-full p-4">
-        <Link href="/employer/jobs/new" theme="button-deep" prefetch>
+        <JobEditor job="new">
           Add job
-        </Link>
+        </JobEditor>
       </section>
 
       <JobList jobs={jobs} editable={editable} />
