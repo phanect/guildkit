@@ -1,12 +1,18 @@
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth.ts";
-import NewJobPageClient from "./page.client.tsx";
-import type { ReactElement } from "react";
+import { JobEditorClient } from "./JobEditor.client.tsx";
+import type { ReactElement, ReactNode } from "react";
+import type { Job } from "@/lib/validations/job.ts";
 
-export default async function NewJobPage(): Promise<ReactElement> {
+type Props = {
+  job: Job | "new";
+  children: ReactNode;
+};
+
+export const JobEditor = async ({ job, children }: Props): Promise<ReactElement> => {
   const activeOrg = await auth.api.getFullOrganization({
     query: {
-      membersLimit: 100,
+      membersLimit: 0,
     },
     headers: await headers(),
   });
@@ -16,10 +22,13 @@ export default async function NewJobPage(): Promise<ReactElement> {
   }
 
   return (
-    <NewJobPageClient
+    <JobEditorClient
+      job={job}
       activeOrg={{
         name: activeOrg.name,
       }}
-    />
+    >
+      {children}
+    </JobEditorClient>
   );
-}
+};
