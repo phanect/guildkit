@@ -1,10 +1,11 @@
 import "@/lib/styles/globals.css";
+import config from "../../guildkit.config.ts";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  // TODO Make these modifiable
-  title: "GuildKit",
+  title: config.siteName,
+  // TODO Make this modifiable
   description: "A toolkit for building job search services",
 };
 
