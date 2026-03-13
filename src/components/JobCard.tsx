@@ -19,10 +19,10 @@ export const JobCard = ({ job, editable = false }: JobCardProps): ReactElement =
   const [ state, formAction, pending ] = useActionState(deleteJob, {});
 
   useEffect(() => {
-    if (state.error) {
-      alert(state.error);
+    if (state.errors?.formErrors) {
+      alert(state.errors?.formErrors);
     }
-  }, [ state.error ]);
+  }, [ state.errors ]);
 
   return (
     <div className="flex flex-col gap-3 bg-white shadow-around shadow-gray-200 hover:shadow-gray-300 transition-shadow duration-300 rounded-lg w-full max-w-[32.5rem] p-4">
