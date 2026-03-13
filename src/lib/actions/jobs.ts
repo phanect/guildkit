@@ -44,11 +44,7 @@ export const createJob = async (_initialState: ActionState<Job>, formData: FormD
   redirect(`/jobs/${ createdJob.id }`);
 };
 
-type DeleteJobState = {
-  error?: string;
-};
-
-export const deleteJob = async (_initialState: DeleteJobState, formData: FormData): Promise<DeleteJobState> => {
+export const deleteJob = async (_initialState: ActionState<Job>, formData: FormData): Promise<ActionState<Job>> => {
   const { err, session } = await requireAuthAs("recruiter");
 
   if (err) {
@@ -60,14 +56,20 @@ export const deleteJob = async (_initialState: DeleteJobState, formData: FormDat
   if (!id) {
     console.error("`id` of the job to delete was not given.");
     return {
-      error: "Something technically wrong. Sorry, this is probably a bug of this website. If you report this issue, tell us the following error code: GK-L587W",
+      errors: {
+        formErrors: [ "Something technically wrong. Sorry, this is probably a bug of this website. If you report this issue, tell us the following error code: GK-L587W" ],
+        fieldErrors: {},
+      },
     };
   }
 
   if (id instanceof File) {
     console.error("`id` must not be a File.");
     return {
-      error: "Something technically wrong. Sorry, this is probably a bug of this website. If you report this issue, tell us the following error code: GK-B324R",
+      errors: {
+        formErrors: [ "Something technically wrong. Sorry, this is probably a bug of this website. If you report this issue, tell us the following error code: GK-B324R" ],
+        fieldErrors: {},
+      },
     };
   }
 
@@ -78,5 +80,5 @@ export const deleteJob = async (_initialState: DeleteJobState, formData: FormDat
     },
   });
 
-  redirect("/employer/jobs");
+  redirect("/employer/jobs"); // Success
 };
