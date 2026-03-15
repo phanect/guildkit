@@ -17,12 +17,13 @@ const s3Config: S3ClientConfig = {
   // Hard-coded configs
   ...(
     storagePlatform === "development" ? {
-      endpoint: "http://localhost:9000",
-      forcePathStyle: true, // Required for Min.io
-      region: "us-east-1", // Min.io's default
+      endpoint: "http://localhost:4566",
+      forcePathStyle: true,
+      region: "us-east-1",
       credentials: {
-        accessKeyId: "guildkit", // Same as MINIO_ROOT_USER configured in compose.yaml
-        secretAccessKey: "guildkit", // Same as MINIO_ROOT_PASSWORD configured in compose.yaml
+        // See: https://docs.localstack.cloud/aws/capabilities/config/credentials/
+        accessKeyId: "test",
+        secretAccessKey: "test",
       },
     } : storagePlatform === "cloudflare" ? {
       endpoint: config.storage.endpoint ?? `https://${ cloudflareAccountId }.r2.cloudflarestorage.com`,
