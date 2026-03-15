@@ -17,13 +17,12 @@ const s3Config: S3ClientConfig = {
   // Hard-coded configs
   ...(
     storagePlatform === "development" ? {
-      endpoint: "http://localhost:4566",
-      forcePathStyle: true,
-      region: "us-east-1",
+      endpoint: "http://localhost:9000",
+      forcePathStyle: true, // Required for rustfs
+      region: "us-east-1", // rustfs's default
       credentials: {
-        // See: https://docs.localstack.cloud/aws/capabilities/config/credentials/
-        accessKeyId: "test",
-        secretAccessKey: "test",
+        accessKeyId: "guildkit", // Same as RUSTFS_ACCESS_KEY configured in compose.yaml
+        secretAccessKey: "guildkit", // Same as RUSTFS_SECRET_KEY configured in compose.yaml
       },
     } : storagePlatform === "cloudflare" ? {
       endpoint: config.storage.endpoint ?? `https://${ cloudflareAccountId }.r2.cloudflarestorage.com`,

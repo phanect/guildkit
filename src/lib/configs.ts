@@ -29,6 +29,16 @@ type MinioConfig = Omit<BaseStorageConfig, "region" | "forcePathStyle"> & {
   forcePathStyle?: true;
 };
 
+type RustfsConfig = Omit<BaseStorageConfig, "region" | "forcePathStyle"> & {
+  platform: "rustfs";
+
+  // Unconfigurable parameters
+  /** @deprecated This parameter is ignored. `region` is always `us-east-1` for rustfs. */
+  region?: "us-east-1";
+  /** @deprecated This parameter is ignored. `forcePathStyle` is always `true` for rustfs. */
+  forcePathStyle?: true;
+};
+
 type DevStorageConfig = Omit<MinioConfig, "platform" | "endpoint" | "credentials"> & {
   platform: "development";
 };
@@ -38,7 +48,7 @@ type AwsS3OrCustomConfig = BaseStorageConfig & {
 };
 
 export type GuildKitConfig = {
-  storage: CloudflareR2Config | MinioConfig | DevStorageConfig | AwsS3OrCustomConfig;
+  storage: CloudflareR2Config | MinioConfig | RustfsConfig | DevStorageConfig | AwsS3OrCustomConfig;
   maxLogoSizeMiB?: number;
 };
 
