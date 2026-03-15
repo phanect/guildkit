@@ -12,7 +12,7 @@ type Props = {
 
 export default async function EmployerLayout({ children }: Props): Promise<ReactElement> {
   // TODO Do not run `requireAuthAs()` twice in pages (e.g. src/app/employer/jobs/page.tsx) and here
-  const { err, user } = await requireAuthAs("recruiter");
+  const { err } = await requireAuthAs("recruiter");
 
   if (err) {
     if (err instanceof GuildKitError && err.code === "RECRUITER_WITHOUT_ORGS") {
