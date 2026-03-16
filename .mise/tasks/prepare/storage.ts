@@ -4,6 +4,7 @@ import {
   BucketAlreadyExists,
   BucketAlreadyOwnedByYou,
   CreateBucketCommand,
+  HeadBucketCommand,
   waitUntilBucketExists,
   type S3Client,
 } from "@aws-sdk/client-s3";
@@ -22,7 +23,13 @@ const createBucketIfNotExists = async (client: S3Client, bucketName: string) => 
     if (err instanceof BucketAlreadyOwnedByYou) {
       // Skip creating the bucket because it already exists.
     } else if (err instanceof BucketAlreadyExists) {
-      throw new Error(`The bucket "${ bucketName }" already exists in someone's AWS account. Bucket names must be globally unique.`);
+      try {
+        // Check if we own the bucket by attempting to access it.
+        // If we can access it, we own it, so skip. If we cannot access it, throw an error.
+        await client.send(new HeadBucketCommand({ Bucket: bucketName }));
+      } catch {
+        throw new Error(`The bucket "${ bucketName }" already exists in someone's AWS account. Bucket names must be globally unique.`);
+      }
     } else {
       throw err;
     }
