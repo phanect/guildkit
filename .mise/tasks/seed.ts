@@ -1,15 +1,42 @@
 #!/usr/bin/env -S pnpm exec jiti
 
+import { randomUUID } from "node:crypto";
+import { PrismaPg } from "@prisma/adapter-pg";
 import dayjs from "dayjs";
-import { db } from "../../src/lib/db/db.ts";
-import {
-  insertOrganizations,
-  insertUsers,
-  type OrgWithRecruiters,
-  type UserWithProps,
-} from "../../src/lib/db/helpers.ts";
-import { job } from "../../src/lib/db/schema/job.ts";
-import type { InferInsertModel } from "drizzle-orm";
+import { PrismaClient } from "../../src/lib/prisma/client.ts";
+import { Currency, SalaryPer } from "../../src/lib/prisma/enums.ts";
+import type { UserType } from "../../src/lib/prisma/enums.ts";
+
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  }),
+});
+
+type UserWithProps = {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  role: string;
+  props: {
+    type: UserType;
+  };
+  recruitsFor?: string[];
+};
+
+type OrgWithRecruiters = {
+  id: string;
+  slug: string;
+  name: string;
+  about?: string;
+  url: string;
+  addresses: string[];
+  emails: string[];
+  currencies: string[];
+  createdAt: Date;
+  recruiters: UserWithProps[];
+};
 
 const candidates: UserWithProps[] = [
   {
@@ -44,7 +71,7 @@ const candidates: UserWithProps[] = [
   },
 ];
 
-const recruiterYae = {
+const recruiterYae: UserWithProps = {
   id: "yae",
   name: "Miko Yae",
   email: "miko.yae@yaedo.example.co.jp",
@@ -53,8 +80,9 @@ const recruiterYae = {
   props: {
     type: "recruiter",
   },
-} as const satisfies UserWithProps;
-const recruiterRaiden = {
+};
+
+const recruiterRaiden: UserWithProps = {
   id: "ei",
   name: "Ei Raiden",
   email: "ei.raiden@shogunate.example.go.jp",
@@ -63,8 +91,9 @@ const recruiterRaiden = {
   props: {
     type: "recruiter",
   },
-} as const satisfies UserWithProps;
-const recruiterHiiragi = {
+};
+
+const recruiterHiiragi: UserWithProps = {
   id: "chisato",
   name: "Chisato Hiiragi",
   email: "chisato.hiiragi@shogunate.example.go.jp",
@@ -73,8 +102,9 @@ const recruiterHiiragi = {
   props: {
     type: "recruiter",
   },
-} as const satisfies UserWithProps;
-const recruiterZhongli = {
+};
+
+const recruiterZhongli: UserWithProps = {
   id: "zhongli",
   name: "Zhongli",
   email: "zhongli@wangsheng.example.com",
@@ -83,7 +113,7 @@ const recruiterZhongli = {
   props: {
     type: "recruiter",
   },
-} as const satisfies UserWithProps;
+};
 
 const initialOrgYaedo: OrgWithRecruiters = {
   id: "yph",
@@ -130,7 +160,17 @@ const initialOrgWangsheng: OrgWithRecruiters = {
   // Lazy Hu Tao didn't write `about` ― to test layout when about is not written.
 };
 
-const initialJobs: InferInsertModel<typeof job>[] = [
+const initialJobs: {
+  title: string;
+  description: string;
+  applicationUrl: string;
+  location: string;
+  salary: number;
+  currency: typeof Currency[keyof typeof Currency];
+  salaryPer: typeof SalaryPer[keyof typeof SalaryPer];
+  expiresAt: Date;
+  employerId: string;
+}[] = [
   {
     title: "[WFH] TypeScript Developer for our ebook store (Svelte / Hono / React Native)",
     description: `
@@ -156,10 +196,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-1",
     location: "Remote (any location in Inazuma)",
     salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgYaedo.id,
+    employerId: initialOrgYaedo.id,
   },
   {
     title: "[WFH] SRE for our ebook store",
@@ -185,10 +225,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-2",
     location: "Remote (any location in Inazuma)",
     salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgYaedo.id,
+    employerId: initialOrgYaedo.id,
   },
   {
     title: "[WFH] Marketing lead",
@@ -213,10 +253,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-3",
     location: "Remote (any location in Inazuma)",
     salary: 8000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgYaedo.id,
+    employerId: initialOrgYaedo.id,
   },
   {
     title: "Corporate Engineer",
@@ -241,10 +281,10 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-4",
     location: "The Hiiragi Estate, 4-1-1, Rito, Narukami Island, Inazuma",
     salary: 9000000,
-    currency: "JPY",
-    salaryPer: "YEAR",
+    currency: Currency.JPY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgShogunate.id,
+    employerId: initialOrgShogunate.id,
   },
   {
     title: "Web designer",
@@ -271,12 +311,67 @@ const initialJobs: InferInsertModel<typeof job>[] = [
     applicationUrl: "https://phanective.org/job-example-4",
     location: "123456 Feiyun Slope, Liyue Harbor, Liyue",
     salary: 4500000,
-    currency: "CNY",
-    salaryPer: "YEAR",
+    currency: Currency.CNY,
+    salaryPer: SalaryPer.YEAR,
     expiresAt: dayjs().add(1, "month").toDate(),
-    employer: initialOrgWangsheng.id,
+    employerId: initialOrgWangsheng.id,
   },
 ];
+
+const insertUsers = async (users: UserWithProps | UserWithProps[]) => {
+  const usersWithProps = Array.isArray(users) ? users : [ users ];
+  const newUserIds: string[] = [];
+
+  for (const userWithProps of usersWithProps) {
+    const { props, ...userWithoutProps } = userWithProps;
+
+    const user = await prisma.user.create({
+      data: userWithoutProps,
+    });
+
+    await prisma.userProps.create({
+      data: {
+        id: randomUUID(),
+        type: props.type,
+        userId: user.id,
+      },
+    });
+
+    newUserIds.push(user.id);
+  }
+
+  return newUserIds;
+};
+
+const insertOrganizations = async (
+  organizations: OrgWithRecruiters | OrgWithRecruiters[]
+) => {
+  const orgsWithRecruiters = Array.isArray(organizations)
+    ? organizations
+    : [ organizations ];
+
+  for (const orgWithRecruiters of orgsWithRecruiters) {
+    const { recruiters = [], ...org } = orgWithRecruiters;
+
+    const organization = await prisma.organization.create({
+      data: org,
+    });
+
+    const newRecruiterIds
+      = 0 < recruiters.length ? await insertUsers(recruiters) : [];
+
+    if (0 < newRecruiterIds.length) {
+      await prisma.member.createMany({
+        data: newRecruiterIds.map((newRecruiterId) => ({
+          organizationId: organization.id,
+          userId: newRecruiterId,
+          id: randomUUID(),
+          createdAt: new Date(),
+        })),
+      });
+    }
+  }
+};
 
 const main = async () => {
   if (process.env.SERVER_ENV !== "development" && process.env.SERVER_ENV !== "demo" && process.env.SERVER_ENV !== "demo-preview") {
@@ -284,8 +379,8 @@ const main = async () => {
     return;
   }
 
-  const userExists = Boolean(await db.query.user.findFirst());
-  const jobExists = Boolean(await db.query.job.findFirst());
+  const userExists = Boolean(await prisma.user.findFirst());
+  const jobExists = Boolean(await prisma.job.findFirst());
   const alreadySeeded = userExists || jobExists;
 
   if (alreadySeeded) {
@@ -293,18 +388,22 @@ const main = async () => {
     return;
   }
 
-  // Allow N+1 problems for the readability
-  await db.transaction(async (tx) => {
-    await insertUsers(candidates, tx);
+  await prisma.$transaction(async () => {
+    await insertUsers(candidates);
 
     await insertOrganizations([
       initialOrgYaedo,
       initialOrgShogunate,
       initialOrgWangsheng,
-    ], tx);
+    ]);
 
-    await tx.insert(job).values(initialJobs);
+    await prisma.job.createMany({
+      data: initialJobs,
+    });
   });
+
+  console.info("Database seeded successfully.");
 };
 
 await main();
+await prisma.$disconnect();
