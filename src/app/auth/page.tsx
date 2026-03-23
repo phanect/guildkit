@@ -9,11 +9,11 @@ export default async function AuthPage() {
   }) ?? {};
 
   if (user) {
-    if (user.props.type === "candidate") {
+    if (user.type === "candidate") {
       redirect("/");
-    } else if (user.props.type === "recruiter") {
+    } else if (user.type === "recruiter") {
       redirect("/employer/jobs");
-    } else if (user.props.type === "administrative") {
+    } else if (user.type === "administrative") {
       redirect("/"); // TODO redirect to the better path
     }
   }

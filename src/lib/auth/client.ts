@@ -4,8 +4,8 @@ import { adminClient, inferAdditionalFields, inferOrgAdditionalFields, organizat
 import { createAuthClient } from "better-auth/react";
 import { useRouter } from "next/navigation";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "@/lib/auth/roles.ts";
-import type { User } from "@/lib/auth/types.ts";
 import type { auth } from "@/lib/auth.ts";
+import type { UserType } from "@/lib/prisma/enums.ts";
 
 const { signIn, signOut, organization, useActiveOrganization } = createAuthClient({
   plugins: [
@@ -30,7 +30,7 @@ export const signInWith = async (provider: "google" | "github") => signIn.social
 
 export const signUpWith = async (
   provider: "google" | "github",
-  userType: User["props"]["type"],
+  userType: UserType,
 ) => signIn.social({
   provider,
   callbackURL: userType === "recruiter" ? "/employer/jobs" : "/",

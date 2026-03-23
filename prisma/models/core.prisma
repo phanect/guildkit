@@ -29,12 +29,3 @@ model Job {
 
   @@index([employerId])
 }
-
-model UserProps {
-  id        String    @id @default(uuid())
-  type      UserType?
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}

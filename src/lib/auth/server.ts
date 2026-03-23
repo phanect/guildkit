@@ -1,28 +1,23 @@
-import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
 import { auth } from "@/lib/auth.ts";
-import { db } from "@/lib/db/db.ts";
-import { userProps } from "@/lib/db/schema/user.ts";
 import { GuildKitError } from "../utils/errors.ts";
 import type { Organization, User } from "@/lib/auth/types.ts";
 
-type Recruiter = Omit<User, "props"> & {
-  props: User["props"] & {
-    type: "recruiter";
-  };
+type Recruiter = Omit<User, "type"> & {
+  type: "recruiter";
 };
 type RequireAuthAsOptions = {
   allowUsersWithoutType?: boolean;
   allowOrphanRecruiter?: boolean;
 };
 
-export const requireAuthAs = async <ExpectedType extends NonNullable<User["props"]["type"]> | "any">(
+export const requireAuthAs = async <ExpectedType extends User["type"] | "any">(
   expectedType: ExpectedType,
   options: RequireAuthAsOptions = {},
 ) => {
   const getFirstOrganization = async (user: User): Promise<Organization | undefined> => {
-    if (user.props.type !== "recruiter") {
+    if (user.type !== "recruiter") {
       return undefined;
     }
 
@@ -50,11 +45,11 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
       return redirect("/auth");
     }
 
-    if (!user.props.type && !allowUsersWithoutType) {
+    if (!user.type && !allowUsersWithoutType) {
       return redirect("/auth/signup");
     }
 
-    if (expectedType !== "any" && expectedType !== user.props.type) {
+    if (expectedType !== "any" && expectedType !== user.type) {
       return unauthorized();
     }
 
@@ -73,7 +68,7 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
     // set active organization if user is a recruiter
     //
     if (
-      expectedType === "recruiter" && user.props.type === "recruiter"
+      expectedType === "recruiter" && user.type === "recruiter"
     && !session.activeOrganizationId && firstOrg
     ) {
       await auth.api.setActiveOrganization({
@@ -105,25 +100,9 @@ export const requireAuthAs = async <ExpectedType extends NonNullable<User["props
 
 export const getSession = async (...args: Parameters<typeof auth.api.getSession<false, false>>) => {
   const [ context, ...restArgs ] = args;
-  const { user, session } = await auth.api.getSession({
+  return auth.api.getSession({
     ...context,
     asResponse: false,
     returnHeaders: false,
-  }, ...restArgs) ?? {};
-
-  if (!user) {
-    return;
-  }
-
-  const props = await db.select().from(userProps)
-    .where(eq(userProps.id, user?.propsId))
-    .limit(1);
-
-  return {
-    user: {
-      ...user,
-      props: props[0],
-    },
-    session,
-  };
+  }, ...restArgs);
 };
