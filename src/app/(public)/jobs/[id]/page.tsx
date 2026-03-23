@@ -14,7 +14,7 @@ export default async function JobPage({ params }: Props): Promise<ReactElement> 
   const { id: jobId } = await params;
 
   const job = await prisma.job.findFirst({
-    where: { id: jobId },
+    where: { id: parseInt(jobId) },
     select: {
       id: true,
       title: true,

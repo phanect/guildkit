@@ -12,7 +12,7 @@ enum SalaryPer {
 }
 
 model Job {
-  id             String       @id @default(uuid())
+  id             Int          @id @default(autoincrement())
   title          String
   description    String
   applicationUrl String
@@ -21,7 +21,7 @@ model Job {
   currency       Currency
   salaryPer      SalaryPer
   employer       Organization @relation(fields: [employerId], references: [id])
-  employerId     String
+  employerId     Int
   candidates     User[]
   expiresAt      DateTime
   createdAt      DateTime     @default(now())

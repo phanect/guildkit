@@ -43,7 +43,7 @@ export const auth = betterAuth({
   baseURL,
   advanced: {
     database: {
-      generateId: false, // Let DB handle automatic ID generation
+      generateId: "serial", // auto-incrementing numeric IDs
     },
   },
   user: {
