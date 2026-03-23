@@ -16,7 +16,7 @@ model Organization {
   createdAt   DateTime
 
   // Custom relation
-  jobs        Job[]
+  jobs Job[]
 
   @@map("organization")
 }
@@ -39,8 +39,8 @@ model User {
   updatedAt     DateTime     @updatedAt
 
   // Custom props
-  type          UserType
-  appliedJobs   Job[]
+  type        UserType
+  appliedJobs Job[]
 
   @@map("user")
 }
