@@ -12,7 +12,7 @@ export default async function PublicLayout({ children }: Props): Promise<ReactEl
     headers: await headers(),
   }) ?? {};
 
-  const userType = user?.props.type ?? "guest" as const;
+  const userType = user?.type ?? "guest" as const;
 
   return (
     <>

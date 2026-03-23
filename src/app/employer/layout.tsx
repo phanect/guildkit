@@ -37,7 +37,7 @@ export default async function EmployerLayout({ children }: Props): Promise<React
 
   return (
     <>
-      <Nav for={user.props.type ?? "guest"} />
+      <Nav for={user.type ?? "guest"} />
       <div className="flex justify-center w-full">
         <Sidebar />
         <main className="flex flex-col items-center gap-4 w-full">

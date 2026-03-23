@@ -36,7 +36,7 @@ export default async function EmployerJobsPage() {
     orderBy: (job, { desc }) => [ desc(job.updatedAt) ],
   });
 
-  const editable = user.props.type === "recruiter";
+  const editable = user.type === "recruiter";
 
   return (
     <div className="flex flex-col items-center gap-y-10 w-full">

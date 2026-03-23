@@ -38,9 +38,8 @@ model User {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
-  // Custom relations
-  props         UserProps?
-  propsId       String?
+  // Custom props
+  type          UserType
   appliedJobs   Job[]
 
   @@map("user")

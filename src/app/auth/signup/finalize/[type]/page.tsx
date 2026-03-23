@@ -35,8 +35,8 @@ export default async function SignUpPage({ params }: Props): Promise<ReactElemen
     throw err;
   }
 
-  if (user.props.type) {
-    redirect(user.props.type === "recruiter" ? "/employer/jobs" : "/");
+  if (user.type) {
+    redirect(user.type === "recruiter" ? "/employer/jobs" : "/");
   }
 
   await updateUserProps(user).set({ type: userType });

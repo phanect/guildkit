@@ -43,35 +43,14 @@ export const auth = betterAuth({
   baseURL,
   user: {
     additionalFields: {
-      propsId: {
-        type: "string",
+      type: {
+        // Must be same as `UserType` enum defined in prisma/models/core.prisma
+        type: [ "recruiter", "candidate", "administrative" ],
         required: true,
       },
     },
   },
   databaseHooks: {
-    user: {
-      create: {
-        before: async (user) => {
-          if (user.propsId) {
-            return {
-              data: user,
-            };
-          } else {
-            const [{ propsId }] = await db
-              .insert(schema.userProps).values({})
-              .returning({ propsId: schema.userProps.id });
-
-            return {
-              data: {
-                ...user,
-                propsId,
-              },
-            };
-          }
-        },
-      },
-    },
     session: {
       create: {
         // Set first organization as active organization on login
@@ -145,19 +124,12 @@ export const auth = betterAuth({
       allowUserToCreateOrganization: async (baUser) => {
         const user = await db.query.user.findFirst({
           columns: {
-            propsId: true,
+            type: true,
           },
           where: (userTable, { eq }) => eq(userTable.id, baUser.id),
-          with: {
-            props: {
-              columns: {
-                type: true,
-              },
-            },
-          },
         });
 
-        return user?.props.type === "recruiter";
+        return user?.type === "recruiter";
       },
     }),
     adminPlugin({
