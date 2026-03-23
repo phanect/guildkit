@@ -1,12 +1,14 @@
 import { env } from "node:process";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { getOAuthState } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
 import { z } from "zod";
 import { currencies } from "@/intermediate/currencies.ts";
 import { adminAc, adminRoles, recruiterAc, recruiterRoles } from "@/lib/auth/roles.ts";
 import { prisma } from "@/lib/prisma.ts";
+import type { UserType } from "@/lib/prisma/enums.ts";
 
 if (
   !env.GOOGLE_CLIENT_ID
@@ -54,6 +56,20 @@ export const auth = betterAuth({
     },
   },
   databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          const additionalData = await getOAuthState();
+
+          return {
+            data: {
+              ...user,
+              type: additionalData?.type as UserType,
+            },
+          };
+        },
+      },
+    },
     session: {
       create: {
         // Set first organization as active organization on login
