@@ -1,7 +1,7 @@
 // This file will be modified by better-auth CLI, but it still keeps the columns we manually added.
 
 model Organization {
-  id          String       @id
+  id          String       @id @default(uuid())
   name        String
   slug        String       @unique
   logo        String?
@@ -22,7 +22,7 @@ model Organization {
 }
 
 model User {
-  id            String       @id
+  id            String       @id @default(uuid())
   name          String
   email         String       @unique
   emailVerified Boolean      @default(false)
@@ -46,7 +46,7 @@ model User {
 }
 
 model Session {
-  id                   String   @id
+  id                   String   @id @default(uuid())
   expiresAt            DateTime
   token                String   @unique
   ipAddress            String?
@@ -63,7 +63,7 @@ model Session {
 }
 
 model Account {
-  id                    String    @id
+  id                    String    @id @default(uuid())
   accountId             String
   providerId            String
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -83,7 +83,7 @@ model Account {
 }
 
 model Verification {
-  id         String   @id
+  id         String   @id @default(uuid())
   identifier String
   value      String
   expiresAt  DateTime
@@ -95,7 +95,7 @@ model Verification {
 }
 
 model Member {
-  id             String       @id
+  id             String       @id @default(uuid())
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -109,7 +109,7 @@ model Member {
 }
 
 model Invitation {
-  id             String       @id
+  id             String       @id @default(uuid())
   email          String
   role           String?
   status         String       @default("pending")
