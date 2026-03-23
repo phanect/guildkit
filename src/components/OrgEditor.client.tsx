@@ -17,10 +17,14 @@ import publicConfigs from "@/intermediate/public-configs.json";
 import { createOrganization } from "@/lib/actions/organizations.ts";
 import {
   orgAboutSchema,
+  orgAddressSchema,
+  orgEmailSchema,
   orgLogoSchema,
   orgNameSchema,
   orgSlugSchema,
+  orgUrlSchema,
 } from "@/lib/validations/organization.ts";
+import type { Tag } from "react-tag-input";
 import type { Organization } from "@/lib/auth/types.ts";
 
 type Props = {
