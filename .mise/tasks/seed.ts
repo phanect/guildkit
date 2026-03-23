@@ -1,6 +1,5 @@
 #!/usr/bin/env -S pnpm exec jiti
 
-import { randomUUID } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
 import dayjs from "dayjs";
 import { PrismaClient } from "../../src/lib/prisma/client.ts";
@@ -31,7 +30,6 @@ const seed = async () => {
     await prisma.user.createMany({
       data: [
         {
-          id: "heizou",
           name: "Heizou Shikanoin",
           email: "heizou9876@yaemail.example.net",
           emailVerified: true,
@@ -39,7 +37,6 @@ const seed = async () => {
           type: "candidate",
         },
         {
-          id: "shinobu",
           name: "Shinobu Kuki",
           email: "kuki@yaemail.example.net",
           emailVerified: true,
@@ -47,7 +44,6 @@ const seed = async () => {
           type: "candidate",
         },
         {
-          id: "kazuha",
           name: "Kazuha Kaedehara",
           email: "kazuha.kaedehara@yaemail.example.net",
           emailVerified: true,
@@ -60,7 +56,6 @@ const seed = async () => {
     // NOTE: Prisma cannot `createMany()` organizations with many related tables (e.g. members)
     await prisma.organization.create({
       data: {
-        id: "yph",
         slug: "yaedo",
         name: "Yae Publishing House, K.K.",
         about: "Yae Publishing House is a leading light novel publisher from Inazuma. We also provide digital platforms to deliver the light novels and the other books to the global audience all over the Teyvat.",
@@ -73,7 +68,6 @@ const seed = async () => {
           create: {
             user: {
               create: {
-                id: "yae",
                 name: "Miko Yae",
                 email: "miko.yae@yaedo.example.co.jp",
                 emailVerified: true,
@@ -81,7 +75,6 @@ const seed = async () => {
                 type: "recruiter",
               },
             },
-            id: randomUUID(),
             createdAt: new Date(),
           },
         },
@@ -177,7 +170,6 @@ const seed = async () => {
     });
     await prisma.organization.create({
       data: {
-        id: "kanjou",
         slug: "kanjou",
         name: "Kanjou Commission, The Shogunate of Inazuma",
         about: "Kanjou Commission is a part of the Tri-Commission, The Shogunate of Inazuma. We are responsible for the Shogunate's financial and international affairs.",
@@ -195,7 +187,6 @@ const seed = async () => {
             {
               user: {
                 create: {
-                  id: "ei",
                   name: "Ei Raiden",
                   email: "ei.raiden@shogunate.example.go.jp",
                   emailVerified: true,
@@ -203,13 +194,11 @@ const seed = async () => {
                   type: "recruiter",
                 },
               },
-              id: randomUUID(),
               createdAt: new Date(),
             },
             {
               user: {
                 create: {
-                  id: "chisato",
                   name: "Chisato Hiiragi",
                   email: "chisato.hiiragi@shogunate.example.go.jp",
                   emailVerified: true,
@@ -217,7 +206,6 @@ const seed = async () => {
                   type: "recruiter",
                 },
               },
-              id: randomUUID(),
               createdAt: new Date(),
             },
           ],
@@ -255,7 +243,6 @@ const seed = async () => {
     });
     await prisma.organization.create({
       data: {
-        id: "wangsheng",
         slug: "wangsheng",
         name: "Wangsheng Funeral Parlor",
         url: "https://wangsheng.example.com",
@@ -269,7 +256,6 @@ const seed = async () => {
           create: {
             user: {
               create: {
-                id: "zhongli",
                 name: "Zhongli",
                 email: "zhongli@wangsheng.example.com",
                 emailVerified: true,
@@ -277,7 +263,6 @@ const seed = async () => {
                 type: "recruiter",
               },
             },
-            id: randomUUID(),
             createdAt: new Date(),
           },
         },

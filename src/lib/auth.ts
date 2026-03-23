@@ -39,6 +39,11 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   baseURL,
+  advanced: {
+    database: {
+      generateId: false, // Let DB handle automatic ID generation
+    },
+  },
   user: {
     additionalFields: {
       type: {
