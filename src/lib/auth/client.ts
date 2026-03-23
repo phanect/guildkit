@@ -34,9 +34,12 @@ export const signUpWith = async (
 ) => signIn.social({
   provider,
   callbackURL: userType === "recruiter" ? "/employer/jobs" : "/",
-  newUserCallbackURL: `/auth/signup/finalize/${ userType }`,
+  newUserCallbackURL: userType === "recruiter" ? "/employer/jobs" : "/",
   errorCallbackURL: "/auth/error",
   requestSignUp: true,
+  additionalData: {
+    type: userType,
+  },
 });
 
 export const useSignOut = () => {
