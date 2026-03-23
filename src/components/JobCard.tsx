@@ -4,7 +4,7 @@ import { useActionState, useEffect, type ReactElement } from "react";
 import { Button, Link } from "@/components/generic/ButtonLink.tsx";
 import { deleteJob } from "@/lib/actions/jobs.ts";
 import type { Organization } from "better-auth/plugins";
-import type { Job } from "../lib/db/schema/job.ts";
+import type { Job } from "@/lib/prisma/client.ts";
 
 export type JobCardInfo = Pick<Job, "id" | "title" | "description" | "createdAt" | "updatedAt"> & {
   employer: Pick<Organization, "name">;

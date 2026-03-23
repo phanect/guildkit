@@ -5,7 +5,7 @@ import { TopBar } from "@/components/generic/TopBar.tsx";
 import { SignOutButton } from "@/components/SignOutButton.tsx";
 import { auth } from "@/lib/auth.ts";
 import type { ReactElement } from "react";
-import type { UserType } from "@/lib/db/schema/user.ts";
+import type { UserType } from "@/lib/prisma/enums.ts";
 
 type Props = {
   for: UserType | "guest";
