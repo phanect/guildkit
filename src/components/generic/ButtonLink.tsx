@@ -6,19 +6,15 @@ import { useState, type ComponentProps, type ReactElement } from "react";
 type Theme = "none" | "button-deep" | "button-pale" | "linktext";
 
 const getThemeClasses = (theme: Theme): string => {
-  const common = "cursor-pointer no-underline";
-  const buttonCommon = "block w-fit rounded-xl py-2 px-3 transition-colors duration-250 disabled:opacity-50 disabled:cursor-not-allowed";
-
   switch (theme) {
     case "none":
-      return common;
+      return "button-common";
     case "linktext":
-      return `${ common } text-gray-500 hover:text-gray-600 hover:underline`;
     case "button-deep":
-      return `${ common } ${ buttonCommon } text-white bg-gray-800 hover:bg-gray-600`;
     case "button-pale":
+      return theme;
     default:
-      return `${ common } ${ buttonCommon } text-black bg-gray-300 hover:bg-gray-400`;
+      return "button-pale";
   }
 };
 
