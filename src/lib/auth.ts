@@ -68,7 +68,9 @@ export const auth = betterAuth({
                 organizationId: true,
               },
               where: {
-                userId: session.userId,
+                user: {
+                  id: session.userId,
+                },
               },
             }) ?? {};
 
