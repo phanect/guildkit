@@ -17,7 +17,7 @@ services:
       - guildkit-db:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready", "--username=guildkit", "--dbname=guildkit", "--host=localhost", "--port=5432" ]
-      interval: 1s
+      interval: 2s
       timeout: 1m
 
   storage:
@@ -34,7 +34,7 @@ services:
       - guildkit-storage:/data
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9000/health" ]
-      interval: 1s
+      interval: 2s
       timeout: 1m
 
 volumes:
